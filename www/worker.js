@@ -29,6 +29,9 @@ self.onmessage = event => {
             case "reset":
                 cracker.reset();
                 postMessage(true);
+                break;
+            case "seed":
+                postMessage(cracker.seed());
             }
         }
     };

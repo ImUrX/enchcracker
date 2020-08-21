@@ -1,15 +1,11 @@
 /* eslint-env node */
 const express = require("express");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
 const app = express();
 
-app.use(helmet());
-app.set("trust proxy", 1);
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 app.use("/", express.static("./www/"));
+app.get("/wasm/libenchcrack.js", (req, res) => {
+    res.type("js"); // enforce mime type because workers are SAFE
+    res.sendFile("./www/wasm/libenchcrack.js");
+});
 
 app.listen(8000, () => console.log("enchcracker started on port 8000")); // eslint-disable-line no-console
