@@ -16,7 +16,7 @@ self.onmessage = event => {
 
     self.onmessage = async event => {
         // This will queue further commands up until the module is fully initialised:
-        await cracker;
+        cracker = await Promise.resolve(cracker);
         if(event.data.length === 4) {
             cracker.add_input(...event.data);
         } else if (event.data.length === 8) {

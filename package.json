@@ -2,11 +2,16 @@
   "name": "enchcracker",
   "version": "1.0.0",
   "description": "\"Front-end\" of the enchant cracking webapp",
-  "main": "index.js",
+  "main": "enchcracker.js",
   "repository": "https://github.com/ImUrX/enchcracker.git",
   "author": "ImUrX <urielfontan2002@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.7.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.0"
   }
 }
