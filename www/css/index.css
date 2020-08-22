@@ -23,13 +23,14 @@ body, input {
 	font-family: "Minecraftia", sans-serif;
 }
 
-img {
+label > div {
 	image-rendering: crisp-edges;
 
 	min-width: 30px;
-	height: auto;
+	min-height: 30px;
 
 	position: relative;
+	display: inline-block;
 	bottom: 10px;
 }
 
@@ -42,6 +43,36 @@ img {
 	transform: translate(-50%, 15vh);
 
 	clear: both;
+}
+
+#cracking label div {
+	clip-path: polygon(37% 100%, 69% 100%, 69% 94%, 75% 94%, 75% 87%, 82% 88%, 82% 82%, 88% 81%, 88% 56%, 82% 55%, 82% 51%, 75% 50%, 75% 44%, 69% 44%, 69% 31%, 75% 31%, 75% 19%, 69% 19%, 69% 12%, 63% 12%, 63% 6%, 44% 6%, 44% 13%, 38% 13%, 38% 19%, 31% 19%, 31% 31%, 38% 31%, 38% 44%, 32% 44%, 32% 50%, 25% 50%, 25% 56%, 19% 56%, 19% 82%, 25% 82%, 25% 88%, 32% 88%, 32% 94%, 38% 94%);
+	background: url("../img/experience_bottle.png");
+	background-size: cover;
+}
+#enchant label div {
+	clip-path: polygon(0 31%, 0 63%, 6% 63%, 6% 69%, 12% 69%, 12% 75%, 18% 75%, 18% 81%, 25% 82%, 25% 88%, 31% 88%, 31% 94%, 50% 94%, 50% 88%, 63% 88%, 63% 82%, 75% 81%, 75% 75%, 88% 75%, 88% 69%, 100% 69%, 100% 38%, 94% 38%, 94% 31%, 88% 31%, 88% 25%, 81% 25%, 81% 19%, 75% 19%, 75% 12%, 69% 12%, 69% 6%, 50% 6%, 50% 12%, 37% 12%, 37% 18%, 25% 19%, 25% 25%, 12% 25%, 12% 31%);
+	background: url("../img/enchanted_book.png");
+	background-size: cover;
+}
+#about label div {
+	background: url("../img/cookie.png");
+	background-size: cover;
+}
+
+label div.enchant::after {
+	position: absolute;
+	z-index: 10;
+
+	content: "";
+	background: url("../img/enchanted_item_glint.png");
+	filter: blur(1px) brightness(200%);
+	opacity: 0.2;
+	transform: rotateY(0deg) rotate(45deg);
+	width: 30px;
+	height: 30px;
+
+	animation: move 15s linear infinite;
 }
 
 .tab {
@@ -77,43 +108,15 @@ img {
 	height: calc(100% - 3px)
 }
 
-/*.tab label.enchant::after {
-	position: absolute;
-	bottom: 15px;
-	left: 10px;
-	z-index: 10;
-
-	content: "";
-	background: url("../img/enchanted_item_glint.png");
-	opacity: 0.3;
-	transform: rotateY(0deg) rotate(45deg);
-	width: 30px;
-	height: 30px;
-
-	animation: move 20s linear infinite;
-}*/
-
-.tab .enchant {
-
-
-	background: url("../img/enchanted_item_glint.png");
-	opacity: 0.3;
-	transform: rotateY(0deg) rotate(45deg);
-	mix-blend-mode: overlay;
-
-	animation: move 20s linear infinite;
-}
-
 @keyframes move {
 	from { background-position: 0 0; }
 	to { background-position: -128px -128px; }
  }
 
-/* this was for fixing those gray thingies but i need to enchant my things xD
 #cracking label.cool-border::after {
 	content: "";
 	width: 2px;
-	height: 100%;
+	height: 50px;
 	position: absolute;
 	left: -5px;
 
@@ -121,7 +124,6 @@ img {
 	border-left: 2px solid black;
 	border-right: 1px solid white;
 }
-*/
 
 #about label.cool-border::after {
 	content: "";
