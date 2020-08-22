@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnchCracker</title>
-    <script src="./js/index.js" type="module" async></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EnchCracker</title>
+	<link rel="stylesheet" href="./css/index.css">
+	<script src="./js/index.js" type="module" async></script>
 </head>
 <body>
+	<div id="tabs">
+		<div class="tab" id="cracking">
+			<input type="radio" id="tab-1" name="tab-group-1" checked>
+			<label for="tab-1" class="cool-border">
+				<img src="./img/experience_bottle.png" class="enchant" alt="Cracking">
+			</label>
 
+			<div class="content cool-border">
+				<span class="title">Enchantment Cracker</span>
+				<div class="flex">
+					<form id="calc-seed" class="flex">
+						<label for="seed1">XP Seed 1</label>
+						<input type="text" name="seed1" id="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<label for="seed2">XP Seed 2</label>
+						<input type="text" name="seed2" id="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<input type="submit" value="Calculate Seed">
+					</form>
+					<div id="bookshelves" class="flex">
+						<input type="number" name="books" min="0" max="15" size="3">
+					</div>
+				</div>
+			</div> 
+		</div>
+		 
+		<div class="tab" id="enchant">
+			<input type="radio" id="tab-2" name="tab-group-1">
+			<label for="tab-2" class="cool-border">
+				<img src="./img/enchanted_book.png" alt="Enchanting">
+			</label>
+			
+			<div class="content cool-border">
+				<span class="title">Enchantment Calculator</span>
+			</div> 
+		</div>
+		 
+		<div class="tab" id="about">
+			<input type="radio" id="tab-3" name="tab-group-1">
+			<label for="tab-3" class="cool-border">
+				<img src="./img/cookie.png" alt="About">
+			</label>
+		  
+			<div class="content cool-border">
+				<span class="title">About</span>
+			</div> 
+		</div>
+	</div>
 </body>
 </html>
