@@ -23,7 +23,8 @@ body, input {
 	font-family: "Minecraftia", sans-serif;
 }
 
-label > div {
+label > div, img {
+	image-rendering: pixelated;
 	image-rendering: crisp-edges;
 
 	min-width: 30px;
@@ -62,17 +63,17 @@ label > div {
 
 label div.enchant::after {
 	position: absolute;
-	z-index: 10;
+	z-index: 5;
 
 	content: "";
 	background: url("../img/enchanted_item_glint.png");
-	filter: blur(1px) brightness(200%);
+	filter: blur(1px) contrast(150%) brightness(200%);
 	opacity: 0.2;
 	transform: rotateY(0deg) rotate(45deg);
 	width: 30px;
 	height: 30px;
 
-	animation: move 15s linear infinite;
+	animation: move 6s linear infinite;
 }
 
 .tab {
@@ -102,10 +103,10 @@ label div.enchant::after {
 }
 
 .tab label.cool-border::before {
-	z-index: 0;
+	z-index: 2;
 	border-bottom: none;
-	width: calc(100% - 3px);
-	height: calc(100% - 3px)
+	width: 54px;
+	height: 54px;
 }
 
 @keyframes move {
@@ -128,7 +129,7 @@ label div.enchant::after {
 #about label.cool-border::after {
 	content: "";
 	z-index: 5;
-	width: calc(300% + 10px);
+	width: calc(300% + 15px);
 	height: 6px;
 	position: absolute;
 	bottom: -4px;
@@ -165,6 +166,7 @@ label div.enchant::after {
 [type=radio]:checked ~ label {
 	background: #C6C6C6;
 	border-bottom-color: #C6C6C6;
+	border-top-width: 2px;
 	
 	z-index: 2;
 }
@@ -196,6 +198,7 @@ label div.enchant::after {
 	margin-right: 10px;
 	margin-left: 15px;
 
+	image-rendering: pixelated;
 	image-rendering: crisp-edges;
 	background: repeat url("../img/bookshelf.png");
 	background-size: 25%;
