@@ -15,23 +15,25 @@ self.onmessage = event => {
     });
 
     self.onmessage = async event => {
-        // This will queue further commands up until the module is fully initialised:
         cracker = await Promise.resolve(cracker);
+
         if(event.data.length === 4) {
             cracker.add_input(...event.data);
+            postMessage(["finished"]);
         } else if (event.data.length === 8) {
             cracker.first_input(...event.data);
+            postMessage(["finished"]);
         } else if(event.data.length === 1) {
             switch (event.data[0]) {
             case "remaining":
-                postMessage(cracker.possible_seeds());
+                postMessage(["remaining", cracker.possible_seeds()]);
                 break;
             case "reset":
                 cracker.reset();
-                postMessage(true);
+                postMessage(["reset", true]);
                 break;
             case "seed":
-                postMessage(cracker.seed());
+                postMessage(["seed", cracker.seed()]);
             }
         }
     };

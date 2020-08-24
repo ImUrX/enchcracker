@@ -16,8 +16,21 @@ export class WorkerPool {
          */
         this.workerPath = workerPath;
 
+        this.responseQueue = {
+            finished: [],
+            remaining: [],
+            reset: [],
+            seed: []
+        };
+
         for(let i = 0; i < this.threads; i++) {
             const worker = this.initializeWorker(i);
+            worker.addEventListener("message", ev => {
+                for(const listener of this.responseQueue[ev.data[0]]) {
+                    listener(ev, worker, i);
+                }
+                if(i === this.threads - 1) this.responseQueue[ev.data[0]] = [];
+            });
             this.workers.push(worker);
         }
     }
@@ -54,30 +67,37 @@ export class WorkerPool {
      */
 
     /**
+     * @typedef {object} WorkerData
+     * @property {workerCallback} cb Called in each worker
+     * @property {Number} waitTime Time to wait for timeout
+     */
+
+    /**
      * @param {any} msg Message passed to all workers
-     * @param {workerCallback} cb Called in each worker
+     * @param {String} type Message Type (why am i not using enums? idk)
+     * @param {WorkerData=} obj
      * @returns {Promise<void>}
      */
-    comunicate(msg, cb = () => {}) {
+    comunicate(msg, type, { cb = () => {}, timewait = 200 * 1000 } = {}) {
         return new Promise((res, rej) => {
             const confirms = this.workers.map(() => false);
+            let count = 0;
 
             let timeout = setTimeout(() => {
                 this.checkWorkers(confirms);
                 rej("Timeout");
-            }, 200 * 1000); //Timeout if it takes more than 200s to respond
+            }, timewait); //Timeout if it takes more than 200s to respond
 
-            this.workers.forEach((worker, i) => {
-                worker.addEventListener("message", e => {
-                    confirms[i] = true;
-                    cb(e, worker, i);
-                    if(confirms.length == this.workers) {
-                        clearTimeout(timeout);
-                        res();
-                    }
-                }, { once: true });
-                worker.postMessage(msg);
+            this.responseQueue[type].push((ev, worker, id) => {
+                confirms[id] = true;
+                cb(ev, worker, id);
+                if(++count === confirms.length) {
+                    clearTimeout(timeout);
+                    res();
+                }
             });
+
+            this.workers.forEach(worker => worker.postMessage(msg));
         });
     }
 
@@ -87,8 +107,10 @@ export class WorkerPool {
      */
     remainingSeeds() {
         let remaining = 0;
-        return this.comunicate(["remaining"], e => {
-            remaining += e.data;
+        return this.comunicate(["remaining"], "remaining", {
+            cb: ev => {
+                remaining += ev.data[1];
+            }
         }).then(() => remaining);
     }
 
@@ -97,7 +119,7 @@ export class WorkerPool {
      * @return {Promise<void>}
      */
     reset() {
-        return this.comunicate(["reset"]);
+        return this.comunicate(["reset"], "reset", { waitTime: 5 * 1000 });
     }
 
     /**
@@ -107,7 +129,7 @@ export class WorkerPool {
      * @returns {Promise<void>}
      */
     firstInput(info, secondInfo) {
-        return this.comunicate([...info, ...secondInfo]);
+        return this.comunicate([...info, ...secondInfo], "finished");
     }
 
     /**
@@ -116,6 +138,6 @@ export class WorkerPool {
      * @returns {Promise<void>}
      */
     input(info) {
-        return this.comunicate([...info]);
+        return this.comunicate([...info], "finished");
     }
 }
