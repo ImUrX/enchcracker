@@ -23,13 +23,15 @@ body, input {
 	font-family: "Minecraftia", sans-serif;
 }
 
-label > div, img {
+div, img {
 	image-rendering: pixelated;
 	image-rendering: crisp-edges;
 
 	min-width: 30px;
 	min-height: 30px;
+}
 
+label > div {
 	position: relative;
 	display: inline-block;
 	bottom: 10px;
@@ -130,9 +132,9 @@ label div.enchant::after {
 	content: "";
 	z-index: 5;
 	width: calc(300% + 15px);
-	height: 6px;
+	height: 7px;
 	position: absolute;
-	bottom: -4px;
+	bottom: -5px;
 	left: -100px;
 
 	background: none repeat scroll 0 0 #C6C6C6;
@@ -198,8 +200,66 @@ label div.enchant::after {
 	margin-right: 10px;
 	margin-left: 15px;
 
-	image-rendering: pixelated;
-	image-rendering: crisp-edges;
 	background: repeat url("../img/bookshelf.png");
 	background-size: 25%;
+}
+
+#animated.flex,
+#enchantments.flex {
+	flex-direction: column;
+	margin: 5px;
+}
+
+#animated.flex > img {
+	padding-top: 15px;
+	align-self: flex-start;
+}
+
+#enchantments {
+	border: 2px solid #373737;
+	border-bottom-color: #fff;
+	border-right-color: #fff;
+
+	min-width: 216px;
+	min-height: 114px;
+}
+
+.enchantment {
+	border: 2px solid #e0ca9f;
+	border-bottom-color: #544c3b;
+	border-right-color: #544c3b;
+	background: #a09172;
+
+	flex-grow: 1;
+}
+
+.enchantment:focus-within,
+.enchantment:hover {
+	border-color: #fab9ef;
+	border-bottom-color: #654c61;
+	border-right-color: #654c61;
+	background: #b688ae;
+}
+
+/* level spritesheet */
+.orb {
+	background: no-repeat url("../img/orbs.png");
+	min-width: 16px;
+	min-height: 16px;
+	display: inline-block;
+	flex-grow: 1;
+
+	background-size: auto 100%;
+}
+
+#orb1 {
+	background-position: 0px 0px;
+}
+
+#orb2 {
+	background-position: -16px 0px;
+}
+
+#orb3 {
+	background-position: -32px 0px;
 }
