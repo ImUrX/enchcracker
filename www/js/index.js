@@ -71,8 +71,9 @@ window.onload = async () => {
                 const input = pool.input(formData.values());
                 await input;
             }
-            progress.style.display = "none";
             const remaining = await pool.remainingSeeds();
+            progress.style.display = "none";
+            console.log(remaining);
             if(remaining === 1) {
                 const seed = (await pool.getSeed() >>> 0).toString(16).toUpperCase();
                 if(!firstSeed.value) {
