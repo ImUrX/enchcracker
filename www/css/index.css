@@ -24,8 +24,8 @@ body, input {
 }
 
 div, img {
-	image-rendering: pixelated;
 	image-rendering: crisp-edges;
+	image-rendering: pixelated;
 
 	min-width: 30px;
 	min-height: 30px;
@@ -39,6 +39,7 @@ input[type="submit"],
 
 	color: white;
 	background: #6F6F6F;
+	-webkit-appearance: none;
 }
 
 input[type="submit"]:hover {
@@ -294,7 +295,7 @@ label div.enchant::after {
 }
 
 #orb1 {
-	background-position: 0% 0%;
+	background-position: 1px 0px;
 }
 
 #orb2 {

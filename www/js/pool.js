@@ -9,7 +9,7 @@ export class WorkerPool {
          * Amount of threads that navigator told at start
          * @type {Number}
          */
-        this.threads = navigator.hardwareConcurrency;
+        this.threads = navigator.hardwareConcurrency || 4;
         /**
          * Path to the worker.js file
          * @type {String}
