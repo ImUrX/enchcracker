@@ -59,6 +59,10 @@ export class WorkerPool {
      * @param  {...Boolean[]} broken
      */
     checkWorkers(...broken) {
+        for(const key in this.responseQueue) {
+            this.responseQueue[key] = [];
+            this.responseQueueCounter[key] = 0;
+        }
         broken.forEach((answered, i) => {
             if(!answered) {
                 this.workers[i].terminate();
@@ -95,24 +99,27 @@ export class WorkerPool {
      * @param {WorkerData=} obj
      * @returns {Promise<void>}
      */
-    communicate(msg, type, { cb = () => {}, timewait = 200 * 1000 } = {}) {
+    communicate(msg, type, { cb = () => {}, waitTime = 200 * 1000 } = {}) {
         return new Promise((res, rej) => {
             const confirms = this.workers.map(() => false);
-            let count = 0;
-
-            let timeout = setTimeout(() => {
-                this.checkWorkers(confirms);
-                rej("Timeout");
-            }, timewait); //Timeout if it takes more than 200s to respond
-
-            this.responseQueue[type].push((ev, worker, id) => {
+            const ourFuncIndex = this.responseQueue[type].length;
+            const ourFunc = (ev, worker, id) => {
                 confirms[id] = true;
                 cb(ev, worker, id);
                 if(++count === confirms.length) {
                     clearTimeout(timeout);
                     res();
                 }
-            });
+            };
+            let count = 0;
+
+            let timeout = setTimeout(() => {
+                if(this.responseQueue[type][ourFuncIndex] !== ourFunc) return;
+                this.checkWorkers(confirms);
+                rej("Timeout");
+            }, waitTime); //Timeout if it takes more than 200s to respond
+
+            this.responseQueue[type].push(ourFunc);
 
             this.workers.forEach(worker => worker.postMessage(msg));
         });

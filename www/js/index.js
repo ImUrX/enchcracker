@@ -1,6 +1,7 @@
 import { WorkerPool } from "./pool.js";
 const pool = new WorkerPool("../worker.js");
-window.pool = pool;
+// eslint-disable-next-line no-undef
+if(globalThis) globalThis.pool = pool;
 
 window.onload = async () => {
     //Crack seed
@@ -15,10 +16,20 @@ window.onload = async () => {
 
     const bar = document.querySelector("#crack-progress span");
     const progress = document.querySelector("#crack-progress");
+    let interval;
     {
         const progressPerWorker = parseFloat((100 / pool.threads).toFixed(2));
+        let original;
         pool.setFinishListener(() => {
-            const amount = parseFloat(bar.style.width.slice(0, -1)) + progressPerWorker;
+            if(interval) {
+                clearInterval(interval);
+                interval = null;
+                const curAmount = parseFloat(bar.style.width.slice(0, -1));
+                original = `${Math.floor(curAmount / progressPerWorker) * progressPerWorker}%`;
+                return;
+            }
+            const amount = parseFloat(original || bar.style.width.slice(0, -1)) + progressPerWorker;
+            if(original) original = null;
             const realAmount = amount > 100 ? "100%" : `${amount.toFixed(2)}%`;
             bar.style.width = realAmount;
             progress.dataset.value = `Remaining: ${realAmount}`;
@@ -40,7 +51,7 @@ window.onload = async () => {
             crack.reset();
             if(firstTry) {
                 firstTry = false;
-                firstArray.push(...formData.values());
+                firstArray = [...formData.values()];
                 button.value = "Send another one!";
                 books.focus();
                 return;
@@ -48,6 +59,10 @@ window.onload = async () => {
             progress.style.display = "";
             progress.dataset.value = "Remaining: 0%";
             bar.style.width = "0%";
+            interval = setInterval(() => {
+                bar.style.width = `${parseInt(bar.style.width.slice(0, -1)) + 1}%`;
+                progress.dataset.value = `Remaining: ${bar.style.width}`;
+            }, 2000);
             if(firstArray.length > 0) {
                 const input = pool.firstInput(firstArray, formData.values());
                 firstArray = [];
@@ -74,7 +89,9 @@ window.onload = async () => {
     }
 
     resetButton.addEventListener("click", async () => {
-        button.value = "Disabled!";
+        clearInterval(interval);
+        progress.style.display = "none";
+        button.value = "Wait a moment!";
         button.setAttribute("disabled", "");
         firstTry = true;
         await pool.reset().catch(reason => { if(reason !== "Timeout") throw reason; });
