@@ -2,22 +2,77 @@ import { WorkerPool } from "./pool.js";
 const pool = new WorkerPool("../worker.js");
 window.pool = pool;
 
+const compact = navigator.userAgent.includes("Safari") 
+    ? { format: number => {
+        const num = number.toString();
+        if(num.length > 6) {
+            return `${num.slice(0, -6)}M`;
+        } else if(num.length > 3) {
+            return `${num.slice(0, -3)}K`;
+        }
+        return num;
+    }}
+    : new Intl.NumberFormat(navigator.languages, { notation: "compact" });
+
 window.onload = async () => {
     //Crack seed
-    const calc = document.querySelector("#calc-seed");
-    calc.addEventListener("submit", ev => {
-        ev.preventDefault();
-        const formData = new FormData(calc);
-        console.log(...formData.values());
-    });
+    {
+        const calc = document.querySelector("#calc-seed");
+        calc.addEventListener("submit", ev => {
+            ev.preventDefault();
+            const formData = new FormData(calc);
+            console.log(...formData.values());
+        });
+    }
 
-    const crack = document.querySelector("#crack-seed");
-    crack.addEventListener("submit", ev => {
-        ev.preventDefault();
-        const formData = new FormData(crack);
-        console.log(...formData.values());
-    });
-}
+    const bar = document.querySelector("#crack-progress span");
+    const progress = document.querySelector("#crack-progress");
+    {
+        const progressPerWorker = parseFloat((100 / pool.threads).toFixed(2));
+        pool.setFinishListener(() => {
+            const amount = parseFloat(bar.style.width.slice(0, -1)) + progressPerWorker;
+            const realAmount = amount > 100 ? "100%" : `${amount.toFixed(2)}%`;
+            bar.style.width = realAmount;
+            progress.dataset.value = `Remaining: ${realAmount}`;
+        });
+    }
+
+    {
+        const crack = document.querySelector("#crack-seed");
+        const books = document.querySelector("#bookshelves > input");
+        let firstTry = true;
+        const firstArray = [];
+        crack.addEventListener("submit", async ev => {
+            ev.preventDefault();
+            const formData = new FormData(crack);
+            crack.reset();
+            if(firstTry) {
+                firstTry = false;
+                firstArray.push(...formData.values());
+                crack.setAttribute("value", "Send another one!");
+                books.focus();
+                return;
+            }
+            progress.style.display = "";
+            progress.dataset.value = "Remaining: 0%";
+            bar.style.width = "0%";
+            if(firstArray.length > 0) {
+                const input = pool.firstInput(firstArray, formData.values());
+                await input;
+            } else {
+                const input = pool.input(formData.values());
+                await input;
+            }
+            progress.style.display = "none";
+            const remaining = await pool.remainingSeeds();
+            if(remaining === 1) {
+                //parse it and add it;
+            } else {
+                crack.setAttribute("value", `Remaining seeds ${compact.format(remaining)}`);
+            }
+        });
+    }
+};
 
 // This doesnt look good enough, im gonna try this on webgl later
 const book = new Image();

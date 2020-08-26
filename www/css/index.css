@@ -31,7 +31,8 @@ div, img {
 	min-height: 30px;
 }
 
-input[type="submit"] {
+input[type="submit"],
+#crack-progress {
 	border: 2px solid #AAA;
 	border-right-color: #565656;
 	border-bottom-color: #565656;
@@ -308,6 +309,31 @@ label div.enchant::after {
 	align-self: flex-end;
 	margin: 5px;
 	margin-top: 25px;
+}
+
+#crack-progress {
+	align-self: flex-end;
+	margin: 5px;
+	min-height: 20px;
+	flex-grow: 3;
+	position: relative;
+}
+
+#crack-progress::before {
+	content: attr(data-value);
+	position: absolute;
+	text-align: center;
+	top: -3px;
+	left: 0;
+	right: 0;
+}
+
+#crack-progress span {
+	background-color: rgb(0, 177, 0);
+}
+
+#crack-progress:not([style*="display: none;"]) + #seed-check {
+	display: none;
 }
 
 #seed-check {

@@ -26,10 +26,11 @@ export class WorkerPool {
         for(let i = 0; i < this.threads; i++) {
             const worker = this.initializeWorker(i);
             worker.addEventListener("message", ev => {
+                let count = 0;
                 for(const listener of this.responseQueue[ev.data[0]]) {
                     listener(ev, worker, i);
                 }
-                if(i === this.threads - 1) this.responseQueue[ev.data[0]] = [];
+                if(++count === this.threads) this.responseQueue[ev.data[0]] = [];
             });
             this.workers.push(worker);
         }
@@ -57,6 +58,15 @@ export class WorkerPool {
                 this.workers[i] = this.initializeWorker(i);
             }
         });
+    }
+
+    setFinishListener(func) {
+        for(let i = 0; i < this.threads; i++) {
+            const worker = this.workers[i];
+            worker.addEventListener("message", ev => {
+                if(ev.data[0] === "finished") func(i, worker);
+            });
+        }
     }
 
     /**
