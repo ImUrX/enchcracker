@@ -22,15 +22,22 @@ export class WorkerPool {
             reset: [],
             seed: []
         };
+        this.responseQueueCounter = {};
+        for(const key in this.responseQueue) {
+            this.responseQueueCounter[key] = 0;
+        }
 
         for(let i = 0; i < this.threads; i++) {
             const worker = this.initializeWorker(i);
             worker.addEventListener("message", ev => {
-                let count = 0;
-                for(const listener of this.responseQueue[ev.data[0]]) {
+                const type = ev.data[0];
+                for(const listener of this.responseQueue[type]) {
                     listener(ev, worker, i);
                 }
-                if(++count === this.threads) this.responseQueue[ev.data[0]] = [];
+                if(++this.responseQueueCounter[type] === this.threads) {
+                    this.responseQueue[type] = [];
+                    this.responseQueueCounter[type] = 0;
+                }
             });
             this.workers.push(worker);
         }
@@ -88,7 +95,7 @@ export class WorkerPool {
      * @param {WorkerData=} obj
      * @returns {Promise<void>}
      */
-    comunicate(msg, type, { cb = () => {}, timewait = 200 * 1000 } = {}) {
+    communicate(msg, type, { cb = () => {}, timewait = 200 * 1000 } = {}) {
         return new Promise((res, rej) => {
             const confirms = this.workers.map(() => false);
             let count = 0;
@@ -117,7 +124,7 @@ export class WorkerPool {
      */
     remainingSeeds() {
         let remaining = 0;
-        return this.comunicate(["remaining"], "remaining", {
+        return this.communicate(["remaining"], "remaining", {
             cb: ev => {
                 remaining += ev.data[1];
             }
@@ -129,7 +136,7 @@ export class WorkerPool {
      * @return {Promise<void>}
      */
     reset() {
-        return this.comunicate(["reset"], "reset", { waitTime: 5 * 1000 });
+        return this.communicate(["reset"], "reset", { waitTime: 5 * 1000 });
     }
 
     /**
@@ -139,7 +146,7 @@ export class WorkerPool {
      * @returns {Promise<void>}
      */
     firstInput(info, secondInfo) {
-        return this.comunicate([...info, ...secondInfo], "finished");
+        return this.communicate([...info, ...secondInfo], "finished");
     }
 
     /**
@@ -148,6 +155,25 @@ export class WorkerPool {
      * @returns {Promise<void>}
      */
     input(info) {
-        return this.comunicate([...info], "finished");
+        return this.communicate([...info], "finished");
+    }
+
+    /**
+     * @returns {Promise<Number>}
+     */
+    async getSeed() {
+        let id = 0;
+        await this.communicate(["remaining"], "remaining", {
+            cb: (ev, worker, workerId) => {
+                if(ev.data[1] === 1) id = workerId;
+            }
+        });
+        return new Promise(res => {
+            this.responseQueue.seed.push(ev => {
+                res(ev.data[1]);
+            });
+            this.responseQueueCounter.seed = 3;
+            this.workers[id].postMessage(["seed"]);
+        });
     }
 }

@@ -2,18 +2,6 @@ import { WorkerPool } from "./pool.js";
 const pool = new WorkerPool("../worker.js");
 window.pool = pool;
 
-const compact = navigator.userAgent.includes("Safari") 
-    ? { format: number => {
-        const num = number.toString();
-        if(num.length > 6) {
-            return `${num.slice(0, -6)}M`;
-        } else if(num.length > 3) {
-            return `${num.slice(0, -3)}K`;
-        }
-        return num;
-    }}
-    : new Intl.NumberFormat(navigator.languages, { notation: "compact" });
-
 window.onload = async () => {
     //Crack seed
     {
@@ -37,11 +25,15 @@ window.onload = async () => {
         });
     }
 
+    const resetButton = document.querySelector("#reset-seed");
+    const button = document.querySelector("#seed-check");
+    let firstTry = true;
     {
         const crack = document.querySelector("#crack-seed");
         const books = document.querySelector("#bookshelves > input");
-        let firstTry = true;
-        const firstArray = [];
+        const firstSeed = document.querySelector("#seed1");
+        const secondSeed = document.querySelector("#seed2");
+        let firstArray = [];
         crack.addEventListener("submit", async ev => {
             ev.preventDefault();
             const formData = new FormData(crack);
@@ -49,7 +41,7 @@ window.onload = async () => {
             if(firstTry) {
                 firstTry = false;
                 firstArray.push(...formData.values());
-                crack.setAttribute("value", "Send another one!");
+                button.value = "Send another one!";
                 books.focus();
                 return;
             }
@@ -58,6 +50,7 @@ window.onload = async () => {
             bar.style.width = "0%";
             if(firstArray.length > 0) {
                 const input = pool.firstInput(firstArray, formData.values());
+                firstArray = [];
                 await input;
             } else {
                 const input = pool.input(formData.values());
@@ -66,12 +59,28 @@ window.onload = async () => {
             progress.style.display = "none";
             const remaining = await pool.remainingSeeds();
             if(remaining === 1) {
-                //parse it and add it;
+                const seed = (await pool.getSeed() >>> 0).toString(16).toUpperCase();
+                if(!firstSeed.value) {
+                    firstSeed.value = seed;
+                } else if(!secondSeed.value) {
+                    secondSeed.value = seed;
+                }
+                resetButton.click();
             } else {
-                crack.setAttribute("value", `Remaining seeds ${compact.format(remaining)}`);
+                button.value = `Remaining seeds: ${compact(remaining)}`;
+                books.focus();
             }
         });
     }
+
+    resetButton.addEventListener("click", async () => {
+        button.value = "Disabled!";
+        button.setAttribute("disabled", "");
+        firstTry = true;
+        await pool.reset().catch(reason => { if(reason !== "Timeout") throw reason; });
+        button.value = "Check";
+        button.removeAttribute("disabled");
+    });
 };
 
 // This doesnt look good enough, im gonna try this on webgl later
@@ -104,6 +113,31 @@ book.onload = () => {
 
 };
 book.src = "../img/enchanting_table_book.png";
+
+
+let compact;
+{
+    if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
+        const numFormat = new Intl.NumberFormat(navigator.languages, { notation: "compact" });
+        compact = number => {
+            let num = number;
+            if(number > 1e6) {
+                num = (number / 1e6 | 0) * 1e6;
+            }
+            return numFormat.format(num);
+        };
+    } else {
+        compact = number => {
+            const num = number.toString();
+            if(num.length > 6) {
+                return `${num.slice(0, -6)}M`;
+            } else if(num.length > 3) {
+                return `${num.slice(0, -3)}.${num.slice(-3, -1)}K`;
+            }
+            return num;
+        };
+    }
+}
 
 function getScaledSize(sprite, scale) {
     return sprite.slice(2).map(val => val * scale);

@@ -20,9 +20,9 @@
 				<div class="flex">
 					<form id="calc-seed" class="flex">
 						<label for="seed1">XP Seed 1</label>
-						<input type="text" name="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<input type="text" id="seed1" name="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
 						<label for="seed2">XP Seed 2</label>
-						<input type="text" name="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<input type="text" id="seed2" name="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
 						<input type="submit" value="Calculate Seed">
 					</form>
 					<div id="bookshelves" class="flex">
@@ -56,7 +56,7 @@
 							<span></span>
 						</div>
 						<input id="seed-check" type="submit" value="Check" form="crack-seed">
-						<input type="submit" value="Reset">
+						<input id="reset-seed" type="submit" value="Reset">
 					</div>
 				</div>
 			</div> 
