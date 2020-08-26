@@ -120,11 +120,7 @@ let compact;
     if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
         const numFormat = new Intl.NumberFormat(navigator.languages, { notation: "compact" });
         compact = number => {
-            let num = number;
-            if(number > 1e6) {
-                num = (number / 1e6 | 0) * 1e6;
-            }
-            return numFormat.format(num);
+            return numFormat.format(number);
         };
     } else {
         compact = number => {
