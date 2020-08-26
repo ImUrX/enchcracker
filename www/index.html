@@ -20,30 +20,40 @@
 				<div class="flex">
 					<form id="calc-seed" class="flex">
 						<label for="seed1">XP Seed 1</label>
-						<input type="text" name="seed1" id="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<input type="text" name="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
 						<label for="seed2">XP Seed 2</label>
-						<input type="text" name="seed2" id="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
+						<input type="text" name="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}" maxlength="8" size="8" required>
 						<input type="submit" value="Calculate Seed">
 					</form>
 					<div id="bookshelves" class="flex">
-						<input type="number" name="books" min="0" max="15" size="3">
+						<input type="number" name="books" min="0" max="15" size="3" form="crack-seed" required>
 					</div>
 					<div class="flex">
 						<div id="animated" class="flex">
 							<canvas id="magic-book" width="90" height="62"></canvas>
 							<img src="./img/enchant_insert.png" alt="Items">
 						</div>
-						<div id="enchantments" class="flex">
-							<div class="enchantment flex">
-								<div id="orb1" class="orb"></div>
+						<form id="crack-seed">
+							<div id="enchantments" class="flex">
+								<div class="enchantment flex">
+									<div id="orb1" class="orb"></div>
+									<div class="gsa">this is hot</div>
+									<input type="number" name="first" min="1" max="30" size="3" required>
+								</div>
+								<div class="enchantment flex">
+									<div id="orb2" class="orb"></div>
+									<div class="gsa">my body is ready</div>
+									<input type="number" name="second" min="1" max="30" size="3" required>
+								</div>
+								<div class="enchantment flex">
+									<div id="orb3" class="orb"></div>
+									<div class="gsa">hey girl</div>
+									<input type="number" name="third" min="1" max="30" size="3" required>
+								</div>
 							</div>
-							<div class="enchantment flex">
-								<div id="orb2" class="orb"></div>
-							</div>
-							<div class="enchantment flex">
-								<div id="orb3" class="orb"></div>
-							</div>
-						</div>
+						</form>
+						<input id="seed-check" type="submit" value="Check" form="crack-seed">
+						<input type="submit" value="Reset">
 					</div>
 				</div>
 			</div> 

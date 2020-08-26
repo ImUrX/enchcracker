@@ -9,7 +9,7 @@
 @font-face {
 	font-family: "Galactic Standard";
 	font-weight: normal;
-	src: url("fonts/galactic/galactic-simple.ttf") format("truetype");
+	src: url("fonts/standard-galactic-alphabet.ttf") format("truetype");
 	font-style: normal;
 }
 
@@ -29,6 +29,24 @@ div, img {
 
 	min-width: 30px;
 	min-height: 30px;
+}
+
+input[type="submit"] {
+	border: 2px solid #AAA;
+	border-right-color: #565656;
+	border-bottom-color: #565656;
+
+	color: white;
+	background: #6F6F6F;
+}
+
+input[type="submit"]:hover {
+	border-color: white;
+}
+
+input[type="submit"]:active {
+	border-color: lightgray;
+	color: lightgray;
 }
 
 label > div {
@@ -219,9 +237,12 @@ label div.enchant::after {
 	border: 2px solid #373737;
 	border-bottom-color: #fff;
 	border-right-color: #fff;
+	flex-wrap: nowrap;
 
-	min-width: 216px;
+	max-width: 216px;
+	max-height: 114px;
 	min-height: 114px;
+	min-width: 216px;
 }
 
 .enchantment {
@@ -229,6 +250,7 @@ label div.enchant::after {
 	border-bottom-color: #544c3b;
 	border-right-color: #544c3b;
 	background: #a09172;
+	flex-wrap: nowrap;
 
 	flex-grow: 1;
 }
@@ -241,11 +263,29 @@ label div.enchant::after {
 	background: #b688ae;
 }
 
+.enchantment:focus-within .gsa,
+.enchantment:hover .gsa { color: #FCFC7E; }
+
+.enchantment > input[type=number] {
+	box-sizing: border-box;
+	margin-top: 10px;
+}
+
+.gsa {
+	font: 10px "Galactic Standard";
+	color: #654c61;
+	overflow-wrap: break-word;
+
+	padding-left: 8px;
+	flex-grow: 2;
+	min-width: 0;
+}
+
 /* level spritesheet */
 .orb {
 	background: no-repeat url("../img/orbs.png");
-	min-width: 16px;
-	min-height: 16px;
+	min-width: 34px;
+	min-height: 34px;
 	display: inline-block;
 	flex-grow: 1;
 
@@ -253,13 +293,23 @@ label div.enchant::after {
 }
 
 #orb1 {
-	background-position: 0px 0px;
+	background-position: 0% 0%;
 }
 
 #orb2 {
-	background-position: -16px 0px;
+	background-position: -33.3px 0px;
 }
 
 #orb3 {
-	background-position: -32px 0px;
+	background-position: -66.6px 0px;
+}
+
+#crack-seed ~ input {
+	align-self: flex-end;
+	margin: 5px;
+	margin-top: 25px;
+}
+
+#seed-check {
+	flex-grow: 3;
 }

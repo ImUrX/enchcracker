@@ -4,15 +4,20 @@ window.pool = pool;
 
 window.onload = async () => {
     //Crack seed
-    document.querySelector("#calc-seed").addEventListener("submit", ev => {
+    const calc = document.querySelector("#calc-seed");
+    calc.addEventListener("submit", ev => {
         ev.preventDefault();
-        const seeds = [
-            parseInt(document.querySelector("#seed1").value, 16),
-            parseInt(document.querySelector("#seed2").value, 16)
-        ];
-        console.log(seeds);
+        const formData = new FormData(calc);
+        console.log(...formData.values());
     });
-};
+
+    const crack = document.querySelector("#crack-seed");
+    crack.addEventListener("submit", ev => {
+        ev.preventDefault();
+        const formData = new FormData(crack);
+        console.log(...formData.values());
+    });
+}
 
 // This doesnt look good enough, im gonna try this on webgl later
 const book = new Image();
