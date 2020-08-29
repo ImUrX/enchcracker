@@ -75,7 +75,7 @@ window.onload = async () => {
             progress.style.display = "none";
             console.log(remaining);
             if(remaining === 1) {
-                const seed = (await pool.getSeed() >>> 0).toString(16).toUpperCase();
+                const seed = pool.getSeed();
                 if(!firstSeed.value) {
                     firstSeed.value = seed;
                 } else if(!secondSeed.value) {
