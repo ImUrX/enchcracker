@@ -32,14 +32,14 @@ self.onmessage = event => {
         } else if(event.data.length === 1) {
             switch (event.data[0]) {
             case "remaining":
-                postMessage(["remaining", cracker.possibleSeeds()]);
+                postMessage(["remaining", cracker.possibleSeeds]);
                 break;
             case "reset":
                 cracker.reset();
                 postMessage(["reset", true]);
                 break;
             case "seed":
-                postMessage(["seed", cracker.seed()]);
+                postMessage(["seed", cracker.seed]);
             }
         }
     };

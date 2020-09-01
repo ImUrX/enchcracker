@@ -49,6 +49,7 @@ window.onload = async () => {
             ev.preventDefault();
             const formData = new FormData(crack);
             crack.reset();
+
             if(firstTry) {
                 firstTry = false;
                 firstArray = [...formData.values()];
@@ -56,6 +57,7 @@ window.onload = async () => {
                 books.focus();
                 return;
             }
+
             progress.style.display = "";
             progress.dataset.value = "Remaining: 0%";
             bar.style.width = "0%";
@@ -63,6 +65,7 @@ window.onload = async () => {
                 bar.style.width = `${parseInt(bar.style.width.slice(0, -1)) + 1}%`;
                 progress.dataset.value = `Remaining: ${bar.style.width}`;
             }, 2000);
+
             if(firstArray.length > 0) {
                 const input = pool.firstInput(firstArray, formData.values());
                 firstArray = [];
@@ -71,11 +74,11 @@ window.onload = async () => {
                 const input = pool.input(formData.values());
                 await input;
             }
+
             const remaining = await pool.remainingSeeds();
             progress.style.display = "none";
-            console.log(remaining);
             if(remaining === 1) {
-                const seed = pool.getSeed();
+                const seed = (await pool.getSeed() >>> 0).toString(16).toUpperCase();
                 if(!firstSeed.value) {
                     firstSeed.value = seed;
                 } else if(!secondSeed.value) {
