@@ -344,3 +344,11 @@ label div.enchant::after {
 #seed-check {
 	flex-grow: 3;
 }
+
+#calc-seed input[type="submit"] {
+	min-width: 145px;
+}
+
+input[type="submit"].invalid {
+	color: rgb(199, 0, 0);
+}

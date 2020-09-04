@@ -1,19 +1,36 @@
 import { WorkerPool } from "./pool.js";
+let playerSeed;
 const pool = new WorkerPool("../worker.js");
-// eslint-disable-next-line no-undef
 if(globalThis) globalThis.pool = pool;
 
 window.onload = async () => {
-    //Crack seed
+    //Crack player seed
     {
         const calc = document.querySelector("#calc-seed");
+        const submit = document.querySelector("#calc-seed input[type=\"submit\"]");
         calc.addEventListener("submit", ev => {
             ev.preventDefault();
+            submit.classList.remove("invalid");
             const formData = new FormData(calc);
-            console.log(...formData.values());
+            const seeds = [...formData.values()].map( seed => BigInt(parseInt(seed, 16)) );
+            const seed1High = (seeds[0] << 16n) & 0x0000FFFFFFFF0000n,
+                seed2High = (seeds[1] << 16n) & 0x0000FFFFFFFF0000n;
+
+            for (let seed1Low = 0n; seed1Low < 65536n; seed1Low++) {
+                const possibleSeed = ((seed1High | seed1Low) * 0x5deece66dn + 0xbn) & 0x0000FFFFFFFF0000n;
+                if(possibleSeed === seed2High) {
+                    playerSeed = possibleSeed;
+                    calc.reset();
+                    return submit.value = playerSeed.toString(16).toUpperCase();
+                }
+            }
+
+            submit.classList.add("invalid");
+            submit.value = "Not found!";
         });
     }
 
+    // cool progress bar for brute-force
     const bar = document.querySelector("#crack-progress span");
     const progress = document.querySelector("#crack-progress");
     let interval;
@@ -36,6 +53,7 @@ window.onload = async () => {
         });
     }
 
+    // brute-force enchant seed
     const resetButton = document.querySelector("#reset-seed");
     const button = document.querySelector("#seed-check");
     let firstTry = true;

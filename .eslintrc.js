@@ -1,12 +1,12 @@
 /* eslint-env node */
 module.exports = {
     "env": {
-        "es6": true,
+        "es2020": true,
         "browser": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "rules": {
