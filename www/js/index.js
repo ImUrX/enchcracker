@@ -1,4 +1,4 @@
-import { WorkerPool } from "./pool.js";
+import { WorkerPool } from "./Pool.js";
 let playerSeed;
 const pool = new WorkerPool("../worker.js");
 if(globalThis) globalThis.pool = pool;
@@ -17,9 +17,9 @@ window.onload = async () => {
                 seed2High = (seeds[1] << 16n) & 0x0000FFFFFFFF0000n;
 
             for (let seed1Low = 0n; seed1Low < 65536n; seed1Low++) {
-                const possibleSeed = ((seed1High | seed1Low) * 0x5deece66dn + 0xbn) & 0x0000FFFFFFFF0000n;
-                if(possibleSeed === seed2High) {
-                    playerSeed = possibleSeed;
+                const part = (seed1High | seed1Low) * 0x5deece66dn + 0xbn;
+                if((part & 0x0000FFFFFFFF0000n) === seed2High) {
+                    playerSeed = part & 0x0000FFFFFFFFFFFFn;
                     calc.reset();
                     return submit.value = playerSeed.toString(16).toUpperCase();
                 }
