@@ -116,7 +116,7 @@ const versions = {
         versions[key] = {
             name: versions[key],
             ordinal: i++,
-            toString: () => versions[key]
+            toString: function() { return this.name; }
         };
     }
 }
