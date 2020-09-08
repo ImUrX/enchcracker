@@ -11,8 +11,8 @@ self.onmessage = event => {
     /**
      * @type {Cracker}
      */
-    let cracker = wasm_bindgen("./wasm/libenchcrack_bg.wasm").then(() => 
-        new Cracker(...event.data)
+    let cracker = wasm_bindgen(event.data[0]).then(() => 
+        new Cracker(...event.data.slice(1))
     ).catch(err => {
         setTimeout(() => {
             throw err;

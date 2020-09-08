@@ -1,5 +1,5 @@
 export class WorkerPool {
-    constructor(workerPath) {
+    constructor(workerPath, module) {
         /**
          * Worker pool
          * @type {Worker[]}
@@ -15,6 +15,10 @@ export class WorkerPool {
          * @type {String}
          */
         this.workerPath = workerPath;
+        /**
+         * @type {WebAssembly.Module}
+         */
+        this.module = module;
 
         this.responseQueue = {
             finished: [],
@@ -50,7 +54,7 @@ export class WorkerPool {
      */
     initializeWorker(id) {
         const worker = new Worker(this.workerPath);
-        worker.postMessage([id, this.threads]);
+        worker.postMessage([this.module, id, this.threads]);
         return worker;
     }
 

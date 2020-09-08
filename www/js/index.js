@@ -1,9 +1,12 @@
+/* global wasm_bindgen:readonly */
 import { WorkerPool } from "./Pool.js";
 let playerSeed;
-const pool = new WorkerPool("../worker.js");
-if(globalThis) globalThis.pool = pool;
+let modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
 
 window.onload = async () => {
+    await modulePromise;
+    const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
+    window.pool = pool;
     //Crack player seed
     {
         const calc = document.querySelector("#calc-seed");
