@@ -1,12 +1,25 @@
 /* global wasm_bindgen:readonly */
 import { WorkerPool } from "./Pool.js";
-let playerSeed;
-let modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
+const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
+/**
+ * @typedef wasm_bindgen
+ * @property {typeof import("../wasm/libenchcrack").Manipulator} Manipulator
+ * @property {typeof import("../wasm/libenchcrack").EnchantmentInstance} EnchantmentInstance
+ * @property {typeof import("../wasm/libenchcrack").Enchantment} Enchantment
+ * @property {typeof import("../wasm/libenchcrack").Item} Item
+ * @property {typeof import("../wasm/libenchcrack").Version} Version
+ */
+
+/**
+ * @type {wasm_bindgen}
+ */
+const { Manipulator, Item, Version, Enchantment, EnchantmentInstance } = wasm_bindgen;
 
 window.onload = async () => {
     await modulePromise;
     const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
-    window.pool = pool;
+    const manipulator = new Manipulator(0, 0);
+
     //Crack player seed
     {
         const calc = document.querySelector("#calc-seed");
@@ -15,17 +28,10 @@ window.onload = async () => {
             ev.preventDefault();
             submit.classList.remove("invalid");
             const formData = new FormData(calc);
-            const seeds = [...formData.values()].map( seed => BigInt(parseInt(seed, 16)) );
-            const seed1High = (seeds[0] << 16n) & 0x0000FFFFFFFF0000n,
-                seed2High = (seeds[1] << 16n) & 0x0000FFFFFFFF0000n;
+            const seeds = [...formData.values()].map(seed => parseInt(seed, 16));
 
-            for (let seed1Low = 0n; seed1Low < 65536n; seed1Low++) {
-                const part = (seed1High | seed1Low) * 0x5deece66dn + 0xbn;
-                if((part & 0x0000FFFFFFFF0000n) === seed2High) {
-                    playerSeed = part & 0x0000FFFFFFFFFFFFn;
-                    calc.reset();
-                    return submit.value = playerSeed.toString(16).toUpperCase();
-                }
+            if(manipulator.changeSeed(...seeds)) {
+                return submit.value = [...manipulator.playerSeed.reverse()].map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
             }
 
             submit.classList.add("invalid");
@@ -123,6 +129,9 @@ window.onload = async () => {
         button.value = "Check";
         button.removeAttribute("disabled");
     });
+
+    window.pool = pool;
+    window.manipulator = manipulator;
 };
 
 // This doesnt look good enough, im gonna try this on webgl later

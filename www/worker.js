@@ -2,14 +2,19 @@
 /* global wasm_bindgen:readonly */
 importScripts("./wasm/libenchcrack.js");
 
-const { Cracker } = wasm_bindgen;
+/**
+ * @typedef wasm_bindgen
+ * @property {typeof import("./wasm/libenchcrack").Cracker} Cracker
+ */
 
 /**
- * @typedef {import("./wasm/libenchcrack.js").Cracker} Cracker
+ * @type {wasm_bindgen}
  */
+const { Cracker } = wasm_bindgen;
+
 self.onmessage = event => {
     /**
-     * @type {Cracker}
+     * @type {import("./wasm/libenchcrack").Cracker}
      */
     let cracker = wasm_bindgen(event.data[0]).then(() => 
         new Cracker(...event.data.slice(1))
