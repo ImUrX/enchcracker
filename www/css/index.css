@@ -239,10 +239,13 @@ label div.enchant::after {
 	align-self: flex-start;
 }
 
-#enchantments {
+#enchantments, .item-slot {
 	border: 2px solid #373737;
 	border-bottom-color: #fff;
 	border-right-color: #fff;
+}
+
+#enchantments {
 	flex-wrap: nowrap;
 
 	max-width: 216px;
@@ -351,4 +354,306 @@ label div.enchant::after {
 
 input[type="submit"].invalid {
 	color: rgb(199, 0, 0);
+}
+
+#item-list {
+	width: calc((32px + 4px) * 7); /* woah my code-style changed (i should be using vars) */
+	height: calc((32px + 4px) * 2); /* its because the code from before were all hacks and i wasnt thinking */
+
+	padding: 5px;
+}
+
+.item-slot {
+	background-color: #8B8B8B;
+}
+
+.item {
+	width: 32px;
+	height: 32px;
+	background-size: 200% 200%;
+}
+
+#upper-man-options {
+	flex-direction: column;
+
+	padding-top: 5px;
+}
+
+/* Sprites */
+@keyframes fire {
+	from {background-position-x: 0px;}
+	to {background-position-x: -992px;}
+}
+
+.item_fire {
+	background-image: url("../img/fire_animation.png");
+	animation: fire 1s steps(31) infinite;
+}
+
+.bg-book {
+    background: url("../img/item_sheet.png") -0 -0;
+}
+
+.bg-bow {
+    background: url("../img/item_sheet.png") -16px -0;
+}
+
+.bg-chainmail_boots {
+    background: url("../img/item_sheet.png") -0 -16px;
+}
+
+.bg-chainmail_chestplate {
+    background: url("../img/item_sheet.png") -16px -16px;
+}
+
+.bg-chainmail_helmet {
+    background: url("../img/item_sheet.png") -32px -0;
+}
+
+.bg-chainmail_leggings {
+    background: url("../img/item_sheet.png") -32px -16px;
+}
+
+.bg-crossbow_standby {
+    background: url("../img/item_sheet.png") -0 -32px;
+}
+
+.bg-diamond {
+    background: url("../img/item_sheet.png") -16px -32px;
+}
+
+.bg-diamond_axe {
+    background: url("../img/item_sheet.png") -32px -32px;
+}
+
+.bg-diamond_boots {
+    background: url("../img/item_sheet.png") -48px -0;
+}
+
+.bg-diamond_chestplate {
+    background: url("../img/item_sheet.png") -48px -16px;
+}
+
+.bg-diamond_helmet {
+    background: url("../img/item_sheet.png") -48px -32px;
+}
+
+.bg-diamond_hoe {
+    background: url("../img/item_sheet.png") -0 -48px;
+}
+
+.bg-diamond_leggings {
+    background: url("../img/item_sheet.png") -16px -48px;
+}
+
+.bg-diamond_pickaxe {
+    background: url("../img/item_sheet.png") -32px -48px;
+}
+
+.bg-diamond_shovel {
+    background: url("../img/item_sheet.png") -48px -48px;
+}
+
+.bg-diamond_sword {
+    background: url("../img/item_sheet.png") -64px -0;
+}
+
+.bg-fishing_rod {
+    background: url("../img/item_sheet.png") -64px -16px;
+}
+
+.bg-gold_ingot {
+    background: url("../img/item_sheet.png") -64px -32px;
+}
+
+.bg-golden_axe {
+    background: url("../img/item_sheet.png") -64px -48px;
+}
+
+.bg-golden_boots {
+    background: url("../img/item_sheet.png") -0 -64px;
+}
+
+.bg-golden_carrot {
+    background: url("../img/item_sheet.png") -16px -64px;
+}
+
+.bg-golden_chestplate {
+    background: url("../img/item_sheet.png") -32px -64px;
+}
+
+.bg-golden_helmet {
+    background: url("../img/item_sheet.png") -48px -64px;
+}
+
+.bg-golden_hoe {
+    background: url("../img/item_sheet.png") -64px -64px;
+}
+
+.bg-golden_leggings {
+    background: url("../img/item_sheet.png") -80px -0;
+}
+
+.bg-golden_pickaxe {
+    background: url("../img/item_sheet.png") -80px -16px;
+}
+
+.bg-golden_shovel {
+    background: url("../img/item_sheet.png") -80px -32px;
+}
+
+.bg-golden_sword {
+    background: url("../img/item_sheet.png") -80px -48px;
+}
+
+.bg-iron_axe {
+    background: url("../img/item_sheet.png") -80px -64px;
+}
+
+.bg-iron_boots {
+    background: url("../img/item_sheet.png") -0 -80px;
+}
+
+.bg-iron_chestplate {
+    background: url("../img/item_sheet.png") -16px -80px;
+}
+
+.bg-iron_helmet {
+    background: url("../img/item_sheet.png") -32px -80px;
+}
+
+.bg-iron_hoe {
+    background: url("../img/item_sheet.png") -48px -80px;
+}
+
+.bg-iron_ingot {
+    background: url("../img/item_sheet.png") -64px -80px;
+}
+
+.bg-iron_leggings {
+    background: url("../img/item_sheet.png") -80px -80px;
+}
+
+.bg-iron_pickaxe {
+    background: url("../img/item_sheet.png") -96px -0;
+}
+
+.bg-iron_shovel {
+    background: url("../img/item_sheet.png") -96px -16px;
+}
+
+.bg-iron_sword {
+    background: url("../img/item_sheet.png") -96px -32px;
+}
+
+.bg-leather {
+    background: url("../img/item_sheet.png") -96px -48px;
+}
+
+.bg-leather_boots {
+    background: url("../img/item_sheet.png") -96px -64px;
+}
+
+.bg-leather_chestplate {
+    background: url("../img/item_sheet.png") -96px -80px;
+}
+
+.bg-leather_helmet {
+    background: url("../img/item_sheet.png") -0 -96px;
+}
+
+.bg-leather_leggings {
+    background: url("../img/item_sheet.png") -16px -96px;
+}
+
+.bg-netherite_axe {
+    background: url("../img/item_sheet.png") -32px -96px;
+}
+
+.bg-netherite_boots {
+    background: url("../img/item_sheet.png") -48px -96px;
+}
+
+.bg-netherite_chestplate {
+    background: url("../img/item_sheet.png") -64px -96px;
+}
+
+.bg-netherite_helmet {
+    background: url("../img/item_sheet.png") -80px -96px;
+}
+
+.bg-netherite_hoe {
+    background: url("../img/item_sheet.png") -96px -96px;
+}
+
+.bg-netherite_ingot {
+    background: url("../img/item_sheet.png") -112px -0;
+}
+
+.bg-netherite_leggings {
+    background: url("../img/item_sheet.png") -112px -16px;
+}
+
+.bg-netherite_pickaxe {
+    background: url("../img/item_sheet.png") -112px -32px;
+}
+
+.bg-netherite_shovel {
+    background: url("../img/item_sheet.png") -112px -48px;
+}
+
+.bg-netherite_sword {
+    background: url("../img/item_sheet.png") -112px -64px;
+}
+
+.bg-stone_axe {
+    background: url("../img/item_sheet.png") -112px -80px;
+}
+
+.bg-stone_hoe {
+    background: url("../img/item_sheet.png") -112px -96px;
+}
+
+.bg-stone_pickaxe {
+    background: url("../img/item_sheet.png") -0 -112px;
+}
+
+.bg-stone_shovel {
+    background: url("../img/item_sheet.png") -16px -112px;
+}
+
+.bg-stone_sword {
+    background: url("../img/item_sheet.png") -32px -112px;
+}
+
+.bg-trident {
+    background: url("../img/item_sheet.png") -48px -112px;
+}
+
+.bg-turtle_helmet {
+    background: url("../img/item_sheet.png") -64px -112px;
+}
+
+.bg-wooden_axe {
+    background: url("../img/item_sheet.png") -80px -112px;
+}
+
+.bg-wooden_hoe {
+    background: url("../img/item_sheet.png") -96px -112px;
+}
+
+.bg-wooden_pickaxe {
+    background: url("../img/item_sheet.png") -112px -112px;
+}
+
+.bg-wooden_shovel {
+    background: url("../img/item_sheet.png") -128px -0;
+}
+
+.bg-wooden_sword {
+    background: url("../img/item_sheet.png") -128px -16px;
+}
+
+.bg-Cobblestone_JE6_BE3 {
+    background: url("../img/item_sheet.png") -128px -32px;
 }

@@ -11,6 +11,8 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  */
 
 /**
+ * Import wasm module, kind of?
+ * It looks like a require!
  * @type {wasm_bindgen}
  */
 const { Manipulator, Item, Version, Enchantment, EnchantmentInstance } = wasm_bindgen;
@@ -129,6 +131,8 @@ window.onload = async () => {
         button.value = "Check";
         button.removeAttribute("disabled");
     });
+
+    
 
     window.pool = pool;
     window.manipulator = manipulator;
