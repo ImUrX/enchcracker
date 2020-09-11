@@ -8,6 +8,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * @property {typeof import("../wasm/libenchcrack").Enchantment} Enchantment
  * @property {typeof import("../wasm/libenchcrack").Item} Item
  * @property {typeof import("../wasm/libenchcrack").Version} Version
+ * @property {typeof import("../wasm/libenchcrack").Utilities} Utilities
  */
 
 /**
@@ -15,7 +16,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * It looks like a require!
  * @type {wasm_bindgen}
  */
-const { Manipulator, Item, Version, Enchantment, EnchantmentInstance } = wasm_bindgen;
+const { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Utilities } = wasm_bindgen;
 
 window.onload = async () => {
     await modulePromise;
