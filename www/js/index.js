@@ -7,6 +7,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * @property {typeof import("../wasm/libenchcrack").EnchantmentInstance} EnchantmentInstance
  * @property {typeof import("../wasm/libenchcrack").Enchantment} Enchantment
  * @property {typeof import("../wasm/libenchcrack").Item} Item
+ * @property {typeof import("../wasm/libenchcrack").Material} Material
  * @property {typeof import("../wasm/libenchcrack").Version} Version
  * @property {typeof import("../wasm/libenchcrack").Utilities} Utilities
  */
@@ -16,7 +17,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * It looks like a require!
  * @type {wasm_bindgen}
  */
-const { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Utilities } = wasm_bindgen;
+const { Manipulator, Item, Version, Enchantment, Material, EnchantmentInstance, Utilities } = wasm_bindgen;
 
 window.onload = async () => {
     await modulePromise;
@@ -133,7 +134,62 @@ window.onload = async () => {
         button.removeAttribute("disabled");
     });
 
-    
+    const mats = [];
+    {
+        for(const id of [Material.Netherite, Material.Diamond, Material.Golden, Material.Iron, Material.Fire, Material.Stone, Material.Leather]) {
+            mats.push([Material[id].toLowerCase(), id]);
+        }
+        let index = 0;
+        const materialOption = document.querySelector("#material-option");
+
+        materialOption.addEventListener("click", () => {
+            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${mats[++index == mats.length ? index = 0 : index][0]}`);
+            const items = Utilities.getItems(mats[index][1]);
+            document.querySelectorAll(".material-based").forEach((el, index) => {
+                let curItem = items[index];
+                el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
+                el.dataset.value = curItem;
+            });
+        });
+        materialOption.addEventListener("contextmenu", ev => {
+            ev.preventDefault();
+            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${mats[--index == -1 ? index = mats.length - 1 : index][0]}`);
+            const items = Utilities.getItems(mats[index][1]);
+            document.querySelectorAll(".material-based").forEach((el, index) => {
+                let curItem = items[index];
+                el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
+                el.dataset.value = curItem;
+            });
+        });
+
+        materialOption.classList.add(`mat-${mats[index][0]}`);
+        {
+            const items = Utilities.getItems(mats[index][1]);
+            document.querySelectorAll(".material-based").forEach((el, index) => {
+                let curItem = items[index];
+                el.classList.add(`item-${Item[curItem].toLowerCase()}`);
+                el.dataset.value = curItem;
+            });
+        }
+    }
+
+    {
+        const select = document.querySelector("#current-version");
+        for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
+            select.appendChild(new Option(string, i));
+        }
+        select.lastChild.selected = true;
+    }
+
+    document.querySelector("#item-list").childNodes.forEach(el => {
+        el.addEventListener("click", () => {
+            let active = document.querySelector(".item-slot.active");
+            if(active) active.classList.remove("active");
+            // imagine a world with document.querySelector(".item-slot.active")?.classList.remove("active");
+            // it exists but yeah im not gonna break support xD
+            el.classList.add("active");
+        });
+    })
 
     window.pool = pool;
     window.manipulator = manipulator;

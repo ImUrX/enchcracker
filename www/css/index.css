@@ -544,6 +544,8 @@ input[type="submit"].invalid {
 	width: 100%;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 #calc-results>div>span {
@@ -562,6 +564,13 @@ input[type="submit"].invalid {
 
 #current-version {
 	margin-right: 5px;
+}
+
+#bottom-man-options {
+	width: 100%;
+	justify-content: space-between;
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 /* Sprites */
