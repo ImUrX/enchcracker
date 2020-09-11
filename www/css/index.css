@@ -15,15 +15,22 @@
 
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #2C2F33; /* stolen from discord's palette */
+		background-color: #2C2F33;
+		/* stolen from discord's palette */
 	}
 }
 
-body, input {
+input:focus {
+	outline: none;
+}
+
+body,
+input {
 	font-family: "Minecraftia", sans-serif;
 }
 
-div, img {
+div,
+img {
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
 
@@ -42,16 +49,23 @@ input[type="submit"],
 	-webkit-appearance: none;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:not(:disabled):hover {
 	border-color: white;
 }
 
-input[type="submit"]:active {
+input[type="submit"]:not(:disabled):active {
 	border-color: lightgray;
 	color: lightgray;
 }
 
-label > div {
+input[type="submit"]:disabled {
+	background-color: #333;
+	border: 2px solid #565656;
+	border-right-color: #AAA;
+	border-bottom-color: #AAA;
+}
+
+label>div {
 	position: relative;
 	display: inline-block;
 	bottom: 10px;
@@ -109,8 +123,8 @@ label div.enchant::after {
 .cool-border {
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
-	border: 5px solid white; 
-	border-right: 5px solid #555;	
+	border: 5px solid white;
+	border-right: 5px solid #555;
 }
 
 .cool-border::before {
@@ -136,9 +150,14 @@ label div.enchant::after {
 }
 
 @keyframes move {
-	from { background-position: 0 0; }
-	to { background-position: -128px -128px; }
- }
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: -128px -128px;
+	}
+}
 
 #cracking label.cool-border::after {
 	content: "";
@@ -165,11 +184,11 @@ label div.enchant::after {
 }
 
 .tab label.cool-border {
-	background: #8B8B8B; 
+	background: #8B8B8B;
 
 	overflow: hidden;
-	padding: 30px 8px 1px 8px; 
-	margin-left: -1px; 
+	padding: 30px 8px 1px 8px;
+	margin-left: -1px;
 	position: relative;
 	left: 1px;
 }
@@ -189,15 +208,15 @@ label div.enchant::after {
 	border-bottom-color: #555;
 }
 
-[type=radio]:checked ~ label {
+[type=radio]:checked~label {
 	background: #C6C6C6;
 	border-bottom-color: #C6C6C6;
 	border-top-width: 2px;
-	
+
 	z-index: 2;
 }
 
-[type=radio]:checked ~ label ~ .content {
+[type=radio]:checked~label~.content {
 	z-index: 1;
 }
 
@@ -220,7 +239,7 @@ label div.enchant::after {
 	flex-grow: 2;
 	align-items: center;
 	justify-content: center;
-	
+
 	margin-right: 10px;
 	margin-left: 15px;
 
@@ -229,23 +248,24 @@ label div.enchant::after {
 }
 
 #animated.flex,
-#enchantments.flex {
+#enchantments-slots.flex {
 	flex-direction: column;
 	margin: 5px;
 }
 
-#animated.flex > img {
+#animated.flex>img {
 	padding-top: 15px;
 	align-self: flex-start;
 }
 
-#enchantments, .item-slot {
+#enchantments-slots,
+.item-slot {
 	border: 2px solid #373737;
 	border-bottom-color: #fff;
 	border-right-color: #fff;
 }
 
-#enchantments {
+#enchantments-slots {
 	flex-wrap: nowrap;
 
 	max-width: 216px;
@@ -254,7 +274,7 @@ label div.enchant::after {
 	min-width: 216px;
 }
 
-.enchantment {
+.enchantment-slot {
 	border: 2px solid #e0ca9f;
 	border-bottom-color: #544c3b;
 	border-right-color: #544c3b;
@@ -264,18 +284,20 @@ label div.enchant::after {
 	flex-grow: 1;
 }
 
-.enchantment:focus-within,
-.enchantment:hover {
+.enchantment-slot:focus-within,
+.enchantment-slot:hover {
 	border-color: #fab9ef;
 	border-bottom-color: #654c61;
 	border-right-color: #654c61;
 	background: #b688ae;
 }
 
-.enchantment:focus-within .gsa,
-.enchantment:hover .gsa { color: #FCFC7E; }
+.enchantment-slot:focus-within .gsa,
+.enchantment-slot:hover .gsa {
+	color: #FCFC7E;
+}
 
-.enchantment > input[type=number] {
+.enchantment-slot>input[type=number] {
 	box-sizing: border-box;
 	margin-top: 10px;
 }
@@ -313,7 +335,7 @@ label div.enchant::after {
 	background-position: -66.6px 0px;
 }
 
-#crack-seed ~ input {
+#crack-seed~input {
 	align-self: flex-end;
 	margin: 5px;
 	margin-top: 25px;
@@ -340,7 +362,7 @@ label div.enchant::after {
 	background-color: rgb(0, 177, 0);
 }
 
-#crack-progress:not([style*="display: none;"]) + #seed-check {
+#crack-progress:not([style*="display: none;"])+#seed-check {
 	display: none;
 }
 
@@ -356,296 +378,476 @@ input[type="submit"].invalid {
 	color: rgb(199, 0, 0);
 }
 
+#first-man {
+	align-items: stretch;
+}
+
 #item-list {
-	width: calc((32px + 4px) * 7); /* woah my code-style changed (i should be using vars) */
-	height: calc((32px + 4px) * 2); /* its because the code from before were all hacks and i wasnt thinking */
+	width: calc((32px + 4px) * 7);
+	/* woah my code-style changed (i should be using vars) */
+	height: calc((32px + 4px) * 2);
+	/* its because the code from before were all hacks and i wasnt thinking */
 
 	padding: 5px;
+	padding-right: 0px;
 }
 
 .item-slot {
 	background-color: #8B8B8B;
 }
 
+.item-slot.active {
+	background-color: darkgreen;
+}
+
 .item {
 	width: 32px;
 	height: 32px;
-	background: url("item_sheet.png")
+	background-image: url("../img/item_sheet.png")
 }
 
 #upper-man-options {
 	flex-direction: column;
+	align-items: flex-end;
 
 	padding-top: 5px;
 }
 
-/* Sprites */
-@keyframes fire {
-	from { background-position-x: -0px; }
-	to { background-position-x: -992px; }
+#total-bookshelves {
+	max-width: 44px;
+	min-width: 26px;
 }
 
-.item_fire {
+#total-bookshelves+.item {
+	margin: 2px;
+	margin-left: 0px;
+}
+
+#enchantments-form {
+	width: 100%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#enchantments {
+	width: 100%;
+	height: 125px;
+	background-color: #ddd;
+
+	overflow-y: scroll;
+}
+
+#enchantments>#enchantment-names {
+	flex-grow: 3;
+}
+
+.flex.invert {
+	flex-direction: column;
+}
+
+#enchantments [type="radio"] {
+	display: initial;
+}
+
+#enchantments [type="radio"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	margin-right: 0px;
+	margin-left: 0px;
+
+	width: 18px;
+	height: 18px;
+	border: 2px solid #fff;
+	border-radius: 0;
+	border-right-color: #373737;
+	border-bottom-color: #373737;
+	background-color: #8B8B8B;
+	transition: 0.1s all linear;
+
+	position: relative;
+	top: 2px;
+}
+
+#enchantments [type="radio"]:checked {
+	background-color: darkgreen;
+	border: 2px solid #373737;
+	border-right-color: #fff;
+	border-bottom-color: #fff;
+}
+
+#enchantments [type="radio"]::after {
+	color: black;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+
+	position: relative;
+	top: -4px;
+	right: -1px;
+}
+
+#enchantments [type="radio"]:first-child::after {
+	content: "x";
+	top: -6px;
+}
+
+#enchantments [type="radio"]:nth-child(2)::after {
+	content: "-";
+}
+
+#enchantments [type="radio"]:first-child:nth-last-child(3)~[type="radio"]:nth-child(3)::after {
+	content: "+";
+}
+
+#enchantments [type="radio"]:nth-child(1n+3) {
+	counter-increment: level;
+}
+
+#enchantments [type="radio"]:nth-child(1n+3)::after {
+	content: counter(level, upper-roman);
+}
+
+#enchantments [type="radio"]:nth-child(1n+5):not(:last-child)::after {
+	content: counter(level, upper-roman);
+	right: 0.5px;
+	letter-spacing: -3px;
+}
+
+#enchantments [type="radio"]:checked::after {
+	color: white;
+}
+
+#enchantments [type="radio"]:first-child:checked {
+	background-color: darkred;
+}
+
+#enchantments [type="radio"]:nth-child(2):checked {
+	background-color: rgb(128, 108, 0);
+}
+
+#man-submit {
+	width: 100%;
+}
+
+#man-submit input {
+	margin-top: 3px;
+}
+
+#calc-ench {
+	margin-right: 5px;
+	flex-grow: 3;
+}
+
+#calc-results {
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+#calc-results>div>span {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+#result-drop-item {
+	flex-grow: 3;
+}
+
+#result-slot,
+#result-bookshelves {
+	flex-grow: 1;
+}
+
+#current-version {
+	margin-right: 5px;
+}
+
+/* Sprites */
+@keyframes fire {
+	from {
+		background-position-x: -0px;
+	}
+
+	to {
+		background-position-x: -992px;
+	}
+}
+
+.mat-fire {
 	background-image: url("../img/fire_animation.png");
 	animation: fire 1s steps(31) infinite;
 }
 
-.bg-diamondhoe {
-    background-position: -0 -0;
+.item-book {
+	background-position: -0 -0;
 }
 
-.bg-diamondleggings {
-    background-position: -32px -0;
+.item-bookshelf {
+	background-position: -32px -0;
 }
 
-.bg-diamondpickaxe {
-    background-position: -0 -32px;
+.item-bow {
+	background-position: -0 -32px;
 }
 
-.bg-diamondshovel {
-    background-position: -32px -32px;
+.item-chainmailboots {
+	background-position: -32px -32px;
 }
 
-.bg-diamondsword {
-    background-position: -64px -0;
+.item-chainmailchestplate {
+	background-position: -64px -0;
 }
 
-.bg-fishingrod {
-    background-position: -64px -32px;
+.item-chainmailhelmet {
+	background-position: -64px -32px;
 }
 
-.bg-goldenaxe {
-    background-position: -0 -64px;
+.item-chainmailleggings {
+	background-position: -0 -64px;
 }
 
-.bg-goldenboots {
-    background-position: -32px -64px;
+.mat-stone {
+	background-position: -32px -64px;
 }
 
-.bg-goldenchestplate {
-    background-position: -64px -64px;
+.item-crossbow {
+	background-position: -64px -64px;
 }
 
-.bg-goldenhelmet {
-    background-position: -96px -0;
+.mat-diamond {
+	background-position: -96px -0;
 }
 
-.bg-goldenhoe {
-    background-position: -96px -32px;
+.item-diamondaxe {
+	background-position: -96px -32px;
 }
 
-.bg-goldeningot {
-    background-position: -96px -64px;
+.item-diamondboots {
+	background-position: -96px -64px;
 }
 
-.bg-goldenleggings {
-    background-position: -0 -96px;
+.item-diamondchestplate {
+	background-position: -0 -96px;
 }
 
-.bg-goldenpickaxe {
-    background-position: -32px -96px;
+.item-diamondhelmet {
+	background-position: -32px -96px;
 }
 
-.bg-goldenshovel {
-    background-position: -64px -96px;
+.item-diamondhoe {
+	background-position: -64px -96px;
 }
 
-.bg-goldensword {
-    background-position: -96px -96px;
+.item-diamondleggings {
+	background-position: -96px -96px;
 }
 
-.bg-ironaxe {
-    background-position: -128px -0;
+.item-diamondpickaxe {
+	background-position: -128px -0;
 }
 
-.bg-ironboots {
-    background-position: -128px -32px;
+.item-diamondshovel {
+	background-position: -128px -32px;
 }
 
-.bg-ironchestplate {
-    background-position: -128px -64px;
+.item-diamondsword {
+	background-position: -128px -64px;
 }
 
-.bg-ironhelmet {
-    background-position: -128px -96px;
+.item-fishingrod {
+	background-position: -128px -96px;
 }
 
-.bg-ironhoe {
-    background-position: -0 -128px;
+.item-goldenaxe {
+	background-position: -0 -128px;
 }
 
-.bg-ironingot {
-    background-position: -32px -128px;
+.item-goldenboots {
+	background-position: -32px -128px;
 }
 
-.bg-ironleggings {
-    background-position: -64px -128px;
+.item-goldenchestplate {
+	background-position: -64px -128px;
 }
 
-.bg-ironpickaxe {
-    background-position: -96px -128px;
+.item-goldenhelmet {
+	background-position: -96px -128px;
 }
 
-.bg-ironshovel {
-    background-position: -128px -128px;
+.item-goldenhoe {
+	background-position: -128px -128px;
 }
 
-.bg-ironsword {
-    background-position: -160px -0;
+.mat-golden {
+	background-position: -160px -0;
 }
 
-.bg-leather {
-    background-position: -160px -32px;
+.item-goldenleggings {
+	background-position: -160px -32px;
 }
 
-.bg-leatherboots {
-    background-position: -160px -64px;
+.item-goldenpickaxe {
+	background-position: -160px -64px;
 }
 
-.bg-leatherchestplate {
-    background-position: -160px -96px;
+.item-goldenshovel {
+	background-position: -160px -96px;
 }
 
-.bg-leatherhelmet {
-    background-position: -160px -128px;
+.item-goldensword {
+	background-position: -160px -128px;
 }
 
-.bg-leatherleggings {
-    background-position: -0 -160px;
+.item-ironaxe {
+	background-position: -0 -160px;
 }
 
-.bg-netheriteaxe {
-    background-position: -32px -160px;
+.item-ironboots {
+	background-position: -32px -160px;
 }
 
-.bg-netheriteboots {
-    background-position: -64px -160px;
+.item-ironchestplate {
+	background-position: -64px -160px;
 }
 
-.bg-netheritechestplate {
-    background-position: -96px -160px;
+.item-ironhelmet {
+	background-position: -96px -160px;
 }
 
-.bg-netheritehelmet {
-    background-position: -128px -160px;
+.item-ironhoe {
+	background-position: -128px -160px;
 }
 
-.bg-netheritehoe {
-    background-position: -160px -160px;
+.mat-iron {
+	background-position: -160px -160px;
 }
 
-.bg-netheriteingot {
-    background-position: -192px -0;
+.item-ironleggings {
+	background-position: -192px -0;
 }
 
-.bg-netheriteleggings {
-    background-position: -192px -32px;
+.item-ironpickaxe {
+	background-position: -192px -32px;
 }
 
-.bg-netheritepickaxe {
-    background-position: -192px -64px;
+.item-ironshovel {
+	background-position: -192px -64px;
 }
 
-.bg-netheriteshovel {
-    background-position: -192px -96px;
+.item-ironsword {
+	background-position: -192px -96px;
 }
 
-.bg-netheritesword {
-    background-position: -192px -128px;
+.item-lapislazuli {
+	background-position: -192px -128px;
 }
 
-.bg-stoneaxe {
-    background-position: -192px -160px;
+.mat-leather {
+	background-position: -192px -160px;
 }
 
-.bg-stonehoe {
-    background-position: -0 -192px;
+.item-leatherboots {
+	background-position: -0 -192px;
 }
 
-.bg-stonepickaxe {
-    background-position: -32px -192px;
+.item-leatherchestplate {
+	background-position: -32px -192px;
 }
 
-.bg-stoneshovel {
-    background-position: -64px -192px;
+.item-leatherhelmet {
+	background-position: -64px -192px;
 }
 
-.bg-stonesword {
-    background-position: -96px -192px;
+.item-leatherleggings {
+	background-position: -96px -192px;
 }
 
-.bg-trident {
-    background-position: -128px -192px;
+.item-netheriteaxe {
+	background-position: -128px -192px;
 }
 
-.bg-turtlehelmet {
-    background-position: -160px -192px;
+.item-netheriteboots {
+	background-position: -160px -192px;
 }
 
-.bg-woodenaxe {
-    background-position: -192px -192px;
+.item-netheritechestplate {
+	background-position: -192px -192px;
 }
 
-.bg-woodenhoe {
-    background-position: -224px -0;
+.item-netheritehelmet {
+	background-position: -224px -0;
 }
 
-.bg-woodenpickaxe {
-    background-position: -224px -32px;
+.item-netheritehoe {
+	background-position: -224px -32px;
 }
 
-.bg-woodenshovel {
-    background-position: -224px -64px;
+.mat-netherite {
+	background-position: -224px -64px;
 }
 
-.bg-woodensword {
-    background-position: -224px -96px;
+.item-netheriteleggings {
+	background-position: -224px -96px;
 }
 
-.bg-book {
-    background-position: -224px -128px;
+.item-netheritepickaxe {
+	background-position: -224px -128px;
 }
 
-.bg-bow {
-    background-position: -224px -160px;
+.item-netheriteshovel {
+	background-position: -224px -160px;
 }
 
-.bg-chainmailboots {
-    background-position: -224px -192px;
+.item-netheritesword {
+	background-position: -224px -192px;
 }
 
-.bg-chainmailchestplate {
-    background-position: -0 -224px;
+.item-stoneaxe {
+	background-position: -0 -224px;
 }
 
-.bg-chainmailhelmet {
-    background-position: -32px -224px;
+.item-stonehoe {
+	background-position: -32px -224px;
 }
 
-.bg-chainmailleggings {
-    background-position: -64px -224px;
+.item-stonepickaxe {
+	background-position: -64px -224px;
 }
 
-.bg-crossbow {
-    background-position: -96px -224px;
+.item-stoneshovel {
+	background-position: -96px -224px;
 }
 
-.bg-diamond {
-    background-position: -128px -224px;
+.item-stonesword {
+	background-position: -128px -224px;
 }
 
-.bg-diamondaxe {
-    background-position: -160px -224px;
+.item-trident {
+	background-position: -160px -224px;
 }
 
-.bg-diamondboots {
-    background-position: -192px -224px;
+.item-turtlehelmet {
+	background-position: -192px -224px;
 }
 
-.bg-diamondchestplate {
-    background-position: -224px -224px;
+.item-woodenaxe {
+	background-position: -224px -224px;
 }
 
-.bg-diamondhelmet {
-    background-position: -256px -0;
+.item-woodenhoe {
+	background-position: -256px -0;
+}
+
+.item-woodenpickaxe {
+	background-position: -256px -32px;
+}
+
+.item-woodenshovel {
+	background-position: -256px -64px;
+}
+
+.item-woodensword {
+	background-position: -256px -96px;
 }
