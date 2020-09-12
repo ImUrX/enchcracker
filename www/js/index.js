@@ -126,6 +126,7 @@ window.onload = async () => {
         });
     }
 
+    //Reset seed
     resetButton.addEventListener("click", async () => {
         clearInterval(interval);
         progress.style.display = "none";
@@ -139,14 +140,29 @@ window.onload = async () => {
 
     const mats = [];
     {
+        const select = document.querySelector("#current-version");
         for(const id of [Material.Netherite, Material.Diamond, Material.Golden, Material.Iron, Material.Fire, Material.Stone, Material.Leather]) {
             mats.push([Material[id].toLowerCase(), id]);
         }
         let index = 0;
         const materialOption = document.querySelector("#material-option");
+        const findNext = (previous = false) => {
+            for(previous ? index-- : index++; index <= mats.length; previous ? index-- : index++) {
+                if(index === -1) {
+                    index = mats.length - 1;
+                } else if(index === mats.length) {
+                    index = 0;
+                }
+                if(Utilities.materialIntroducedVersion(mats[index][1]) > parseInt(select.options[select.selectedIndex].value)) {
+                    continue;
+                }
+                return mats[index];
+            }
+        };
 
+        //Change material
         materialOption.addEventListener("click", () => {
-            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${mats[++index == mats.length ? index = 0 : index][0]}`);
+            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${findNext()[0]}`);
             const items = Utilities.getItems(mats[index][1]);
             document.querySelectorAll(".material-based").forEach((el, index) => {
                 let curItem = items[index];
@@ -156,7 +172,7 @@ window.onload = async () => {
         });
         materialOption.addEventListener("contextmenu", ev => {
             ev.preventDefault();
-            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${mats[--index == -1 ? index = mats.length - 1 : index][0]}`);
+            materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${findNext(true)[0]}`);
             const items = Utilities.getItems(mats[index][1]);
             document.querySelectorAll(".material-based").forEach((el, index) => {
                 let curItem = items[index];
@@ -178,14 +194,29 @@ window.onload = async () => {
         for(const item of [Item.Bow, Item.FishingRod, Item.Crossbow, Item.Trident, Item.Book]) {
             document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
         }
-    }
 
-    {
-        const select = document.querySelector("#current-version");
         for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
             select.appendChild(new Option(string, i));
         }
         select.lastChild.selected = true;
+
+        // When version is changed
+        select.addEventListener("change", () => {
+            const chosenVersion = parseInt(select.options[select.selectedIndex].value);
+            if(Utilities.materialIntroducedVersion(mats[index][1]) > chosenVersion) {
+                materialOption.click();
+            }
+            document.querySelectorAll("#item-list :not(.material-based)").forEach(item => {
+                if(Utilities.itemIntroducedVersion(item.dataset.value) > chosenVersion) {
+                    item.classList.add("disabled");
+                    if(item.classList.contains("active")) {
+                        document.querySelector("#item-list > div").click();
+                    }
+                } else {
+                    item.classList.remove("disabled");
+                }
+            });
+        });
     }
 
     {
@@ -205,6 +236,21 @@ window.onload = async () => {
                 radio.type = "radio";
                 radio.name = string;
                 radio.value = i;
+                radio.addEventListener("change", () => {
+                    const validEnchs = Utilities.getEnchantments(
+                        document.querySelector(".item-slot.active").dataset.value
+                    );
+                    enchantments.querySelectorAll("div > div[style*=\"display: none;\"]")
+                        .forEach(el => {
+                            if(validEnchs.includes(parseInt(el.dataset.value))) el.style.display = "";
+                        });
+                    if(radio.value > 0) {
+                        const invalidEnchs = validEnchs.filter(x => x !== id && !Utilities.areEnchantmentsCompatible(id, x));
+                        for(const ench of invalidEnchs) {
+                            enchantments.querySelectorAll(`div[data-value="${ench}"]`).forEach(div => div.style.display = "none");
+                        }
+                    }
+                });
                 radioList.appendChild(radio);
             }
             radioList.children[1].setAttribute("checked", "");
@@ -216,6 +262,7 @@ window.onload = async () => {
 
     document.querySelector("#item-list").childNodes.forEach(el => {
         el.addEventListener("click", () => {
+            if(el.classList.contains("disabled")) return;
             document.querySelector("#enchantments-form").reset();
             let active = document.querySelector(".item-slot.active");
             if(active) active.classList.remove("active");
@@ -278,9 +325,9 @@ window.onload = async () => {
             manipulator.reset(item.dataset.value);
             for(const ench of validEnchs) {
                 if(parseInt(formData.get(Enchantment[ench])) == 0) continue;
-                manipulator.updateItem(parseInt(item.dataset.value), new EnchantmentInstance(ench, parseInt(formData.get(Enchantment[ench])) ));
+                manipulator.updateItem(item.dataset.value, new EnchantmentInstance(ench, formData.get(Enchantment[ench]) ));
             }
-            lastRes = manipulator.simulate(parseInt(item.dataset.value), parseInt(totalBookshelves.value), parseInt(playerLevel.value), parseInt(currentVersion[currentVersion.selectedIndex].value));
+            lastRes = manipulator.simulate(item.dataset.value, totalBookshelves.value, playerLevel.value, currentVersion[currentVersion.selectedIndex].value);
 
             const [timesNeeded, slot, bookshelvesNeeded] = lastRes;
             if(timesNeeded === -2) {

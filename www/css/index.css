@@ -401,6 +401,10 @@ input[type="submit"].invalid {
 	background-color: darkgreen;
 }
 
+.item-slot.disabled {
+	background-color: #444;
+}
+
 .item {
 	width: 32px;
 	height: 32px;
