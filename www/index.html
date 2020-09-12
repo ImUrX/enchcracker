@@ -106,34 +106,16 @@
 					</div>
 					<form id="enchantments-form" class="flex">
 						<div id="enchantments" class="flex">
-							<div id="enchantment-names" class="invert flex">
-								<div>Enchantment</div>
-								<div>Simple</div>
-							</div>
-							<div class="invert flex">
-								<div class="flex">
-									<input type="radio" name="enchantment" value="-1">
-									<input type="radio" name="enchantment" value="0" checked>
-									<input type="radio" name="enchantment" value="1">
-									<input type="radio" name="enchantment" value="2">
-									<input type="radio" name="enchantment" value="3">
-									<input type="radio" name="enchantment" value="4">
-									<input type="radio" name="enchantment" value="5">
-								</div>
-								<div class="flex">
-									<input type="radio" name="simple" value="-1">
-									<input type="radio" name="simple" value="0" checked>
-									<input type="radio" name="simple" value="1">
-								</div>
-							</div>
-						</div>
-						<div id="man-submit" class="flex">
-							<input type="submit" id="calc-ench" value="Calculate">
-							<input type="submit" id="update-seed" value="Done" disabled>
+							<div id="enchantment-names" class="invert flex"></div>
+							<div class="invert flex"></div>
 						</div>
 					</form>
+					<div id="man-submit" class="flex">
+						<input type="submit" id="calc-ench" value="Calculate" form="enchantments-form">
+						<input type="submit" id="update-seed" value="Done" disabled>
+					</div>
 					<div id="calc-results" class="flex">
-						<div id="result-drop-item" class="flex">
+						<div id="result-items-needed" class="flex">
 							<div class="item mat-stone"></div>
 							<span>-</span>
 						</div>
@@ -147,11 +129,11 @@
 						</div>
 					</div>
 					<div id="bottom-man-options" class="flex">
-						<select name="current-version" id="current-version" form="calc-results"></select>
+						<select name="current-version" id="current-version"></select>
 						<div>
 							<label for="player-level">Level:</label>
 							<input type="number" name="player-level" id="player-level" pattern="[0-9]*" min="1" max="999"
-								value="999" size="4" form="calc-results" required>
+								value="999" size="4" required>
 						</div>
 					</div>
 				</div>

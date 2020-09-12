@@ -5,12 +5,13 @@ importScripts("./wasm/libenchcrack.js");
 /**
  * @typedef wasm_bindgen
  * @property {typeof import("./wasm/libenchcrack").Cracker} Cracker
+ * @property {typeof import("../wasm/libenchcrack").EnchantmentTableInfo} EnchantmentTableInfo
  */
 
 /**
  * @type {wasm_bindgen}
  */
-const { Cracker } = wasm_bindgen;
+const { Cracker, EnchantmentTableInfo } = wasm_bindgen;
 
 self.onmessage = event => {
     /**
@@ -29,10 +30,10 @@ self.onmessage = event => {
         cracker = await Promise.resolve(cracker);
 
         if(event.data.length === 4) {
-            cracker.addInput(...event.data);
+            cracker.addInput(new EnchantmentTableInfo(...event.data));
             postMessage(["finished"]);
         } else if (event.data.length === 8) {
-            cracker.firstInput(...event.data);
+            cracker.firstInput(new EnchantmentTableInfo(...event.data.slice(0, 4)), new EnchantmentTableInfo(...event.data.slice(4)));
             postMessage(["finished"]);
         } else if(event.data.length === 1) {
             switch (event.data[0]) {

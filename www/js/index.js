@@ -10,6 +10,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * @property {typeof import("../wasm/libenchcrack").Material} Material
  * @property {typeof import("../wasm/libenchcrack").Version} Version
  * @property {typeof import("../wasm/libenchcrack").Utilities} Utilities
+ * @property {typeof import("../wasm/libenchcrack").EnchantmentTableInfo} EnchantmentTableInfo
  */
 
 /**
@@ -17,12 +18,13 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * It looks like a require!
  * @type {wasm_bindgen}
  */
-const { Manipulator, Item, Version, Enchantment, Material, EnchantmentInstance, Utilities } = wasm_bindgen;
+const { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } = wasm_bindgen;
 
 window.onload = async () => {
     await modulePromise;
     const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
     const manipulator = new Manipulator(0, 0);
+    let seedExists = false;
 
     //Crack player seed
     {
@@ -34,7 +36,8 @@ window.onload = async () => {
             const formData = new FormData(calc);
             const seeds = [...formData.values()].map(seed => parseInt(seed, 16));
 
-            if(manipulator.changeSeed(...seeds)) {
+            seedExists = manipulator.changeSeed(...seeds);
+            if(seedExists) {
                 return submit.value = [...manipulator.playerSeed.reverse()].map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
             }
 
@@ -171,6 +174,10 @@ window.onload = async () => {
                 el.dataset.value = curItem;
             });
         }
+
+        for(const item of [Item.Bow, Item.FishingRod, Item.Crossbow, Item.Trident, Item.Book]) {
+            document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
+        }
     }
 
     {
@@ -181,15 +188,125 @@ window.onload = async () => {
         select.lastChild.selected = true;
     }
 
+    {
+        const enchantments = document.querySelector("#enchantments");
+        for(const [string, id] of Object.entries(Enchantment)
+            .filter((([str,x]) => !isNaN(x) && isNaN(str) && !Utilities.isTreasure(x)))
+            .map(val => { val.toString = () => val[0]; return val; }).sort()) {
+            const name = document.createElement("div");
+            name.innerHTML = string;
+            name.dataset.value = id;
+            name.style.display = "none";
+            enchantments.children[0].appendChild(name);
+            const radioList = document.createElement("div");
+            radioList.classList.add("flex");
+            for(let i = -1; i < 6; i++) {
+                const radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = string;
+                radio.value = i;
+                radioList.appendChild(radio);
+            }
+            radioList.children[1].setAttribute("checked", "");
+            radioList.dataset.value = id;
+            radioList.style.display = "none";
+            enchantments.children[1].appendChild(radioList);
+        }
+    }
+
     document.querySelector("#item-list").childNodes.forEach(el => {
         el.addEventListener("click", () => {
+            document.querySelector("#enchantments-form").reset();
             let active = document.querySelector(".item-slot.active");
             if(active) active.classList.remove("active");
             // imagine a world with document.querySelector(".item-slot.active")?.classList.remove("active");
             // it exists but yeah im not gonna break support xD
             el.classList.add("active");
+            const validEnchs = Utilities.getEnchantments(el.dataset.value);
+            document.querySelectorAll("#enchantments > div > div").forEach(ench => ench.style.display = "none");
+            document.querySelectorAll([...validEnchs].map(x => `#enchantments > div > div[data-value="${x}"]`).join(",")).forEach(ench => {
+                ench.style.display = "";
+                if(ench.classList.contains("flex")) {
+                    const maxLevel = Utilities.getMaxLevelInTable(ench.dataset.value, el.dataset.value);
+                    for(let i = 2; i < ench.children.length; i++) {
+                        if(i < maxLevel + 2) {
+                            ench.children[i].style.display = "";
+                        } else {
+                            ench.children[i].style.display = "none";
+                        }
+                    }
+                    if(maxLevel === 1) {
+                        ench.children[2].classList.add("only-one");
+                    } else {
+                        ench.children[2].classList.remove("only-one");
+                    }
+                }
+            });
         });
-    })
+    });
+
+    {
+        const enchForm = document.querySelector("#enchantments-form");
+        const totalBookshelves = document.querySelector("#total-bookshelves");
+        const playerLevel = document.querySelector("#player-level");
+        const currentVersion = document.querySelector("#current-version");
+        const resultItemsNeeded = document.querySelector("#result-items-needed > span");
+        const resultSlot = document.querySelector("#result-slot > span");
+        const resultBookshelves = document.querySelector("#result-bookshelves > span");
+        const doneButton = document.querySelector("#update-seed");
+        doneButton.setAttribute("disabled", "");
+        const calcSeedButton = document.querySelector("#calc-seed input[type=\"submit\"]");
+        let lastRes = null;
+        enchForm.addEventListener("submit", async ev => {
+            ev.preventDefault();
+            if(!seedExists) {
+                alert("There is no player seed!");
+                return;
+            }
+            if(!playerLevel.validity.valid) {
+                return alert("Player level is invalid!");
+            } 
+            if(!totalBookshelves.validity.valid) {
+                return alert("Total bookshelves is invalid");
+            }
+            const item = document.querySelector(".item-slot.active");
+            if(!item) {
+                return alert("Select an item at least :/");
+            }
+            const formData = new FormData(enchForm);
+            const validEnchs = Utilities.getEnchantments(item.dataset.value);
+            manipulator.reset(item.dataset.value);
+            for(const ench of validEnchs) {
+                if(parseInt(formData.get(Enchantment[ench])) == 0) continue;
+                manipulator.updateItem(parseInt(item.dataset.value), new EnchantmentInstance(ench, parseInt(formData.get(Enchantment[ench])) ));
+            }
+            lastRes = manipulator.simulate(parseInt(item.dataset.value), parseInt(totalBookshelves.value), parseInt(playerLevel.value), parseInt(currentVersion[currentVersion.selectedIndex].value));
+
+            const [timesNeeded, slot, bookshelvesNeeded] = lastRes;
+            if(timesNeeded === -2) {
+                resultItemsNeeded.innerHTML = "Impossible";
+                return;
+            }
+            resultBookshelves.innerHTML = bookshelvesNeeded;
+            resultSlot.innerHTML = slot;
+            if(timesNeeded === -1) {
+                resultItemsNeeded.innerHTML = "Do it!";
+                return;
+            } else if(timesNeeded > 63) {
+                resultItemsNeeded.innerHTML = `${Math.floor(timesNeeded/64)}s${timesNeeded % 64 > 0 ? ` + ${timesNeeded % 64}` : ""}`;
+            } else {
+                resultItemsNeeded.innerHTML = timesNeeded;
+            }
+            doneButton.removeAttribute("disabled");
+        });
+
+        doneButton.addEventListener("click", () => {
+            doneButton.setAttribute("disabled", "");
+            const newLevel = manipulator.updateSeed(lastRes);
+            playerLevel.value = parseInt(playerLevel.value) + newLevel;
+            calcSeedButton.value = [...manipulator.playerSeed.reverse()].map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
+        });
+    }
 
     window.pool = pool;
     window.manipulator = manipulator;
