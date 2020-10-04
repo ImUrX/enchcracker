@@ -1,0 +1,100 @@
+{
+    "program": {
+        "name": "Enchantment Cracker",
+        "about": "Enchantment Cracker {}\nOriginal version by Earthcomputer\nSpeed and UI improvements by Hexicube\n\nTutorial and Explanation:\nLINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n\nImgur album:\nLINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n\nGitHub page:\nLINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n\nPlease report any bugs you find on the issue tracker.\nMake sure to include the enchcracker.log file."
+    },
+    "tab": {
+        "enchantmentCracker": "Enchantment Cracker",
+        "enchantmentCalculator": "Enchantment Calculator",
+        "about": "About"
+    },
+    "enchCrack": {
+        "xpSeed1": "XP Seed 1",
+        "xpSeed2": "XP Seed 2",
+        "calculate": "Calculate Seed",
+        "bookshelves": {
+            "tooltip": "The number of bookshelves exposed to the enchanting table"
+        },
+        "xpCost1": {
+            "tooltip": "The number on the right of the top slot"
+        },
+        "xpCost2": {
+            "tooltip": "The number on the right of the middle slot"
+        },
+        "xpCost3": {
+            "tooltip": "The number on the right of the bottom slot"
+        },
+        "check": "Check",
+        "reset": "Reset",
+        "impossible": "No possible seeds",
+        "result": "XP seed: {}",
+        "remaining": "Possible seeds: {}",
+        "progress": "Progress: {}"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "The item you want to enchant"
+        },
+        "material": {
+            "tooltip": "The material of the item you want to enchant"
+        },
+        "maxBookshelves": {
+            "tooltip": "The maximum number of bookshelves to use"
+        },
+        "calculate": "Calculate",
+        "playerSeedNotFound": "You need to crack the player seed first!\nHead over to the first tab to do that.",
+        "impossible": "No match",
+        "noDummy": "No dummy",
+        "stackFormat": "64x{} + {}",
+        "done": "Done",
+        "throwCount": {
+            "tooltip": "The amount of items to throw out"
+        },
+        "slot": {
+            "tooltip": "The slot to enchant with"
+        },
+        "bookshelves": {
+            "tooltip": "The number of bookshelves to enchant with"
+        },
+        "level": "Level:"
+    },
+    "ench": {
+        "protection": "Protection",
+        "fire_protection": "Fire Prot",
+        "feather_falling": "Feather Falling",
+        "blast_protection": "Blast Prot",
+        "projectile_protection": "Projectile Prot",
+        "respiration": "Respiration",
+        "aqua_affinity": "Aqua Affinity",
+        "thorns": "Thorns",
+        "depth_strider": "Depth Strider",
+        "sharpness": "Sharpness",
+        "smite": "Smite",
+        "bane_of_arthropods": "Bane Of Arth",
+        "knockback": "Knockback",
+        "fire_aspect": "Fire Aspect",
+        "looting": "Looting",
+        "efficiency": "Efficiency",
+        "silk_touch": "Silk Touch",
+        "unbreaking": "Unbreaking",
+        "fortune": "Fortune",
+        "power": "Power",
+        "punch": "Punch",
+        "flame": "Flame",
+        "infinity": "Infinity",
+        "luck_of_the_sea": "Luck Of The Sea",
+        "lure": "Lure",
+        "frost_walker": "Frost Walker",
+        "mending": "Mending",
+        "binding_curse": "Binding Curse",
+        "vanishing_curse": "Vanishing Curse",
+        "sweeping": "Sweeping",
+        "loyalty": "Loyalty",
+        "impaling": "Impaling",
+        "riptide": "Riptide",
+        "channeling": "Channeling",
+        "multishot": "Multishot",
+        "quick_charge": "Quick Charge",
+        "piercing": "Piercing"
+    }
+}

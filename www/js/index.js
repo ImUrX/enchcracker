@@ -355,6 +355,23 @@ window.onload = async () => {
         });
     }
 
+    // follow cursor with the compass
+    {
+        const partSize = 2 * Math.PI / 28;
+        const compass = document.querySelector("#config label div");
+        document.addEventListener("mousemove", ev => {
+            const rect = compass.getBoundingClientRect();
+            const compassX = Math.floor(rect.x + (rect.width / 2)), compassY = Math.floor(rect.y + (rect.height / 2));
+            const rotation = Math.atan2(ev.pageY - compassY, ev.pageX - compassX);
+
+            let point = (rotation / partSize) - 7;
+            if(point < 0) point += 28;
+            point = Math.round(point);
+            if(point === 28) point = 0;
+            compass.classList.value = `compass-${point}`;
+        });
+    }
+
     window.pool = pool;
     window.manipulator = manipulator;
 };

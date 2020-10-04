@@ -34,8 +34,8 @@ img {
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
 
-	min-width: 30px;
-	min-height: 30px;
+	min-width: 32px;
+	min-height: 32px;
 }
 
 input[type="submit"],
@@ -94,6 +94,12 @@ label>div {
 	clip-path: polygon(0 31%, 0 63%, 6% 63%, 6% 69%, 12% 69%, 12% 75%, 18% 75%, 18% 81%, 25% 82%, 25% 88%, 31% 88%, 31% 94%, 50% 94%, 50% 88%, 63% 88%, 63% 82%, 75% 81%, 75% 75%, 88% 75%, 88% 69%, 100% 69%, 100% 38%, 94% 38%, 94% 31%, 88% 31%, 88% 25%, 81% 25%, 81% 19%, 75% 19%, 75% 12%, 69% 12%, 69% 6%, 50% 6%, 50% 12%, 37% 12%, 37% 18%, 25% 19%, 25% 25%, 12% 25%, 12% 31%);
 	background: url("../img/enchanted_book.png");
 	background-size: cover;
+}
+
+#config label div {
+	background: url("../img/compass.png");
+	width: 32px;
+	height: 32px;
 }
 
 #about label div {
@@ -867,4 +873,116 @@ input[type="submit"].invalid {
 
 .item-woodensword {
 	background-position: -256px -96px;
+}
+
+#config label div.compass-0 {
+    background-position: -0 -0;
+}
+
+#config label div.compass-1 {
+    background-position: -32px -0;
+}
+
+#config label div.compass-2 {
+    background-position: -0 -32px;
+}
+
+#config label div.compass-3 {
+    background-position: -32px -32px;
+}
+
+#config label div.compass-4 {
+    background-position: -64px -0;
+}
+
+#config label div.compass-5 {
+    background-position: -64px -32px;
+}
+
+#config label div.compass-6 {
+    background-position: -0 -64px;
+}
+
+#config label div.compass-7 {
+    background-position: -32px -64px;
+}
+
+#config label div.compass-8 {
+    background-position: -64px -64px;
+}
+
+#config label div.compass-9 {
+    background-position: -96px -0;
+}
+
+#config label div.compass-10 {
+    background-position: -96px -32px;
+}
+
+#config label div.compass-11 {
+    background-position: -96px -64px;
+}
+
+#config label div.compass-12 {
+    background-position: -0 -96px;
+}
+
+#config label div.compass-13 {
+    background-position: -32px -96px;
+}
+
+#config label div.compass-14 {
+    background-position: -64px -96px;
+}
+
+#config label div.compass-15 {
+    background-position: -96px -96px;
+}
+
+#config label div.compass-16 {
+    background-position: -128px -0;
+}
+
+#config label div.compass-17 {
+    background-position: -128px -32px;
+}
+
+#config label div.compass-18 {
+    background-position: -128px -64px;
+}
+
+#config label div.compass-19 {
+    background-position: -128px -96px;
+}
+
+#config label div.compass-20 {
+    background-position: -0 -128px;
+}
+
+#config label div.compass-21 {
+    background-position: -32px -128px;
+}
+
+#config label div.compass-22 {
+    background-position: -64px -128px;
+}
+
+#config label div.compass-23 {
+    background-position: -96px -128px;
+}
+
+#config label div.compass-24 {
+    background-position: -128px -128px;
+}
+
+#config label div.compass-25 {
+    background-position: -160px -0;
+}
+
+#config label div.compass-26 {
+    background-position: -160px -32px;
+}
+
+#config label div.compass-27 {
+    background-position: -160px -64px;
 }
