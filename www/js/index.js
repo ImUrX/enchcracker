@@ -138,6 +138,7 @@ window.onload = async () => {
         button.removeAttribute("disabled");
     });
 
+    let chosenVersion;
     const mats = [];
     {
         const select = document.querySelector("#current-version");
@@ -198,11 +199,12 @@ window.onload = async () => {
         for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
             select.appendChild(new Option(string, i));
         }
+        chosenVersion = parseInt(select.lastChild.value);
         select.lastChild.selected = true;
 
         // When version is changed
         select.addEventListener("change", () => {
-            const chosenVersion = parseInt(select.options[select.selectedIndex].value);
+            chosenVersion = parseInt(select.options[select.selectedIndex].value);
             if(Utilities.materialIntroducedVersion(mats[index][1]) > chosenVersion) {
                 materialOption.click();
             }
@@ -245,7 +247,7 @@ window.onload = async () => {
                             if(validEnchs.includes(parseInt(el.dataset.value))) el.style.display = "";
                         });
                     if(radio.value > 0) {
-                        const invalidEnchs = validEnchs.filter(x => x !== id && !Utilities.areEnchantmentsCompatible(id, x));
+                        const invalidEnchs = validEnchs.filter(x => x !== id && !Utilities.areEnchantmentsCompatible(id, x, chosenVersion));
                         for(const ench of invalidEnchs) {
                             enchantments.querySelectorAll(`div[data-value="${ench}"]`).forEach(div => div.style.display = "none");
                         }
@@ -264,7 +266,7 @@ window.onload = async () => {
         el.addEventListener("click", () => {
             if(el.classList.contains("disabled")) return;
             document.querySelector("#enchantments-form").reset();
-            let active = document.querySelector(".item-slot.active");
+            const active = document.querySelector(".item-slot.active");
             if(active) active.classList.remove("active");
             // imagine a world with document.querySelector(".item-slot.active")?.classList.remove("active");
             // it exists but yeah im not gonna break support xD

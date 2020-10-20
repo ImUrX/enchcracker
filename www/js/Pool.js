@@ -60,7 +60,7 @@ export class WorkerPool {
 
     /**
      * Checks the array so it can reinitialize workers
-     * @param  {...Boolean[]} broken
+     * @param  {...Boolean} broken
      */
     checkWorkers(...broken) {
         for(const key in this.responseQueue) {
