@@ -14,7 +14,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  */
 
 /**
- * Import wasm module, kind of?
+ * Import wasm module... kind of?
  * It looks like a require!
  * @type {wasm_bindgen}
  */
@@ -46,7 +46,7 @@ window.onload = async () => {
         });
     }
 
-    // cool progress bar for brute-force
+    // cool fake progress bar for brute-force
     const bar = document.querySelector("#crack-progress span");
     const progress = document.querySelector("#crack-progress");
     let interval;
@@ -171,6 +171,7 @@ window.onload = async () => {
                 el.dataset.value = curItem;
             });
         });
+        //Change material backwards
         materialOption.addEventListener("contextmenu", ev => {
             ev.preventDefault();
             materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${findNext(true)[0]}`);
@@ -182,6 +183,7 @@ window.onload = async () => {
             });
         });
 
+        //fill list with each items from materials based on the variable mats
         materialOption.classList.add(`mat-${mats[index][0]}`);
         {
             const items = Utilities.getItems(mats[index][1]);
@@ -192,10 +194,12 @@ window.onload = async () => {
             });
         }
 
+        //the items that are not mat-based
         for(const item of [Item.Bow, Item.FishingRod, Item.Crossbow, Item.Trident, Item.Book]) {
             document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
         }
 
+        //fill version select
         for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
             select.appendChild(new Option(string, i));
         }
@@ -218,6 +222,10 @@ window.onload = async () => {
                     item.classList.remove("disabled");
                 }
             });
+            document.querySelectorAll("#enchantments input").forEach(x => x.defaultChecked && (x.checked = true));
+            Utilities.getEnchantments(document.querySelector(".item-slot.active").dataset.value).forEach(x =>
+                document.querySelectorAll(`#enchantments div[data-value="${x}"]`).forEach(div => div.style.display = "")
+            );
         });
     }
 
@@ -238,19 +246,21 @@ window.onload = async () => {
                 radio.type = "radio";
                 radio.name = string;
                 radio.value = i;
+                //listen for when enchantment level is changed
                 radio.addEventListener("change", () => {
-                    const validEnchs = Utilities.getEnchantments(
-                        document.querySelector(".item-slot.active").dataset.value
-                    );
-                    enchantments.querySelectorAll("div > div[style*=\"display: none;\"]")
-                        .forEach(el => {
-                            if(validEnchs.includes(parseInt(el.dataset.value))) el.style.display = "";
-                        });
-                    if(radio.value > 0) {
-                        const invalidEnchs = validEnchs.filter(x => x !== id && !Utilities.areEnchantmentsCompatible(id, x, chosenVersion));
-                        for(const ench of invalidEnchs) {
-                            enchantments.querySelectorAll(`div[data-value="${ench}"]`).forEach(div => div.style.display = "none");
+                    const activeEnchs = [...document.querySelectorAll("#enchantments input:checked")]
+                        .filter(x => x.parentElement.style.display !== "none" && parseInt(x.value) > 0).map(x => parseInt(x.parentElement.dataset.value));
+                    const notChosenEnchs = Utilities.getEnchantments(document.querySelector(".item-slot.active").dataset.value)
+                        .filter(x => !activeEnchs.includes(x));
+                    outerLoop: 
+                    for(const ench of notChosenEnchs) {
+                        for(const wantedEnch of activeEnchs) {
+                            if(!Utilities.areEnchantmentsCompatible(wantedEnch, ench, chosenVersion)) {
+                                enchantments.querySelectorAll(`div[data-value="${ench}"]`).forEach(div => div.style.display = "none");
+                                continue outerLoop;
+                            }
                         }
+                        enchantments.querySelectorAll(`div[data-value="${ench}"]`).forEach(div => div.style.display = "");
                     }
                 });
                 radioList.appendChild(radio);
@@ -263,6 +273,7 @@ window.onload = async () => {
     }
 
     document.querySelector("#item-list").childNodes.forEach(el => {
+        //update enchantment list to new selected item
         el.addEventListener("click", () => {
             if(el.classList.contains("disabled")) return;
             document.querySelector("#enchantments-form").reset();
@@ -299,13 +310,12 @@ window.onload = async () => {
         const totalBookshelves = document.querySelector("#total-bookshelves");
         const playerLevel = document.querySelector("#player-level");
         const currentVersion = document.querySelector("#current-version");
-        const resultItemsNeeded = document.querySelector("#result-items-needed > span");
-        const resultSlot = document.querySelector("#result-slot > span");
-        const resultBookshelves = document.querySelector("#result-bookshelves > span");
+        const resultNodes = [document.querySelector("#result-items-needed > span"), document.querySelector("#result-slot > span"), document.querySelector("#result-bookshelves > span")];
         const doneButton = document.querySelector("#update-seed");
         doneButton.setAttribute("disabled", "");
         const calcSeedButton = document.querySelector("#calc-seed input[type=\"submit\"]");
         let lastRes = null;
+        //simulate manipulation
         enchForm.addEventListener("submit", async ev => {
             ev.preventDefault();
             if(!seedExists) {
@@ -318,10 +328,12 @@ window.onload = async () => {
             if(!totalBookshelves.validity.valid) {
                 return alert("Total bookshelves is invalid");
             }
+
             const item = document.querySelector(".item-slot.active");
             if(!item) {
                 return alert("Select an item at least :/");
             }
+
             const formData = new FormData(enchForm);
             const validEnchs = Utilities.getEnchantments(item.dataset.value);
             manipulator.reset(item.dataset.value);
@@ -331,28 +343,27 @@ window.onload = async () => {
             }
             lastRes = manipulator.simulate(item.dataset.value, totalBookshelves.value, playerLevel.value, currentVersion[currentVersion.selectedIndex].value);
 
-            const [timesNeeded, slot, bookshelvesNeeded] = lastRes;
-            if(timesNeeded === -2) {
-                resultItemsNeeded.innerHTML = "Impossible";
+            const res = [...lastRes];
+            if(res[0] === -2) {
+                resultNodes[0].innerHTML = "Impossible";
                 return;
             }
-            resultBookshelves.innerHTML = bookshelvesNeeded;
-            resultSlot.innerHTML = slot;
-            if(timesNeeded === -1) {
-                resultItemsNeeded.innerHTML = "Do it!";
+
+            if(res[0] === -1) {
+                res[0] = "Do it!";
                 return;
-            } else if(timesNeeded > 63) {
-                resultItemsNeeded.innerHTML = `${Math.floor(timesNeeded/64)}s${timesNeeded % 64 > 0 ? ` + ${timesNeeded % 64}` : ""}`;
-            } else {
-                resultItemsNeeded.innerHTML = timesNeeded;
+            } else if(res[0] > 63) {
+                res[0] = `${Math.floor(res[0]/64)}s${res[0] % 64 > 0 ? ` + ${res[0] % 64}` : ""}`;
             }
+            resultNodes.forEach((x, i) => x.innerHTML = res[i]);
             doneButton.removeAttribute("disabled");
         });
 
+        //update seed after manipulation
         doneButton.addEventListener("click", () => {
             doneButton.setAttribute("disabled", "");
-            const newLevel = manipulator.updateSeed(lastRes);
-            playerLevel.value = parseInt(playerLevel.value) + newLevel;
+            resultNodes.forEach(x => x.innerHTML = "-");
+            playerLevel.value = manipulator.updateSeed(lastRes[0], lastRes[1], parseInt(playerLevel.value));
             calcSeedButton.value = [...manipulator.playerSeed.reverse()].map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
         });
     }
@@ -410,6 +421,7 @@ book.onload = () => {
 book.src = "../img/enchanting_table_book.png";
 
 
+//check if we are using intl for compact numbers or our own function
 let compact;
 {
     if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
