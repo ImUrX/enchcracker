@@ -230,6 +230,10 @@ label div.enchant::after {
 	padding-left: 5px;
 }
 
+#about-content {
+	font-size: 0.7em;
+}
+
 .flex {
 	display: flex;
 	flex-direction: row;
@@ -448,7 +452,7 @@ input[type="submit"].invalid {
 	overflow-y: scroll;
 }
 
-#enchantments>#enchantment-names {
+#enchantments > #enchantment-names {
 	max-width: 59%;
 	flex-grow: 3;
 }

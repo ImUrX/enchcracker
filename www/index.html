@@ -19,20 +19,20 @@
 			</label>
 
 			<div class="content cool-border">
-				<span class="title">Enchantment Cracker</span>
+				<span class="title" data-lang="tab.enchantmentCracker">Enchantment Cracker</span>
 				<div class="flex">
 					<form id="calc-seed" class="flex">
-						<label for="seed1">XP Seed 1</label>
+						<label for="seed1" data-lang="enchCrack.xpSeed1">XP Seed 1</label>
 						<input type="text" id="seed1" name="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}"
 							maxlength="8" size="8" required>
-						<label for="seed2">XP Seed 2</label>
+						<label for="seed2" data-lang="enchCrack.xpSeed2">XP Seed 2</label>
 						<input type="text" id="seed2" name="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}"
 							maxlength="8" size="8" required>
 						<input type="submit" value="Calculate Seed">
 					</form>
 					<div id="bookshelves" class="flex">
 						<input type="number" pattern="[0-9]*" name="books" min="0" max="15" size="3" form="crack-seed"
-							required>
+							required data-langtip="enchCrack.bookshelves.tooltip">
 					</div>
 					<div class="flex">
 						<div id="animated" class="flex">
@@ -45,19 +45,19 @@
 									<div id="orb1" class="orb"></div>
 									<div class="gsa">this is hot</div>
 									<input type="number" pattern="[0-9]*" name="first" min="1" max="30" size="3"
-										required>
+										required data-langtip="enchCrack.xpCost1.tooltip">
 								</div>
 								<div class="enchantment-slot flex">
 									<div id="orb2" class="orb"></div>
 									<div class="gsa">my body is ready</div>
 									<input type="number" pattern="[0-9]*" name="second" min="1" max="30" size="3"
-										required>
+										required data-langtip="enchCrack.xpCost2.tooltip">
 								</div>
 								<div class="enchantment-slot flex">
 									<div id="orb3" class="orb"></div>
 									<div class="gsa">hey girl</div>
 									<input type="number" pattern="[0-9]*" name="third" min="1" max="30" size="3"
-										required>
+										required data-langtip="enchCrack.xpCost3.tooltip">
 								</div>
 							</div>
 						</form>
@@ -78,9 +78,9 @@
 			</label>
 
 			<div class="content cool-border">
-				<span class="title">Enchantment Calculator</span>
+				<span class="title" data-lang="tab.enchantmentCalculator">Enchantment Calculator</span>
 				<div id="first-man" class="flex">
-					<div id="item-list" class="flex">
+					<div id="item-list" class="flex" data-langtip="enchCalc.item.tooltip">
 						<div class="item-slot item material-based"></div>
 						<div class="item-slot item material-based"></div>
 						<div class="item-slot item material-based"></div>
@@ -100,9 +100,9 @@
 						<div class="flex">
 							<input type="number" pattern="[0-9]*" name="total-bookshelves" id="total-bookshelves"
 								min="0" max="15" size="3" value="15" form="enchantments-form" required>
-							<div class="bookshelves-item item item-bookshelf"></div>
+							<div class="bookshelves-item item item-bookshelf" data-langtip="enchCalc.maxBookshelves.tooltip"></div>
 						</div>
-						<div id="material-option" class="item-slot item"></div>
+						<div id="material-option" class="item-slot item" data-langtip="enchCalc.material.tooltip"></div>
 					</div>
 					<form id="enchantments-form" class="flex">
 						<div id="enchantments" class="flex">
@@ -115,15 +115,15 @@
 						<input type="submit" id="update-seed" value="Done" disabled>
 					</div>
 					<div id="calc-results" class="flex">
-						<div id="result-items-needed" class="flex">
+						<div id="result-items-needed" class="flex" data-langtip="enchCalc.throwCount.tooltip">
 							<div class="item mat-stone"></div>
 							<span>-</span>
 						</div>
-						<div id="result-slot" class="flex">
+						<div id="result-slot" class="flex" data-langtip="enchCalc.slot.tooltip">
 							<div class="item item-lapislazuli"></div>
 							<span>-</span>
 						</div>
-						<div id="result-bookshelves" class="flex">
+						<div id="result-bookshelves" class="flex" data-langtip="enchCalc.bookshelves.tooltip">
 							<div class="item item-bookshelf"></div>
 							<span>-</span>
 						</div>
@@ -131,7 +131,7 @@
 					<div id="bottom-man-options" class="flex">
 						<select name="current-version" id="current-version"></select>
 						<div>
-							<label for="player-level">Level:</label>
+							<label for="player-level" data-lang="enchCalc.level">Level:</label>
 							<input type="number" name="player-level" id="player-level" pattern="[0-9]*" min="1" max="999"
 								value="999" size="4" form="enchantments-form" required>
 						</div>
@@ -147,7 +147,10 @@
 			</label>
 
 			<div class="content cool-border">
-				<span class="title">Config</span>
+				<span class="title" data-lang="tab.config">Config</span>
+				<br>
+				<label for="lang-select">Language:</label>
+				<select id="lang-select"></select>
 			</div>
 		</div>
 
@@ -158,7 +161,9 @@
 			</label>
 
 			<div class="content cool-border">
-				<span class="title">About</span>
+				<span class="title" data-lang="tab.about">About</span>
+				<br>
+				<span id="about-content"></span>
 			</div>
 		</div>
 	</div>

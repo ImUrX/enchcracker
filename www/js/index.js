@@ -1,5 +1,6 @@
 /* global wasm_bindgen:readonly */
 import { WorkerPool } from "./Pool.js";
+import Language from "./Language.js";
 const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
 /**
  * @typedef wasm_bindgen
@@ -24,6 +25,8 @@ window.onload = async () => {
     await modulePromise;
     const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
     const manipulator = new Manipulator(0, 0);
+    const lang = new Language(document.querySelector("#lang-select"));
+    await lang.addHandler(changeHtmlLang.bind(lang));
     let seedExists = false;
 
     //Crack player seed
@@ -322,12 +325,6 @@ window.onload = async () => {
                 alert("There is no player seed!");
                 return;
             }
-            if(!playerLevel.validity.valid) {
-                return alert("Player level is invalid!");
-            } 
-            if(!totalBookshelves.validity.valid) {
-                return alert("Total bookshelves is invalid");
-            }
 
             const item = document.querySelector(".item-slot.active");
             if(!item) {
@@ -385,9 +382,20 @@ window.onload = async () => {
         });
     }
 
+    // Debug your hearts content!
     window.pool = pool;
     window.manipulator = manipulator;
 };
+
+function changeHtmlLang() {
+    document.documentElement.setAttribute("lang", this.lang);
+    document.querySelectorAll("[data-lang]").forEach(el => {
+        el.innerText = this.get(el.dataset.lang);
+    });
+    document.querySelectorAll("[data-langtip]").forEach(el => {
+        el.title = this.get(el.dataset.langtip);
+    });
+}
 
 // This doesnt look good enough, im gonna try this on webgl later
 const book = new Image();
