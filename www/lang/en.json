@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker",
-        "about": "Enchantment Cracker {}\nOriginal version by Earthcomputer\nSpeed and UI improvements by Hexicube\n\nTutorial and Explanation:\nLINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n\nImgur album:\nLINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n\nGitHub page:\nLINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n\nPlease report any bugs you find on the issue tracker.\nMake sure to include the enchcracker.log file."
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\nOriginal version by Earthcomputer\nSpeed and UI improvements by Hexicube\n\nTutorial and Explanation:\nLINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n\nImgur album:\nLINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n\nGitHub page:\nLINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n\nPlease report any bugs you find on the issue tracker.\nMake sure to include the enchcracker.log file."
     },
     "tab": {
         "enchantmentCracker": "Enchantment Cracker",

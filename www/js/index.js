@@ -1,4 +1,5 @@
 /* global wasm_bindgen:readonly */
+const VERSION = "v1.0";
 import { WorkerPool } from "./Pool.js";
 import Language from "./Language.js";
 const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
@@ -26,7 +27,6 @@ window.onload = async () => {
     const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
     const manipulator = new Manipulator(0, 0);
     const lang = new Language(document.querySelector("#lang-select"));
-    await lang.addHandler(changeHtmlLang.bind(lang));
     let seedExists = false;
 
     //Crack player seed
@@ -68,7 +68,7 @@ window.onload = async () => {
             if(original) original = null;
             const realAmount = amount > 100 ? "100%" : `${amount.toFixed(2)}%`;
             bar.style.width = realAmount;
-            progress.dataset.value = `Remaining: ${realAmount}`;
+            progress.dataset.value = lang.get("enchCrack.progress", realAmount);
         });
     }
 
@@ -96,11 +96,11 @@ window.onload = async () => {
             }
 
             progress.style.display = "";
-            progress.dataset.value = "Remaining: 0%";
+            progress.dataset.value = lang.get("enchCrack.progress", 0);
             bar.style.width = "0%";
             interval = setInterval(() => {
                 bar.style.width = `${parseInt(bar.style.width.slice(0, -1)) + 1}%`;
-                progress.dataset.value = `Remaining: ${bar.style.width}`;
+                progress.dataset.value = lang.get("enchCrack.progress", bar.style.width);
             }, 2000);
 
             if(firstArray.length > 0) {
@@ -116,14 +116,17 @@ window.onload = async () => {
             progress.style.display = "none";
             if(remaining === 1) {
                 const seed = (await pool.getSeed() >>> 0).toString(16).toUpperCase();
+                button.value = lang.get("enchCrack.result", seed);
                 if(!firstSeed.value) {
                     firstSeed.value = seed;
                 } else if(!secondSeed.value) {
                     secondSeed.value = seed;
                 }
                 resetButton.click();
+            } else if(remaining < 1) {
+                button.value = lang.get("enchCrack.impossible");
             } else {
-                button.value = `Remaining seeds: ${compact(remaining)}`;
+                button.value = lang.get("enchCrack.remaining", compact(remaining));
                 books.focus();
             }
         });
@@ -137,7 +140,7 @@ window.onload = async () => {
         button.setAttribute("disabled", "");
         firstTry = true;
         await pool.reset().catch(reason => { if(reason !== "Timeout") throw reason; });
-        button.value = "Check";
+        button.value = lang.get("enchCrack.check");
         button.removeAttribute("disabled");
     });
 
@@ -204,7 +207,7 @@ window.onload = async () => {
 
         //fill version select
         for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
-            select.appendChild(new Option(string, i));
+            select.appendChild(new Option(string.toLowerCase().replace(/_/g, "."), i));
         }
         chosenVersion = parseInt(select.lastChild.value);
         select.lastChild.selected = true;
@@ -322,7 +325,7 @@ window.onload = async () => {
         enchForm.addEventListener("submit", async ev => {
             ev.preventDefault();
             if(!seedExists) {
-                alert("There is no player seed!");
+                alert(lang.get("enchCalc.playerSeedNotFound"));
                 return;
             }
 
@@ -342,15 +345,15 @@ window.onload = async () => {
 
             const res = [...lastRes];
             if(res[0] === -2) {
-                resultNodes[0].innerHTML = "Impossible";
+                resultNodes[0].innerHTML = lang.get("enchCalc.impossible");
                 return;
             }
 
             if(res[0] === -1) {
-                res[0] = "Do it!";
+                res[0] = lang.get("enchCalc.noDummy");
                 return;
             } else if(res[0] > 63) {
-                res[0] = `${Math.floor(res[0]/64)}s${res[0] % 64 > 0 ? ` + ${res[0] % 64}` : ""}`;
+                res[0] = lang.get("enchCalc.stackFormat", Math.floor(res[0]/64), res[0] % 64);
             }
             resultNodes.forEach((x, i) => x.innerHTML = res[i]);
             doneButton.removeAttribute("disabled");
@@ -382,12 +385,15 @@ window.onload = async () => {
         });
     }
 
+    await lang.addHandler(changeHtmlLang.bind(lang));
+
     // Debug your hearts content!
     window.pool = pool;
     window.manipulator = manipulator;
 };
 
 function changeHtmlLang() {
+    document.title = this.get("program.name");
     document.documentElement.setAttribute("lang", this.lang);
     document.querySelectorAll("[data-lang]").forEach(el => {
         el.innerText = this.get(el.dataset.lang);
@@ -395,6 +401,13 @@ function changeHtmlLang() {
     document.querySelectorAll("[data-langtip]").forEach(el => {
         el.title = this.get(el.dataset.langtip);
     });
+    let about = this.get("program.about", VERSION);
+    let match;
+    while((match = /LINK (\S+) (.+)/.exec(about)) !== null) {
+        about = about.replace(/LINK (\S+) (.+)/, `<a href="${match[1]}">${match[2]}</a>`);
+    }
+    about = about.replace(/\n/g, "<br>");
+    document.querySelector("#about-content").innerHTML = about;
 }
 
 // This doesnt look good enough, im gonna try this on webgl later

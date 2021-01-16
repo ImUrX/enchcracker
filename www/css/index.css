@@ -230,8 +230,13 @@ label div.enchant::after {
 	padding-left: 5px;
 }
 
+#about-container {
+	overflow-y: scroll;
+	max-height: 92%;
+}
+
 #about-content {
-	font-size: 0.7em;
+	font-size: 0.6em;
 }
 
 .flex {

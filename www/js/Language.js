@@ -43,7 +43,6 @@ export default class Language {
         const json = await fetch(`../lang/${this.lang}.json`).then(res => res.json());
         this.select.value = this.lang;
         this.langObj = this.mutLangObject(json);
-        console.log(this.langObj);
         callback();
 
         this.select.addEventListener("change", async ev => {
