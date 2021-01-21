@@ -401,6 +401,10 @@ function changeHtmlLang() {
     document.querySelectorAll("[data-langtip]").forEach(el => {
         el.title = this.get(el.dataset.langtip);
     });
+    document.querySelectorAll("[data-langvalue]").forEach(el => {
+        el.value = this.get(el.dataset.langvalue);
+    });
+
     let about = this.get("program.about", VERSION);
     let match;
     while((match = /LINK (\S+) (.+)/.exec(about)) !== null) {
@@ -408,6 +412,11 @@ function changeHtmlLang() {
     }
     about = about.replace(/\n/g, "<br>");
     document.querySelector("#about-content").innerHTML = about;
+
+    document.querySelectorAll("#enchantment-names > div").forEach(enchEl => {
+        const ench = Enchantment[enchEl.dataset.value];
+        enchEl.innerText = this.get(`ench.${ench.charAt(0).toLowerCase() + ench.slice(1)}`);
+    });
 }
 
 // This doesnt look good enough, im gonna try this on webgl later
