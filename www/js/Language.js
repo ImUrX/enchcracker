@@ -1,4 +1,4 @@
-const defaultLang = "en-US";
+const defaultLang = "en";
 const availableLangs = new Map([
     ["en", "English"]
 ]);
@@ -21,14 +21,15 @@ export default class Language {
          * The language object where strings and more objects are in
          */
         this.langObj;
+        let tempLang;
         if(localStorage.getItem("lang")) {
             this.lang = localStorage.getItem("lang");
-        } else if(understandLang(navigator.language)) {
-            this.lang = navigator.language;
+        } else if((tempLang = understandLang(navigator.language)) !== null) {
+            this.lang = tempLang;
         } else {
             for(const navLang of navigator.languages || []) {
-                if(understandLang(navLang)) {
-                    this.lang = navLang;
+                if((tempLang = understandLang(navLang)) !== null) {
+                    this.lang = tempLang;
                     break;
                 }
             }
@@ -85,7 +86,7 @@ export default class Language {
 
 function understandLang(lang) {
     for(const availableLang of availableLangs.keys()) {
-        if(availableLang.startsWith(lang)) return true;
+        if(availableLang.startsWith(lang)) return availableLang;
     }
-    return false;
+    return null;
 }

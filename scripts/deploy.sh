@@ -35,4 +35,5 @@ cd ..
 rm -rf wasm
 wasm-bindgen --target no-modules --out-dir wasm libenchcrack.wasm
 
+rm -rf ../../www/wasm
 mv wasm ../../www
