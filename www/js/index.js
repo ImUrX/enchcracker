@@ -49,7 +49,7 @@ window.onload = async () => {
         });
     }
 
-    // cool fake progress bar for brute-force
+    //progress bar when each thread finishes
     const bar = document.querySelector("#crack-progress span");
     const progress = document.querySelector("#crack-progress");
     let interval;
@@ -66,7 +66,7 @@ window.onload = async () => {
             }
             const amount = parseFloat(original || bar.style.width.slice(0, -1)) + progressPerWorker;
             if(original) original = null;
-            const realAmount = amount > 100 ? "100%" : `${amount.toFixed(2)}%`;
+            const realAmount = amount >= 100 ? "100%" : `${amount.toFixed(2)}%`;
             bar.style.width = realAmount;
             progress.dataset.value = lang.get("enchCrack.progress", realAmount);
         });
@@ -96,8 +96,9 @@ window.onload = async () => {
             }
 
             progress.style.display = "";
-            progress.dataset.value = lang.get("enchCrack.progress", 0);
+            progress.dataset.value = lang.get("enchCrack.progress", "0%");
             bar.style.width = "0%";
+            // cool fake progress bar for brute-force
             interval = setInterval(() => {
                 bar.style.width = `${parseInt(bar.style.width.slice(0, -1)) + 1}%`;
                 progress.dataset.value = lang.get("enchCrack.progress", bar.style.width);
@@ -205,9 +206,19 @@ window.onload = async () => {
             document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
         }
 
+        const mapVersion = new Map([
+            [Version.V1_8, "v1.8 - v1.8.9"],
+            [Version.V1_9, "v1.9 - v1.10.2"],
+            [Version.V1_11, "v1.11"],
+            [Version.V1_11_1, "v1.11.1 - v1.12.2"],
+            [Version.V1_13, "v1.13 - v1.13.2"],
+            [Version.V1_14, "v1.14 - v1.14.2"],
+            [Version.V1_14_3, "v1.14.3 - v1.15.2"],
+            [Version.V1_16, "v1.16"]
+        ]);
         //fill version select
-        for(const [string, i] of Object.entries(Version).filter(([,x]) => !isNaN(x))) {
-            select.appendChild(new Option(string.toLowerCase().replace(/_/g, "."), i));
+        for(const i of Object.values(Version).filter(x => !isNaN(x))) {
+            select.appendChild(new Option(mapVersion.get(i), i));
         }
         chosenVersion = parseInt(select.lastChild.value);
         select.lastChild.selected = true;

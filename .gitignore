@@ -105,3 +105,6 @@ dist
 
 # wasm folder
 www/wasm
+
+# scripts temp folder
+scripts/temp
