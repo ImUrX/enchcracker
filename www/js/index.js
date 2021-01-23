@@ -21,6 +21,7 @@ const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
  * @type {wasm_bindgen}
  */
 const { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } = wasm_bindgen;
+let compact;
 
 window.onload = async () => {
     await modulePromise;
@@ -68,7 +69,7 @@ window.onload = async () => {
             if(original) original = null;
             const realAmount = amount >= 100 ? "100%" : `${amount.toFixed(2)}%`;
             bar.style.width = realAmount;
-            progress.dataset.value = lang.get("enchCrack.progress", realAmount);
+            progress.dataset.value = lang.get("enchCrack.progress", amount.toFixed(0));
         });
     }
 
@@ -96,12 +97,12 @@ window.onload = async () => {
             }
 
             progress.style.display = "";
-            progress.dataset.value = lang.get("enchCrack.progress", "0%");
+            progress.dataset.value = lang.get("enchCrack.progress", "0");
             bar.style.width = "0%";
             // cool fake progress bar for brute-force
             interval = setInterval(() => {
                 bar.style.width = `${parseInt(bar.style.width.slice(0, -1)) + 1}%`;
-                progress.dataset.value = lang.get("enchCrack.progress", bar.style.width);
+                progress.dataset.value = lang.get("enchCrack.progress", bar.style.width.slice(0, -1));
             }, 2000);
 
             if(firstArray.length > 0) {
@@ -127,7 +128,7 @@ window.onload = async () => {
             } else if(remaining < 1) {
                 button.value = lang.get("enchCrack.impossible");
             } else {
-                button.value = lang.get("enchCrack.remaining", compact(remaining));
+                button.value = compact(remaining);
                 books.focus();
             }
         });
@@ -141,7 +142,7 @@ window.onload = async () => {
         button.setAttribute("disabled", "");
         firstTry = true;
         await pool.reset().catch(reason => { if(reason !== "Timeout") throw reason; });
-        button.value = lang.get("enchCrack.check");
+        button.value = lang.get("enchCrack.check.value");
         button.removeAttribute("disabled");
     });
 
@@ -428,6 +429,27 @@ function changeHtmlLang() {
         const ench = Enchantment[enchEl.dataset.value];
         enchEl.innerText = this.get(`ench.${ench.charAt(0).toLowerCase() + ench.slice(1)}`);
     });
+
+    //check if we are using intl for compact numbers or our own function
+    if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
+        const numFormat = new Intl.NumberFormat(this.lang, { notation: "compact" });
+        compact = number => {
+            return this.get("enchCrack.remaining.value", numFormat.format(number));
+        };
+    } else {
+        compact = number => {
+            const num = number.toString();
+            let get = "enchCrack.remaining.value";
+            if(num.length > 7) {
+                get = "enchCrack.remaining.billion";
+            } else if(num.length > 6) {
+                get = "enchCrack.remaining.million";
+            } else if(num.length > 3) {
+                get = "enchCrack.remaining.thousand";
+            }
+            return this.get(get, num);
+        };
+    }
 }
 
 // This doesnt look good enough, im gonna try this on webgl later
@@ -461,27 +483,6 @@ book.onload = () => {
 };
 book.src = "../img/enchanting_table_book.png";
 
-
-//check if we are using intl for compact numbers or our own function
-let compact;
-{
-    if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
-        const numFormat = new Intl.NumberFormat(navigator.languages, { notation: "compact" });
-        compact = number => {
-            return numFormat.format(number);
-        };
-    } else {
-        compact = number => {
-            const num = number.toString();
-            if(num.length > 6) {
-                return `${num.slice(0, -6)}M`;
-            } else if(num.length > 3) {
-                return `${num.slice(0, -3)}.${num.slice(-3, -1)}K`;
-            }
-            return num;
-        };
-    }
-}
 
 function getScaledSize(sprite, scale) {
     return sprite.slice(2).map(val => val * scale);

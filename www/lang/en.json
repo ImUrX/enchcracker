@@ -1,7 +1,8 @@
 {
     "program": {
-        "name": "Enchantment Cracker Web",
-        "about": "Enchantment Cracker Web {}\nOriginal version by Earthcomputer\nSpeed and UI improvements by Hexicube\n\nTutorial and Explanation:\nLINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n\nImgur album:\nLINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n\nGitHub page:\nLINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n\nPlease report any bugs you find on the issue tracker.\nMake sure to include the enchcracker.log file."
+        "name": "Enchantment Cracker",
+        "about": "Enchantment Cracker {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  \n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  Please report any bugs you find on the issue tracker.\n  Make sure to include the enchcracker.log file.",
+        "warn32": "You are running a 32-bit version\nof Java, you may experienced\ndegraded performance.\n\nContinue anyway?"
     },
     "tab": {
         "enchantmentCracker": "Enchantment Cracker",
@@ -10,8 +11,14 @@
         "config": "Configuration"
     },
     "enchCrack": {
-        "xpSeed1": "XP Seed 1",
-        "xpSeed2": "XP Seed 2",
+        "xpSeed1": {
+            "value": "XP Seed 1",
+            "tooltip": "The first consecutive XP seed"
+        },
+        "xpSeed2": {
+            "value": "XP Seed 2",
+            "tooltip": "The second consecutive XP seed"
+        },
         "calculate": "Calculate Seed",
         "bookshelves": {
             "tooltip": "The number of bookshelves exposed to the enchanting table"
@@ -25,12 +32,23 @@
         "xpCost3": {
             "tooltip": "The number on the right of the bottom slot"
         },
-        "check": "Check",
-        "reset": "Reset",
+        "check": {
+            "value": "Check",
+            "tooltip": "Use this information to narrow down the possible XP seeds"
+        },
+        "reset": {
+            "value": "Reset",
+            "tooltip": "Reset the XP seed cracker so a new XP seed can be cracked"
+        },
         "impossible": "No possible seeds",
         "result": "XP seed: {}",
-        "remaining": "Possible seeds: {}",
-        "progress": "Progress: {}"
+        "remaining": {
+            "value": "Possible seeds: {}",
+            "thousand": "Possible seeds: {}k",
+            "million": "Possible seeds: {}M",
+            "billion": "Possible seeds: {}B"
+        },
+        "progress": "Progress: {}%"
     },
     "enchCalc": {
         "item": {
@@ -42,12 +60,18 @@
         "maxBookshelves": {
             "tooltip": "The maximum number of bookshelves to use"
         },
-        "calculate": "Calculate",
+        "calculate": {
+            "value": "Calculate",
+            "tooltip": "Press to calculate how many items you would need to throw to get these enchantments"
+        },
         "playerSeedNotFound": "You need to crack the player seed first!\nHead over to the first tab to do that.",
         "impossible": "No match",
         "noDummy": "No dummy",
         "stackFormat": "64x{} + {}",
-        "done": "Done",
+        "done": {
+            "value": "Done",
+            "tooltip": "Press to let the Cracker know that you have gone for these enchantments"
+        },
         "throwCount": {
             "tooltip": "The amount of items to throw out"
         },
@@ -57,10 +81,10 @@
         "bookshelves": {
             "tooltip": "The number of bookshelves to enchant with"
         },
-        "level": "Level:"
-    },
-    "config": {
-        "lang": "Language:"
+        "level": {
+            "value": "Level:",
+            "tooltip": "The current level of the player. Allows finding enchantments at level 30 and below."
+        }
     },
     "ench": {
         "protection": "Protection",
@@ -100,5 +124,16 @@
         "multishot": "Multishot",
         "quickCharge": "Quick Charge",
         "piercing": "Piercing"
+    },
+    "config": {
+        "lang": "Language:",
+        "threads": "Threads:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
     }
 }

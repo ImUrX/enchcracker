@@ -22,12 +22,12 @@
 				<span class="title" data-lang="tab.enchantmentCracker">Enchantment Cracker</span>
 				<div class="flex">
 					<form id="calc-seed" class="flex">
-						<label for="seed1" data-lang="enchCrack.xpSeed1">XP Seed 1</label>
+						<label for="seed1" data-lang="enchCrack.xpSeed1.value">XP Seed 1</label>
 						<input type="text" id="seed1" name="seed1" spellcheck="false" pattern="[\dA-Fa-f]{1,8}"
-							maxlength="8" size="8" required>
-						<label for="seed2" data-lang="enchCrack.xpSeed2">XP Seed 2</label>
+							maxlength="8" size="8" required data-langtip="enchCrack.xpSeed1.tooltip">
+						<label for="seed2" data-lang="enchCrack.xpSeed2.value">XP Seed 2</label>
 						<input type="text" id="seed2" name="seed2" spellcheck="false" pattern="[\dA-Fa-f]{1,8}"
-							maxlength="8" size="8" required>
+							maxlength="8" size="8" required data-langtip="enchCrack.xpSeed2.tooltip">
 						<input type="submit" value="Calculate Seed" data-langvalue="enchCrack.calculate">
 					</form>
 					<div id="bookshelves" class="flex">
@@ -64,8 +64,8 @@
 						<div id="crack-progress" class="flex" style="display: none;">
 							<span></span>
 						</div>
-						<input id="seed-check" type="submit" value="Check" data-langvalue="enchCrack.check" form="crack-seed">
-						<input id="reset-seed" type="submit" value="Reset" data-langvalue="enchCrack.reset">
+						<input id="seed-check" type="submit" value="Check" data-langvalue="enchCrack.check.value" data-langtip="enchCrack.check.tooltip" form="crack-seed">
+						<input id="reset-seed" type="submit" value="Reset" data-langvalue="enchCrack.reset.value" data-langtip="enchCrack.reset.tooltip">
 					</div>
 				</div>
 			</div>
@@ -111,8 +111,8 @@
 						</div>
 					</form>
 					<div id="man-submit" class="flex">
-						<input type="submit" id="calc-ench" value="Calculate" data-langvalue="enchCalc.calculate" form="enchantments-form">
-						<input type="submit" id="update-seed" value="Done" data-langvalue="enchCalc.done" disabled>
+						<input type="submit" id="calc-ench" value="Calculate" data-langvalue="enchCalc.calculate.value" data-langtip="enchCalc.calculate.tooltip" form="enchantments-form">
+						<input type="submit" id="update-seed" value="Done" data-langvalue="enchCalc.done.value" data-langtip="enchCalc.done.tooltip" disabled>
 					</div>
 					<div id="calc-results" class="flex">
 						<div id="result-items-needed" class="flex" data-langtip="enchCalc.throwCount.tooltip">
@@ -131,9 +131,9 @@
 					<div id="bottom-man-options" class="flex">
 						<select name="current-version" id="current-version"></select>
 						<div>
-							<label for="player-level" data-lang="enchCalc.level">Level:</label>
+							<label for="player-level" data-lang="enchCalc.level.value">Level:</label>
 							<input type="number" name="player-level" id="player-level" pattern="[0-9]*" min="1" max="999"
-								value="999" size="4" form="enchantments-form" required>
+								value="999" size="4" form="enchantments-form" required data-langtip="enchCalc.level.tooltip">
 						</div>
 					</div>
 				</div>
