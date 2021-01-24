@@ -1,6 +1,12 @@
 const defaultLang = "en";
 const availableLangs = new Map([
-    ["en", "English"]
+    ["en", "English"],
+    ["de", "Deutsche"],
+    ["fr", "Française"],
+    ["pl", "Polski"],
+    ["ru", "Pусский"],
+    ["zh_tw", "繁體中文"],
+    ["zh", "簡體中文"]
 ]);
 export default class Language {
     /**

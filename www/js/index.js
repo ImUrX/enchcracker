@@ -432,7 +432,7 @@ function changeHtmlLang() {
 
     //check if we are using intl for compact numbers or our own function
     if(new Intl.NumberFormat("ja-JP", { notation: "compact" }).format(10000) === "1万") {
-        const numFormat = new Intl.NumberFormat(this.lang, { notation: "compact" });
+        const numFormat = new Intl.NumberFormat(this.lang.replace(/_/g, "-"), { notation: "compact" });
         compact = number => {
             return this.get("enchCrack.remaining.value", numFormat.format(number));
         };
@@ -440,7 +440,7 @@ function changeHtmlLang() {
         compact = number => {
             const num = number.toString();
             let get = "enchCrack.remaining.value";
-            if(num.length > 7) {
+            if(num.length > 9) {
                 get = "enchCrack.remaining.billion";
             } else if(num.length > 6) {
                 get = "enchCrack.remaining.million";
