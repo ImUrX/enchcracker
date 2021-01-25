@@ -46,7 +46,7 @@ window.onload = async () => {
             }
 
             submit.classList.add("invalid");
-            submit.value = "Not found!";
+            submit.value = lang.get("enchCrack.notFound");
         });
     }
 
@@ -76,6 +76,19 @@ window.onload = async () => {
     // brute-force enchant seed
     const resetButton = document.querySelector("#reset-seed");
     const button = document.querySelector("#seed-check");
+    //add a setter to button.value so i know what im setting
+    (function(valueProt) {
+        Object.defineProperty(button, "value", {
+            set: function (value) {
+                if(value.length > 20) {
+                    this.classList.add("toobig");
+                } else {
+                    this.classList.remove("toobig");
+                }
+                valueProt.set.call(this, value);
+            }
+        });
+    }(Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")));
     let firstTry = true;
     {
         const crack = document.querySelector("#crack-seed");
@@ -91,7 +104,7 @@ window.onload = async () => {
             if(firstTry) {
                 firstTry = false;
                 firstArray = [...formData.values()];
-                button.value = "Send another one!";
+                button.value = lang.get("enchCrack.sendAnother");
                 books.focus();
                 return;
             }
@@ -138,7 +151,7 @@ window.onload = async () => {
     resetButton.addEventListener("click", async () => {
         clearInterval(interval);
         progress.style.display = "none";
-        button.value = "Wait a moment!";
+        button.value = lang.get("enchCrack.wait");
         button.setAttribute("disabled", "");
         firstTry = true;
         await pool.reset().catch(reason => { if(reason !== "Timeout") throw reason; });
@@ -215,7 +228,7 @@ window.onload = async () => {
             [Version.V1_13, "v1.13 - v1.13.2"],
             [Version.V1_14, "v1.14 - v1.14.2"],
             [Version.V1_14_3, "v1.14.3 - v1.15.2"],
-            [Version.V1_16, "v1.16"]
+            [Version.V1_16, "v1.16 - v1.16.5"]
         ]);
         //fill version select
         for(const i of Object.values(Version).filter(x => !isNaN(x))) {
@@ -343,7 +356,7 @@ window.onload = async () => {
 
             const item = document.querySelector(".item-slot.active");
             if(!item) {
-                return alert("Select an item at least :/");
+                return alert(lang.get("enchCalc.selectItem"));
             }
 
             const formData = new FormData(enchForm);

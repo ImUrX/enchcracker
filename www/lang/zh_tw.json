@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker(附魔破譯器)",
-        "about": "附魔破譯器 {}\n  原作者為 Earthcomputer\n  速度及介面優化為 Hexicube\n  \n  教程及註解:\n  連結 https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  圖像專案:\n  連結 https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub頁面:\n  連結 https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  請回報任何有關此破譯器的錯誤.\n  並且確保包含了 enchcracker.log 檔.",
+        "name": "Enchantment Cracker Web(附魔破譯器捲筒紙)",
+        "about": "附魔破譯器捲筒紙 {}\n  原作者為 Earthcomputer\n  速度及介面優化為 Hexicube\n  Web port by ImUrX\n  \n  教程及註解:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  圖像專案:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub頁面:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  請回報任何有關此破譯器的錯誤.",
         "warn32": "您正在運行Java的32位版本，\n您可能會遇到性能下降。\n\n續？"
     },
     "tab": {
@@ -48,7 +48,10 @@
             "million": "可能的種子碼數: {}佰萬個",
             "billion": "可能的種子碼數量: {}十憶個"
         },
-        "progress": "進度: {}%"
+        "progress": "進度: {}%",
+        "notFound": "未找到",
+        "sendAnother": "再發送一個！",
+        "wait": "等一下！"
     },
     "enchCalc": {
         "item": {
@@ -84,7 +87,8 @@
         "level": {
             "value": "等級:",
             "tooltip": "玩家當前的經驗等級。允許查找30級及以下的附魔"
-        }
+        },
+        "selectItem": "至少選擇一個項目 :/"
     },
     "ench": {
         "protection": "保護",

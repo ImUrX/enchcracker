@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker",
-        "about": "Enchantment Cracker {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  \n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  Please report any bugs you find on the issue tracker.\n  Make sure to include the enchcracker.log file.",
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  Web port by ImUrX\n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Please report any bugs you find on the issue tracker.",
         "warn32": "You are running a 32-bit version\nof Java, you may experienced\ndegraded performance.\n\nContinue anyway?"
     },
     "tab": {
@@ -48,7 +48,10 @@
             "million": "Possible seeds: {}M",
             "billion": "Possible seeds: {}B"
         },
-        "progress": "Progress: {}%"
+        "progress": "Progress: {}%",
+        "notFound": "Not found",
+        "sendAnother": "Send another one!",
+        "wait": "Wait a moment!"
     },
     "enchCalc": {
         "item": {
@@ -84,7 +87,8 @@
         "level": {
             "value": "Level:",
             "tooltip": "The current level of the player. Allows finding enchantments at level 30 and below."
-        }
+        },
+        "selectItem": "Select an item at least :/"
     },
     "ench": {
         "protection": "Protection",

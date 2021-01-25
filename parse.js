@@ -5,8 +5,19 @@ const poJ = require("properties-to-json");
 const LOCATION = "./scripts/temp/lang";
 
 const overwrite = {
+    program: {
+        about: "Enchantment Cracker Web {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  Web port by ImUrX\n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Please report any bugs you find on the issue tracker."
+    },
     tab: {
         config: "Configuration"
+    },
+    enchCrack: {
+        notFound: "Not found",
+        sendAnother: "Send another one!",
+        wait: "Wait a moment!"
+    },
+    enchCalc: {
+        selectItem: "Select an item at least :/"
     },
     config: {
         lang: "Language:",

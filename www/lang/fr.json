@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker",
-        "about": "Enchantment Cracker {}\n  Version originale par Earthcomputer\n  Améliorations de la vitesse et de l'interface utilisateur par Hexicube\n  \n  Tutoriel et explication (En anglais):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Album Imgur (En anglais):\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  Page GitHub:\n  LINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  Veuillez signaler (en anglais) tout bogue que vous trouvez sur l'outil de suivi des problèmes.\n  Veillez à inclure le fichier enchcracker.log",
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Version originale par Earthcomputer\n  Améliorations de la vitesse et de l'interface utilisateur par Hexicube\n  Web port by ImUrX\n  \n  Tutoriel et explication (En anglais):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Album Imgur (En anglais):\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  Page GitHub:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Veuillez signaler (en anglais) tout bogue que vous trouvez sur l'outil de suivi des problèmes.",
         "warn32": "Vous exécutez une version 32 bits\nde Java, vous pouvez rencontrer\ndes performances dégradées.\n\nContinuer quand même?"
     },
     "tab": {
@@ -48,7 +48,10 @@
             "million": "Graines possibles: {}M",
             "billion": "Graines possibles: {}B"
         },
-        "progress": "Progression: {}%"
+        "progress": "Progression: {}%",
+        "notFound": "Pas trouvé",
+        "sendAnother": "Envoyez-en un autre!",
+        "wait": "Attendez un moment!"
     },
     "enchCalc": {
         "item": {
@@ -84,7 +87,8 @@
         "level": {
             "value": "Niveau:",
             "tooltip": "Le niveau actuel du joueur. Permet de trouver des enchantements au niveau 30 et en dessous."
-        }
+        },
+        "selectItem": "Sélectionnez au moins un élément :/"
     },
     "ench": {
         "protection": "Protection",

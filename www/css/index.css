@@ -13,6 +13,13 @@
 	font-style: normal;
 }
 
+/*@font-face {
+	font-family: "Noto Sans";
+	font-weight: normal;
+	src: url("fonts/noto_sans/NotoSans-Regular.ttf") format("truetype");
+	font-style: normal;
+}*/
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #2C2F33;
@@ -26,7 +33,7 @@ input:focus {
 
 body,
 input {
-	font-family: "Minecraftia", sans-serif;
+	font-family: "Minecraftia",  sans-serif;
 }
 
 div,

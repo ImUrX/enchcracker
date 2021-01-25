@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker",
-        "about": "Enchantment Cracker {}\n  Wersja orginalna wykonana przez: Earthcomputer\n  Optymalizacja i Udoskonalenie UI wykonane przez: Hexicube\n  \n  Poradnik i wyjaśnienia (Angielski):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album (Angielski):\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  Strona Github(Angielski):\n  LINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  Prosimy o zgłaszanie błędów w zakładce issue tracker w języku angielskim i załączeniu pliku o nazwie \n  enchcracker.log",
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Wersja orginalna wykonana przez: Earthcomputer\n  Optymalizacja i Udoskonalenie UI wykonane przez: Hexicube\n  Web port by ImUrX\n  \n  Poradnik i wyjaśnienia (Angielski):\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Prosimy o zgłaszanie błędów w zakładce issue tracker w języku angielskim i załączeniu pliku o nazwie",
         "warn32": "Korzystasz z 32-bitowej wersji\njęzyka Java, możesz doświadczyć\nobniżonej wydajności.\n\nKontynuować mimo to?"
     },
     "tab": {
@@ -48,7 +48,10 @@
             "million": "Liczba możliwych ziarn: {}M",
             "billion": "Liczba możliwych ziarn: {}B"
         },
-        "progress": "Postęp: {}%"
+        "progress": "Postęp: {}%",
+        "notFound": "Nie znaleziono",
+        "sendAnother": "Wyślij inne!",
+        "wait": "Poczekaj chwilę!"
     },
     "enchCalc": {
         "item": {
@@ -84,7 +87,8 @@
         "level": {
             "value": "Poz.",
             "tooltip": "Aktualny poziom gracza. Pozwala na znajdowanie zaklęć na poziomie 30 i poniżej"
-        }
+        },
+        "selectItem": "Wybierz przynajmniej jedną pozycję :/"
     },
     "ench": {
         "protection": "Ochrona",

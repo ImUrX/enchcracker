@@ -1,7 +1,7 @@
 {
     "program": {
-        "name": "Enchantment Cracker(附魔破解器)",
-        "about": "Enchantment Cracker {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  \n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/Earthcomputer/EnchantmentCracker Earthcomputer/EnchantmentCracker\n  \n  Please report any bugs you find on the issue tracker.\n  Make sure to include the enchcracker.log file.",
+        "name": "Enchantment Cracker Web(附魔破解器卷筒纸)",
+        "about": "Enchantment Cracker Web {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  Web port by ImUrX\n  \n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Please report any bugs you find on the issue tracker.",
         "warn32": "您正在运行Java的32位版本，\n您可能会遇到性能下降。\n\n续？"
     },
     "tab": {
@@ -48,7 +48,10 @@
             "million": "可能的种子数: {}百万个",
             "billion": "可能的种子数: {}十亿个"
         },
-        "progress": "进度: {}%"
+        "progress": "进度: {}%",
+        "notFound": "未找到",
+        "sendAnother": "再发送一个！",
+        "wait": "等一下！"
     },
     "enchCalc": {
         "item": {
@@ -84,7 +87,8 @@
         "level": {
             "value": "等级:",
             "tooltip": "玩家当前的经验等级。允许查找30级及以下的附魔"
-        }
+        },
+        "selectItem": "至少选择一个项目 :/"
     },
     "ench": {
         "protection": "保护",
