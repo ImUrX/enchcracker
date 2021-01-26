@@ -1,4 +1,5 @@
 #!/bin/bash -e
+cd "$(dirname "$(realpath "$0")")";
 mkdir -p temp && cd temp
 git clone https://github.com/ImUrX/libenchcrack.git 2> /dev/null || ( cd libenchcrack && git pull && cd .. )
 
@@ -19,8 +20,6 @@ then
     exit 1
 fi
 
-pwd
-exit 1
 cd libenchcrack
 #get bindgen version
 BINDGENVER=$(cargo metadata --format-version 1 --filter-platform wasm32-unknown-unknown | jq '((.packages[] | select(.name == "libenchcrack")).dependencies[] | select(.name == "wasm-bindgen")).req')
