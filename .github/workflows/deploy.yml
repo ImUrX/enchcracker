@@ -21,11 +21,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Cache scripts temp
-        uses: actions/cache@v2.1.3
-        with:
-          path: ./scripts/temp
-          key: ${{ runner.os }}-script-temp
       - name: Cache toolchain
         uses: actions/cache@v2.1.3
         with:
@@ -45,7 +40,7 @@ jobs:
           rm -rf .gitignore
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
-          ls -la www
+          ls -la scripts/temp
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
