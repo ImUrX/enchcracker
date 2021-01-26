@@ -27,6 +27,9 @@ jobs:
           key: ${{ runner.os }}-script-temp
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
       - run: sudo apt-get install binaryen jq
       - name: compile wasm
         run: ./scripts/deploy.sh
