@@ -19,6 +19,8 @@ then
     exit 1
 fi
 
+pwd
+exit 1
 cd libenchcrack
 #get bindgen version
 BINDGENVER=$(cargo metadata --format-version 1 --filter-platform wasm32-unknown-unknown | jq '((.packages[] | select(.name == "libenchcrack")).dependencies[] | select(.name == "wasm-bindgen")).req')
