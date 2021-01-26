@@ -21,10 +21,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2.1.3
+      - name: Cache scripts temp
+        uses: actions/cache@v2.1.3
         with:
           path: ./scripts/temp
           key: ${{ runner.os }}-script-temp
+      - name: Cache toolchain
+        uses: actions/cache@v2.1.3
+        with:
+          path: |
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+          key: toolchain-${{ hashFiles('rust-toolchain') }}
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
@@ -33,10 +42,10 @@ jobs:
       - run: sudo apt-get install binaryen jq
       - name: compile wasm
         run: |
+          rm -rf .gitignore
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
-          rm -rf .gitignore
-        # ^ this is a bad idea
+          ls -la www
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
