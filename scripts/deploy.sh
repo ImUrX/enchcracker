@@ -29,7 +29,7 @@ cargo install --version $BINDGENVER wasm-bindgen-cli
 rustup target add wasm32-unknown-unknown
 cargo build --target wasm32-unknown-unknown --release
 #optimize
-wasm-opt -Os target/wasm32-unknown-unknown/libenchcrack.wasm -o ../libenchcrack.wasm
+wasm-opt -Os target/wasm32-unknown-unknown/release/libenchcrack.wasm -o ../libenchcrack.wasm
 #wasm bindgen
 cd ..
 rm -rf wasm

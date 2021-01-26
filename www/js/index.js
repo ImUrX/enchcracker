@@ -2,7 +2,7 @@
 const VERSION = "v1.0";
 import { WorkerPool } from "./Pool.js";
 import Language from "./Language.js";
-const modulePromise = wasm_bindgen("../wasm/libenchcrack_bg.wasm");
+const modulePromise = wasm_bindgen("./wasm/libenchcrack_bg.wasm");
 /**
  * @typedef wasm_bindgen
  * @property {typeof import("../wasm/libenchcrack").Manipulator} Manipulator
