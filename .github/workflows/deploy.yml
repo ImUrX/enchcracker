@@ -40,7 +40,9 @@ jobs:
           rm -rf .gitignore
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
-          ls -la scripts/temp
+          ls -la ./scripts
+          ls -la ./scripts/temp
+          mv ./scripts/temp/wasm ./www/
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:

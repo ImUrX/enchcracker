@@ -21,7 +21,7 @@ fi
 
 cd libenchcrack
 #get bindgen version
-BINDGENVER=$(cargo metadata --format-version 1 | jq '((.packages[] | select(.name == "libenchcrack")).dependencies[] | select(.name == "wasm-bindgen")).req')
+BINDGENVER=$(cargo metadata --format-version 1 --filter-platform wasm32-unknown-unknown | jq '((.packages[] | select(.name == "libenchcrack")).dependencies[] | select(.name == "wasm-bindgen")).req')
 BINDGENVER="${BINDGENVER:1:-1}"
 #install bindgen cli
 cargo install --version $BINDGENVER wasm-bindgen-cli
