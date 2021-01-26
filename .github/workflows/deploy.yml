@@ -35,6 +35,8 @@ jobs:
         run: |
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
+          rm -rf .gitignore
+        # ^ this is a bad idea
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
