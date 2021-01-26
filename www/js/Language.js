@@ -47,7 +47,7 @@ export default class Language {
     }
 
     async addHandler(callback) {
-        const json = await fetch(`../lang/${this.lang}.json`).then(res => res.json());
+        const json = await fetch(`./lang/${this.lang}.json`).then(res => res.json());
         this.select.value = this.lang;
         this.langObj = this.mutLangObject(json);
         callback();
@@ -55,7 +55,7 @@ export default class Language {
         this.select.addEventListener("change", async ev => {
             this.lang = ev.target.value;
             localStorage.setItem("lang", this.lang);
-            const json = await fetch(`../lang/${this.lang}.json`).then(res => res.json());
+            const json = await fetch(`./lang/${this.lang}.json`).then(res => res.json());
             this.langObj = this.mutLangObject(json);
             callback();
         });

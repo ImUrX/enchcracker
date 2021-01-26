@@ -25,7 +25,7 @@ let compact;
 
 window.onload = async () => {
     await modulePromise;
-    const pool = new WorkerPool("../worker.js", wasm_bindgen.__wbindgen_wasm_module);
+    const pool = new WorkerPool("./worker.js", wasm_bindgen.__wbindgen_wasm_module);
     const manipulator = new Manipulator(0, 0);
     const lang = new Language(document.querySelector("#lang-select"));
     let seedExists = false;
@@ -494,7 +494,7 @@ book.onload = () => {
     ctx.drawImage(book, ...rightCover, ...start, ...getScaledSize(rightCover, scale));
 
 };
-book.src = "../img/enchanting_table_book.png";
+book.src = "./img/enchanting_table_book.png";
 
 
 function getScaledSize(sprite, scale) {
