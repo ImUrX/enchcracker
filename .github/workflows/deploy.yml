@@ -32,7 +32,9 @@ jobs:
           target: wasm32-unknown-unknown
       - run: sudo apt-get install binaryen jq
       - name: compile wasm
-        run: ./scripts/deploy.sh
+        run: |
+          chmod +x ./scripts/deploy.sh
+          ./scripts/deploy.sh
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
