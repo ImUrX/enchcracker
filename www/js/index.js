@@ -373,10 +373,9 @@ window.onload = async () => {
                 resultNodes[0].innerHTML = lang.get("enchCalc.impossible");
                 return;
             }
-
+            
             if(res[0] === -1) {
                 res[0] = lang.get("enchCalc.noDummy");
-                return;
             } else if(res[0] > 63) {
                 res[0] = lang.get("enchCalc.stackFormat", Math.floor(res[0]/64), res[0] % 64);
             }
