@@ -1,0 +1,40 @@
+/** CSS for making translations fit the page or make the page fit the translation **/
+/*@font-face {
+	font-family: "Noto Sans TC";
+	font-weight: normal;
+	src: url("fonts/noto_sans_cjk/NotoSansTC-Regular.otf") format("opentype");
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Noto Sans SC";
+	font-weight: normal;
+	src: url("fonts/noto_sans_cjk/NotoSansSC-Regular.otf") format("opentype");
+	font-style: normal;
+}*/
+
+#seed-check.toobig {
+    font-size: 0.65em;
+    min-height: 26px;
+}
+
+/* german lang */
+#reset-seed:lang(de) {
+    min-height: 26px;
+    font-size: 0.7em;
+}
+
+label[for="player-level"]:lang(de) {
+    font-size: 0.75em;
+}
+
+/* russian lang */
+#about-content:lang(ru) {
+    font-size: 0.8em;
+}
+
+/* traditional chinese lang */
+
+#about-content:lang(zh_tw) {
+    font-size: 0.8em
+}

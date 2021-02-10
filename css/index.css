@@ -1,0 +1,1004 @@
+/* partially stolen from https://css-tricks.com/functional-css-tabs-revisited/ */
+@font-face {
+	font-family: "Minecraftia";
+	font-weight: normal;
+	src: url("fonts/Minecraftia.ttf") format("truetype");
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Galactic Standard";
+	font-weight: normal;
+	src: url("fonts/standard-galactic-alphabet.ttf") format("truetype");
+	font-style: normal;
+}
+
+/*@font-face {
+	font-family: "Noto Sans";
+	font-weight: normal;
+	src: url("fonts/noto_sans/NotoSans-Regular.ttf") format("truetype");
+	font-style: normal;
+}*/
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #2C2F33;
+		/* stolen from discord's palette */
+	}
+}
+
+input:focus {
+	outline: none;
+}
+
+body,
+input {
+	font-family: "Minecraftia",  sans-serif;
+}
+
+div,
+img {
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+
+	min-width: 32px;
+	min-height: 32px;
+}
+
+input[type="submit"],
+#crack-progress {
+	border: 2px solid #AAA;
+	border-right-color: #565656;
+	border-bottom-color: #565656;
+
+	color: white;
+	background: #6F6F6F;
+	-webkit-appearance: none;
+}
+
+input[type="submit"]:not(:disabled):hover {
+	border-color: white;
+}
+
+input[type="submit"]:not(:disabled):active {
+	border-color: lightgray;
+	color: lightgray;
+}
+
+input[type="submit"]:disabled {
+	background-color: #333;
+	border: 2px solid #565656;
+	border-right-color: #AAA;
+	border-bottom-color: #AAA;
+}
+
+label>div {
+	position: relative;
+	display: inline-block;
+	bottom: 10px;
+}
+
+#tabs {
+	position: relative;
+	min-height: 370px;
+	width: 354px;
+
+	left: 50%;
+	transform: translate(-50%, 15vh);
+
+	clear: both;
+}
+
+#cracking label div {
+	-webkit-clip-path: polygon(37% 100%, 69% 100%, 69% 94%, 75% 94%, 75% 87%, 82% 88%, 82% 82%, 88% 81%, 88% 56%, 82% 55%, 82% 51%, 75% 50%, 75% 44%, 69% 44%, 69% 31%, 75% 31%, 75% 19%, 69% 19%, 69% 12%, 63% 12%, 63% 6%, 44% 6%, 44% 13%, 38% 13%, 38% 19%, 31% 19%, 31% 31%, 38% 31%, 38% 44%, 32% 44%, 32% 50%, 25% 50%, 25% 56%, 19% 56%, 19% 82%, 25% 82%, 25% 88%, 32% 88%, 32% 94%, 38% 94%);
+	clip-path: polygon(37% 100%, 69% 100%, 69% 94%, 75% 94%, 75% 87%, 82% 88%, 82% 82%, 88% 81%, 88% 56%, 82% 55%, 82% 51%, 75% 50%, 75% 44%, 69% 44%, 69% 31%, 75% 31%, 75% 19%, 69% 19%, 69% 12%, 63% 12%, 63% 6%, 44% 6%, 44% 13%, 38% 13%, 38% 19%, 31% 19%, 31% 31%, 38% 31%, 38% 44%, 32% 44%, 32% 50%, 25% 50%, 25% 56%, 19% 56%, 19% 82%, 25% 82%, 25% 88%, 32% 88%, 32% 94%, 38% 94%);
+	background: url("../img/experience_bottle.png");
+	background-size: cover;
+}
+
+#enchant label div {
+	-webkit-clip-path: polygon(0 31%, 0 63%, 6% 63%, 6% 69%, 12% 69%, 12% 75%, 18% 75%, 18% 81%, 25% 82%, 25% 88%, 31% 88%, 31% 94%, 50% 94%, 50% 88%, 63% 88%, 63% 82%, 75% 81%, 75% 75%, 88% 75%, 88% 69%, 100% 69%, 100% 38%, 94% 38%, 94% 31%, 88% 31%, 88% 25%, 81% 25%, 81% 19%, 75% 19%, 75% 12%, 69% 12%, 69% 6%, 50% 6%, 50% 12%, 37% 12%, 37% 18%, 25% 19%, 25% 25%, 12% 25%, 12% 31%);
+	clip-path: polygon(0 31%, 0 63%, 6% 63%, 6% 69%, 12% 69%, 12% 75%, 18% 75%, 18% 81%, 25% 82%, 25% 88%, 31% 88%, 31% 94%, 50% 94%, 50% 88%, 63% 88%, 63% 82%, 75% 81%, 75% 75%, 88% 75%, 88% 69%, 100% 69%, 100% 38%, 94% 38%, 94% 31%, 88% 31%, 88% 25%, 81% 25%, 81% 19%, 75% 19%, 75% 12%, 69% 12%, 69% 6%, 50% 6%, 50% 12%, 37% 12%, 37% 18%, 25% 19%, 25% 25%, 12% 25%, 12% 31%);
+	background: url("../img/enchanted_book.png");
+	background-size: cover;
+}
+
+#config label div {
+	background: url("../img/compass.png");
+	width: 32px;
+	height: 32px;
+}
+
+#about label div {
+	background: url("../img/cookie.png");
+	background-size: cover;
+}
+
+label div.enchant::after {
+	position: absolute;
+	z-index: 5;
+
+	content: "";
+	background: url("../img/enchanted_item_glint.png");
+	filter: blur(1px) contrast(150%) brightness(200%);
+	opacity: 0.2;
+	transform: rotateY(0deg) rotate(45deg);
+	width: 30px;
+	height: 30px;
+
+	animation: move 6s linear infinite;
+}
+
+.tab {
+	float: left;
+}
+
+.cool-border {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border: 5px solid white;
+	border-right: 5px solid #555;
+}
+
+.cool-border::before {
+	content: "";
+	height: calc(100% + 8px);
+	width: calc(100% + 8px);
+	z-index: -2;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	background: none;
+
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border: 2px solid black;
+}
+
+.tab label.cool-border::before {
+	z-index: 2;
+	border-bottom: none;
+	width: 54px;
+	height: 54px;
+}
+
+@keyframes move {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: -128px -128px;
+	}
+}
+
+#cracking label.cool-border::after {
+	content: "";
+	width: 2px;
+	height: 50px;
+	position: absolute;
+	left: -5px;
+
+	background: none repeat scroll 0 0 #fff;
+	border-left: 2px solid black;
+	border-right: 1px solid white;
+}
+
+#about label.cool-border::after {
+	content: "";
+	z-index: 5;
+	width: calc(300% + 15px);
+	height: 7px;
+	position: absolute;
+	bottom: -5px;
+	left: -100px;
+
+	background: none repeat scroll 0 0 #C6C6C6;
+}
+
+.tab label.cool-border {
+	background: #8B8B8B;
+
+	overflow: hidden;
+	padding: 30px 8px 1px 8px;
+	margin-left: -1px;
+	position: relative;
+	left: 1px;
+}
+
+.tab [type=radio] {
+	display: none;
+}
+
+.content {
+	position: absolute;
+	top: 28px;
+	left: 0;
+	background: #C6C6C6;
+	right: 0;
+	bottom: 0;
+	padding: 2px;
+	border-bottom-color: #555;
+}
+
+[type=radio]:checked~label {
+	background: #C6C6C6;
+	border-bottom-color: #C6C6C6;
+	border-top-width: 2px;
+
+	z-index: 2;
+}
+
+[type=radio]:checked~label~.content {
+	z-index: 1;
+}
+
+.title {
+	padding-left: 5px;
+}
+
+#about-container {
+	overflow-y: scroll;
+	max-height: 92%;
+}
+
+#about-content {
+	font-size: 0.6em;
+}
+
+.flex {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#calc-seed.flex {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+#bookshelves {
+	flex-grow: 2;
+	align-items: center;
+	justify-content: center;
+
+	margin-right: 10px;
+	margin-left: 15px;
+
+	background: repeat url("../img/bookshelf.png");
+	background-size: 25%;
+}
+
+#animated.flex,
+#enchantments-slots.flex {
+	flex-direction: column;
+	margin: 5px;
+}
+
+#animated.flex>img {
+	padding-top: 15px;
+	align-self: flex-start;
+}
+
+#enchantments-slots,
+.item-slot {
+	border: 2px solid #373737;
+	border-bottom-color: #fff;
+	border-right-color: #fff;
+}
+
+#enchantments-slots {
+	flex-wrap: nowrap;
+
+	max-width: 216px;
+	max-height: 114px;
+	min-height: 114px;
+	min-width: 216px;
+}
+
+.enchantment-slot {
+	border: 2px solid #e0ca9f;
+	border-bottom-color: #544c3b;
+	border-right-color: #544c3b;
+	background: #a09172;
+	flex-wrap: nowrap;
+
+	flex-grow: 1;
+}
+
+.enchantment-slot:focus-within,
+.enchantment-slot:hover {
+	border-color: #fab9ef;
+	border-bottom-color: #654c61;
+	border-right-color: #654c61;
+	background: #b688ae;
+}
+
+.enchantment-slot:focus-within .gsa,
+.enchantment-slot:hover .gsa {
+	color: #FCFC7E;
+}
+
+.enchantment-slot>input[type=number] {
+	box-sizing: border-box;
+	margin-top: 10px;
+}
+
+.gsa {
+	font: 10px "Galactic Standard";
+	color: #654c61;
+	overflow-wrap: break-word;
+
+	padding-left: 8px;
+	flex-grow: 2;
+	min-width: 0;
+}
+
+/* level spritesheet */
+.orb {
+	background: no-repeat url("../img/orbs.png");
+	min-width: 34px;
+	min-height: 34px;
+	display: inline-block;
+	flex-grow: 1;
+
+	background-size: auto 100%;
+}
+
+#orb1 {
+	background-position: 1px 0px;
+}
+
+#orb2 {
+	background-position: -33.3px 0px;
+}
+
+#orb3 {
+	background-position: -66.6px 0px;
+}
+
+#crack-seed~input {
+	align-self: flex-end;
+	margin: 5px;
+	margin-top: 25px;
+}
+
+#crack-progress {
+	align-self: flex-end;
+	margin: 5px;
+	min-height: 20px;
+	flex-grow: 3;
+	position: relative;
+}
+
+#crack-progress::before {
+	content: attr(data-value);
+	position: absolute;
+	text-align: center;
+	top: -3px;
+	left: 0;
+	right: 0;
+}
+
+#crack-progress span {
+	background-color: rgb(0, 177, 0);
+}
+
+#crack-progress:not([style*="display: none;"])+#seed-check {
+	display: none;
+}
+
+#seed-check {
+	flex-grow: 3;
+}
+
+#calc-seed input[type="submit"] {
+	min-width: 145px;
+}
+
+input[type="submit"].invalid {
+	color: rgb(199, 0, 0);
+}
+
+#first-man {
+	align-items: stretch;
+}
+
+#item-list {
+	width: calc((32px + 4px) * 7);
+	/* woah my code-style changed (i should be using vars) */
+	height: calc((32px + 4px) * 2);
+	/* its because the code from before were all hacks and i wasnt thinking */
+
+	padding: 5px;
+	padding-right: 0px;
+}
+
+.item-slot {
+	background-color: #8B8B8B;
+	transition: 0.05s background-color linear;
+}
+
+.item-slot.active {
+	background-color: darkgreen;
+}
+
+.item-slot.disabled {
+	background-color: #444;
+}
+
+.item {
+	width: 32px;
+	height: 32px;
+	background-image: url("../img/item_sheet.png")
+}
+
+#upper-man-options {
+	flex-direction: column;
+	align-items: flex-end;
+
+	padding-top: 5px;
+}
+
+#total-bookshelves {
+	max-width: 44px;
+	min-width: 26px;
+}
+
+#total-bookshelves+.item {
+	margin: 2px;
+	margin-left: 0px;
+}
+
+#enchantments-form {
+	width: 100%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#enchantments {
+	width: 100%;
+	height: 120px;
+	background-color: #ddd;
+
+	overflow-y: scroll;
+}
+
+#enchantments > #enchantment-names {
+	max-width: 59%;
+	flex-grow: 3;
+}
+
+.flex.invert {
+	flex-direction: column;
+}
+
+#enchantments [type="radio"] {
+	display: initial;
+}
+
+#enchantments [type="radio"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	margin-right: 0px;
+	margin-left: 0px;
+
+	width: 18px;
+	height: 18px;
+	border: 2px solid #fff;
+	border-radius: 0;
+	border-right-color: #373737;
+	border-bottom-color: #373737;
+	background-color: #8B8B8B;
+	transition: 0.1s all linear;
+
+	position: relative;
+	top: 2px;
+}
+
+#enchantments [type="radio"]:checked {
+	background-color: darkgreen;
+	border: 2px solid #373737;
+	border-right-color: #fff;
+	border-bottom-color: #fff;
+}
+
+#enchantments [type="radio"]::after {
+	color: black;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+
+	position: relative;
+	top: -4px;
+	right: -1px;
+}
+
+#enchantments [type="radio"]:first-child::after {
+	content: "x";
+	top: -6px;
+}
+
+#enchantments [type="radio"]:nth-child(2)::after {
+	content: "-";
+}
+
+#enchantments [type="radio"]:nth-child(n+3).only-one::after {
+	content: "+";
+}
+
+#enchantments [type="radio"]:nth-child(1n+3) {
+	counter-increment: level;
+}
+
+#enchantments [type="radio"]:nth-child(1n+3)::after {
+	content: counter(level, upper-roman);
+}
+
+#enchantments [type="radio"]:nth-child(1n+5):not(:last-child)::after {
+	content: counter(level, upper-roman);
+	right: 0.5px;
+	letter-spacing: -3px;
+}
+
+#enchantments [type="radio"]:checked::after {
+	color: white;
+}
+
+#enchantments [type="radio"]:first-child:checked {
+	background-color: darkred;
+}
+
+#enchantments [type="radio"]:nth-child(2):checked {
+	background-color: rgb(128, 108, 0);
+}
+
+#man-submit {
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 100%;
+}
+
+#man-submit input {
+	margin-top: 3px;
+}
+
+#calc-ench {
+	margin-right: 5px;
+	flex-grow: 3;
+}
+
+#calc-results {
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#calc-results>div>span {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+#result-items-needed {
+	flex-grow: 3;
+}
+
+#result-slot,
+#result-bookshelves {
+	flex-grow: 1;
+}
+
+#current-version {
+	margin-right: 5px;
+}
+
+#bottom-man-options {
+	width: 100%;
+	justify-content: space-between;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+/* Sprites */
+@keyframes fire {
+	from {
+		background-position-x: -0px;
+	}
+
+	to {
+		background-position-x: -992px;
+	}
+}
+
+.mat-fire {
+	background-image: url("../img/fire_animation.png");
+	animation: fire 1s steps(31) infinite;
+}
+
+.item-book {
+	background-position: -0 -0;
+}
+
+.item-bookshelf {
+	background-position: -32px -0;
+}
+
+.item-bow {
+	background-position: -0 -32px;
+}
+
+.item-chainmailboots {
+	background-position: -32px -32px;
+}
+
+.item-chainmailchestplate {
+	background-position: -64px -0;
+}
+
+.item-chainmailhelmet {
+	background-position: -64px -32px;
+}
+
+.item-chainmailleggings {
+	background-position: -0 -64px;
+}
+
+.mat-stone {
+	background-position: -32px -64px;
+}
+
+.item-crossbow {
+	background-position: -64px -64px;
+}
+
+.mat-diamond {
+	background-position: -96px -0;
+}
+
+.item-diamondaxe {
+	background-position: -96px -32px;
+}
+
+.item-diamondboots {
+	background-position: -96px -64px;
+}
+
+.item-diamondchestplate {
+	background-position: -0 -96px;
+}
+
+.item-diamondhelmet {
+	background-position: -32px -96px;
+}
+
+.item-diamondhoe {
+	background-position: -64px -96px;
+}
+
+.item-diamondleggings {
+	background-position: -96px -96px;
+}
+
+.item-diamondpickaxe {
+	background-position: -128px -0;
+}
+
+.item-diamondshovel {
+	background-position: -128px -32px;
+}
+
+.item-diamondsword {
+	background-position: -128px -64px;
+}
+
+.item-fishingrod {
+	background-position: -128px -96px;
+}
+
+.item-goldenaxe {
+	background-position: -0 -128px;
+}
+
+.item-goldenboots {
+	background-position: -32px -128px;
+}
+
+.item-goldenchestplate {
+	background-position: -64px -128px;
+}
+
+.item-goldenhelmet {
+	background-position: -96px -128px;
+}
+
+.item-goldenhoe {
+	background-position: -128px -128px;
+}
+
+.mat-golden {
+	background-position: -160px -0;
+}
+
+.item-goldenleggings {
+	background-position: -160px -32px;
+}
+
+.item-goldenpickaxe {
+	background-position: -160px -64px;
+}
+
+.item-goldenshovel {
+	background-position: -160px -96px;
+}
+
+.item-goldensword {
+	background-position: -160px -128px;
+}
+
+.item-ironaxe {
+	background-position: -0 -160px;
+}
+
+.item-ironboots {
+	background-position: -32px -160px;
+}
+
+.item-ironchestplate {
+	background-position: -64px -160px;
+}
+
+.item-ironhelmet {
+	background-position: -96px -160px;
+}
+
+.item-ironhoe {
+	background-position: -128px -160px;
+}
+
+.mat-iron {
+	background-position: -160px -160px;
+}
+
+.item-ironleggings {
+	background-position: -192px -0;
+}
+
+.item-ironpickaxe {
+	background-position: -192px -32px;
+}
+
+.item-ironshovel {
+	background-position: -192px -64px;
+}
+
+.item-ironsword {
+	background-position: -192px -96px;
+}
+
+.item-lapislazuli {
+	background-position: -192px -128px;
+}
+
+.mat-leather {
+	background-position: -192px -160px;
+}
+
+.item-leatherboots {
+	background-position: -0 -192px;
+}
+
+.item-leatherchestplate {
+	background-position: -32px -192px;
+}
+
+.item-leatherhelmet {
+	background-position: -64px -192px;
+}
+
+.item-leatherleggings {
+	background-position: -96px -192px;
+}
+
+.item-netheriteaxe {
+	background-position: -128px -192px;
+}
+
+.item-netheriteboots {
+	background-position: -160px -192px;
+}
+
+.item-netheritechestplate {
+	background-position: -192px -192px;
+}
+
+.item-netheritehelmet {
+	background-position: -224px -0;
+}
+
+.item-netheritehoe {
+	background-position: -224px -32px;
+}
+
+.mat-netherite {
+	background-position: -224px -64px;
+}
+
+.item-netheriteleggings {
+	background-position: -224px -96px;
+}
+
+.item-netheritepickaxe {
+	background-position: -224px -128px;
+}
+
+.item-netheriteshovel {
+	background-position: -224px -160px;
+}
+
+.item-netheritesword {
+	background-position: -224px -192px;
+}
+
+.item-stoneaxe {
+	background-position: -0 -224px;
+}
+
+.item-stonehoe {
+	background-position: -32px -224px;
+}
+
+.item-stonepickaxe {
+	background-position: -64px -224px;
+}
+
+.item-stoneshovel {
+	background-position: -96px -224px;
+}
+
+.item-stonesword {
+	background-position: -128px -224px;
+}
+
+.item-trident {
+	background-position: -160px -224px;
+}
+
+.item-turtlehelmet {
+	background-position: -192px -224px;
+}
+
+.item-woodenaxe {
+	background-position: -224px -224px;
+}
+
+.item-woodenhoe {
+	background-position: -256px -0;
+}
+
+.item-woodenpickaxe {
+	background-position: -256px -32px;
+}
+
+.item-woodenshovel {
+	background-position: -256px -64px;
+}
+
+.item-woodensword {
+	background-position: -256px -96px;
+}
+
+#config label div.compass-0 {
+    background-position: -0 -0;
+}
+
+#config label div.compass-1 {
+    background-position: -32px -0;
+}
+
+#config label div.compass-2 {
+    background-position: -0 -32px;
+}
+
+#config label div.compass-3 {
+    background-position: -32px -32px;
+}
+
+#config label div.compass-4 {
+    background-position: -64px -0;
+}
+
+#config label div.compass-5 {
+    background-position: -64px -32px;
+}
+
+#config label div.compass-6 {
+    background-position: -0 -64px;
+}
+
+#config label div.compass-7 {
+    background-position: -32px -64px;
+}
+
+#config label div.compass-8 {
+    background-position: -64px -64px;
+}
+
+#config label div.compass-9 {
+    background-position: -96px -0;
+}
+
+#config label div.compass-10 {
+    background-position: -96px -32px;
+}
+
+#config label div.compass-11 {
+    background-position: -96px -64px;
+}
+
+#config label div.compass-12 {
+    background-position: -0 -96px;
+}
+
+#config label div.compass-13 {
+    background-position: -32px -96px;
+}
+
+#config label div.compass-14 {
+    background-position: -64px -96px;
+}
+
+#config label div.compass-15 {
+    background-position: -96px -96px;
+}
+
+#config label div.compass-16 {
+    background-position: -128px -0;
+}
+
+#config label div.compass-17 {
+    background-position: -128px -32px;
+}
+
+#config label div.compass-18 {
+    background-position: -128px -64px;
+}
+
+#config label div.compass-19 {
+    background-position: -128px -96px;
+}
+
+#config label div.compass-20 {
+    background-position: -0 -128px;
+}
+
+#config label div.compass-21 {
+    background-position: -32px -128px;
+}
+
+#config label div.compass-22 {
+    background-position: -64px -128px;
+}
+
+#config label div.compass-23 {
+    background-position: -96px -128px;
+}
+
+#config label div.compass-24 {
+    background-position: -128px -128px;
+}
+
+#config label div.compass-25 {
+    background-position: -160px -0;
+}
+
+#config label div.compass-26 {
+    background-position: -160px -32px;
+}
+
+#config label div.compass-27 {
+    background-position: -160px -64px;
+}

@@ -1,0 +1,143 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Version originale par Earthcomputer\n  Améliorations de la vitesse et de l'interface utilisateur par Hexicube\n  Web port by ImUrX\n  \n  Tutoriel et explication (En anglais):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Album Imgur (En anglais):\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  Page GitHub:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Veuillez signaler (en anglais) tout bogue que vous trouvez sur l'outil de suivi des problèmes.",
+        "warn32": "Vous exécutez une version 32 bits\nde Java, vous pouvez rencontrer\ndes performances dégradées.\n\nContinuer quand même?"
+    },
+    "tab": {
+        "enchantmentCracker": "Craqueur d'enchantement",
+        "enchantmentCalculator": "Calculateur d'enchantement",
+        "about": "À propos",
+        "config": "Configuration"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "Graine d'XP 1",
+            "tooltip": "La première graine d'XP consécutive"
+        },
+        "xpSeed2": {
+            "value": "Graine d'XP 2",
+            "tooltip": "La deuxième graine d'XP consécutive"
+        },
+        "calculate": "Calculer la graine",
+        "bookshelves": {
+            "tooltip": "Le nombre de bibliothèques autour de la table d'enchantement"
+        },
+        "xpCost1": {
+            "tooltip": "Le nombre à droite de la case du haut"
+        },
+        "xpCost2": {
+            "tooltip": "Le nombre à droite de la case centrale"
+        },
+        "xpCost3": {
+            "tooltip": "Le nombre à droite de la case du bas"
+        },
+        "check": {
+            "value": "Chercher",
+            "tooltip": "Utilisez ces informations pour réduire le nombre de graines d'XP possibles"
+        },
+        "reset": {
+            "value": "Rétablir",
+            "tooltip": "Réinitialiser le craqueur pour pouvoir craquer une nouvelle graine d'XP"
+        },
+        "impossible": "Pas de graines possibles",
+        "result": "Graine d'XP: {}",
+        "remaining": {
+            "value": "Graines possibles: {}",
+            "thousand": "Graines possibles: {}k",
+            "million": "Graines possibles: {}M",
+            "billion": "Graines possibles: {}B"
+        },
+        "progress": "Progression: {}%",
+        "notFound": "Pas trouvé",
+        "sendAnother": "Envoyez-en un autre!",
+        "wait": "Attendez un moment!"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "L'objet que vous voulez enchanter"
+        },
+        "material": {
+            "tooltip": "Le matériau de l'objet que vous voulez enchanter"
+        },
+        "maxBookshelves": {
+            "tooltip": "Le nombre maximum de bibliothèques à utiliser"
+        },
+        "calculate": {
+            "value": "Calculer",
+            "tooltip": "Cliquez pour calculer le nombre d'objets qu'il vous faudrait jeter si vous choisissez ces enchantements"
+        },
+        "playerSeedNotFound": "Vous devez d'abord craquer la graine du joueur !\nAllez sur le premier onglet pour le faire.",
+        "impossible": "Aucun résultat",
+        "noDummy": "Pas de dummy",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "Terminé",
+            "tooltip": "Appuyez pour faire savoir au craqueur que vous avez opté pour ces enchantements"
+        },
+        "throwCount": {
+            "tooltip": "La quantité d'objets à jeter"
+        },
+        "slot": {
+            "tooltip": "Le slot à enchanter"
+        },
+        "bookshelves": {
+            "tooltip": "Le nombre de bibliothèques pour enchanter"
+        },
+        "level": {
+            "value": "Niveau:",
+            "tooltip": "Le niveau actuel du joueur. Permet de trouver des enchantements au niveau 30 et en dessous."
+        },
+        "selectItem": "Sélectionnez au moins un élément :/"
+    },
+    "ench": {
+        "protection": "Protection",
+        "fireProtection": "Protec. feu",
+        "featherFalling": "Chute amortie",
+        "blastProtection": "Protec. explosions",
+        "projectileProtection": "Protec. projectiles",
+        "respiration": "Apnée",
+        "aquaAffinity": "Affinité aquatique",
+        "thorns": "Épines",
+        "depthStrider": "Agilité aquatique",
+        "sharpness": "Tranchant",
+        "smite": "Châtiment",
+        "baneOfArthropods": "Fléau des arth.",
+        "knockback": "Recul",
+        "fireAspect": "Aura de feu",
+        "looting": "Butin",
+        "efficiency": "Efficacité",
+        "silkTouch": "Toucher de soie",
+        "unbreaking": "Solidité",
+        "fortune": "Fortune",
+        "power": "Puissance",
+        "punch": "Frappe",
+        "flame": "Flamme",
+        "infinity": "Infinité",
+        "luckOfTheSea": "Chance de la mer",
+        "lure": "Appât",
+        "frostWalker": "Semelles givr.",
+        "mending": "Raccommodage",
+        "bindingCurse": "Mal. du lien éter.",
+        "vanishingCurse": "Mal. de dispar.",
+        "sweeping": "Affilage",
+        "loyalty": "Loyauté",
+        "impaling": "Empalement",
+        "riptide": "Impulsion",
+        "channeling": "Canalisation",
+        "multishot": "Tir multiple",
+        "quickCharge": "Charge rapide",
+        "piercing": "Perforation"
+    },
+    "config": {
+        "lang": "Langue:",
+        "threads": "Fils:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}
