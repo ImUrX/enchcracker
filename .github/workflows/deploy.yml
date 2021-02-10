@@ -24,7 +24,7 @@ jobs:
         with:
           path: |
             ./scripts/temp
-          key: toolchain-${{ hashFiles('./scripts/temp') }}
+          key: script-temp-${{ hashFiles('./scripts/temp') }}
       - name: Cache toolchain
         uses: actions/cache@v2.1.3
         with:

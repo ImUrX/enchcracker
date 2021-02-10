@@ -183,7 +183,7 @@ export class WorkerPool {
             this.responseQueue.seed.push(ev => {
                 res(ev.data[1]);
             });
-            this.responseQueueCounter.seed = 3;
+            this.responseQueueCounter.seed = this.threads - 1;
             this.workers[id].postMessage(["seed"]);
         });
     }
