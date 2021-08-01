@@ -78,20 +78,17 @@ export class WebGLCracker {
     }
 
     async prepare() {
-        const res = await canvasSize.maxArea({
-            usePromise: true,
-            useWorker: true
-        });
-        this.canvas.height = 5590;
-        this.canvas.width = 5590;
-        this.amountOfTimes = Math.ceil(this.canvas.height * this.canvas.width);
+        this.canvas.height = 7250;
+        this.canvas.width = 7250;
+
+        this.amountOfTimes = Math.round(pixelAmount / (this.canvas.height * this.canvas.width * 4));
+        console.log(this.amountOfTimes);
         this.shaders = await shaderPromise;
         this.results = new Uint32Array(this.canvas.height * this.canvas.width * 4);
     }
 
-    crack(first, second) {
+    async crack(first, second) {
         const gl = this.canvas.getContext("webgl2");
-        console.log(gl.getParameter(gl.MAX_TEXTURE_SIZE));
         const vShader = createShader(gl, gl.VERTEX_SHADER, this.shaders[0]);
         const fShader = createShader(gl, gl.FRAGMENT_SHADER, this.shaders[1]);
 
@@ -141,30 +138,34 @@ export class WebGLCracker {
         gl.uniform4uiv(firstLoc, new Uint32Array(first));
         gl.uniform4uiv(secondLoc, new Uint32Array(second));
         gl.uniform1ui(offsetLoc, 0);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        gl.finish();
+        const c = performance.now();
+        for(let i = 0; i < this.amountOfTimes; i++) {
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            gl.finish();
+        }
+        const a = performance.now();
         gl.readPixels(0, 0, this.canvas.width, this.canvas.height, gl.RGBA_INTEGER, gl.UNSIGNED_INT, this.results);
+        const b = performance.now();
+        console.log(`readPixels ${b-a}\ndrawArrays ${a-c}`);
         const results = [];
-        /*for(let i = 0; i < this.results.length; i+=4) {
-            const info = this.results[i+3];
-            for(let j = 0; j < 3; j++) {
-                const val = this.results[i+j];
-                const mask = 1 << j;
-                if((mask & info) !== 0) results.push(val);
-            }
-        }*/
-        console.log(this.results.slice(0, 4));
-        //console.log(results);
+        const d = performance.now();
+        for(const value of this.results) {
+            if(value !== 0) results.push(value);
+        }
+        const e = performance.now();
+        console.log(`filter and dup ${e-d}`);
+        console.log(results);
     }
 }
 
-const pixelAmount = (Math.pow(2, 32)-1)/3;
+const pixelAmount = Math.pow(2, 32)-1;
 const shaderPromise = Promise.all([
     fetch("../gl/square.vert").then(res => res.text()),
     fetch("../gl/crack.frag").then(res => res.text())
 ]);
 
-window.onload =  async () => {
+window.onload = async () => {
     const cracker = new WebGLCracker(document.getElementById("main"));
     await cracker.prepare();
     cracker.crack([15, 5, 20, 30], [12, 5, 10, 24]);

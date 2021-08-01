@@ -14,26 +14,54 @@ uvec2 addu64(uvec2 a, uvec2 b) {
     return x;
 }
 
-uvec2 multhelper(uint x, uint y) {
-    uint a,b,c,d;
-    a = x >> 16u;
-    b = x & MSK16;
-    c = y >> 16u;
-    d = y & MSK16;
-    uint bc = b*c;
-    uint bd = b*d;
-    uint ac = c*a;
-    uint ad = d*a;
-    uvec2 res = uvec2(bd + (((bc & MSK16) + (ad & MSK16)) << 16), 0u);
-    res.y += ac + (bc >> 16) + (ad >> 16) + (((bd >> 16) + (bc & MSK16) + (ad & MSK16)) >> 16);
-    return res;
+uint multu16(uint x, uint y, uint carry, out uint overflow) {
+    uint a = (x*y) + carry;
+    overflow = a >> 16;
+    return a & MSK16;
+}
+
+uvec2 split32by16(uint x) {
+    return uvec2(x & MSK16, x >> 16);
+}
+
+uint addu16(uvec4 vec, uint carry, out uint overflow) {
+    uint a = vec.x+vec.y+vec.z+vec.w+carry;
+    overflow = a >> 16;
+    return a & MSK16;
 }
 
 uvec2 multu64(uvec2 x, uvec2 y) {
-    uvec2 z = multhelper(x.x, y.x);
-    //uvec2 high = multhelper(x.y, y.y);
-    //z.y += high.x;
-	return z;
+    uvec4 mul = uvec4(split32by16(y.x), split32by16(y.y));
+    uvec4 num = uvec4(split32by16(x.x), split32by16(x.y));
+    uint overflow = 0u;
+    uvec4 first = uvec4(0u);
+    first.x = multu16(mul.x, num.x, overflow, overflow);
+    first.y = multu16(mul.x, num.y, overflow, overflow);
+    first.z = multu16(mul.x, num.z, overflow, overflow);
+    first.w = multu16(mul.x, num.w, overflow, overflow);
+
+    overflow = 0u;
+    uvec4 second = uvec4(0u);
+    second.y = multu16(mul.y, num.x, overflow, overflow);
+    second.z = multu16(mul.y, num.y, overflow, overflow);
+    second.w = multu16(mul.y, num.z, overflow, overflow);   
+
+    overflow = 0u;
+    uvec4 third = uvec4(0u);
+    third.z = multu16(mul.z, num.x, overflow, overflow);
+    third.w = multu16(mul.z, num.y, overflow, overflow);
+
+    overflow = 0u;
+    uvec4 fourth = uvec4(0u);
+    third.w = multu16(mul.w, num.x, overflow, overflow);
+    
+    overflow = 0u;
+    uvec4 result = uvec4(0u);
+    result.x = first.x;
+    result.y = addu16(uvec4(first.y, second.y, 0u, 0u), overflow, overflow);
+    result.z = addu16(uvec4(first.z, second.z, third.z, 0u), overflow, overflow);
+    result.w = addu16(uvec4(first.w, second.w, third.w, fourth.w), overflow, overflow);
+    return uvec2((result.y << 16) | result.x, (result.w << 16) | result.z );
 }
 
 uvec2 rshiftu64(uvec2 a, uint b) { //max amount of shifting is 31 i think xd
@@ -43,20 +71,16 @@ uvec2 rshiftu64(uvec2 a, uint b) { //max amount of shifting is 31 i think xd
 	return c;
 }
 
-struct SimpleRandom {
-    uvec2 seed;
-};
-
-void set_seed(inout SimpleRandom self, uvec2 seed) {
-    self.seed = (seed ^ MULT) & MASK;
+void set_seed(out uvec2 self, uvec2 seed) {
+    self = (seed ^ MULT) & MASK;
 }
 
-uint next_int(inout SimpleRandom self) {
-    self.seed = addu64(multu64(self.seed, MULT), uvec2(0xBu, 0u)) & MASK;
-    return rshiftu64(self.seed, 17u).x;
+uint next_int(inout uvec2 self) {
+    self = addu64(multu64(self, MULT), uvec2(0xBu, 0u)) & MASK;
+    return rshiftu64(self, 17u).x;
 }
 
-uint next_int_bound(inout SimpleRandom self, uint bound) {
+uint next_int_bound(inout uvec2 self, uint bound) {
     uint r = next_int(self);
     uint m = bound - 1u;
     if((bound & m) == 0u) {
@@ -68,13 +92,13 @@ uint next_int_bound(inout SimpleRandom self, uint bound) {
     return r;
 }
 
-uint generic_enchantability(inout SimpleRandom self, uint shelves) {
+uint generic_enchantability(inout uvec2 self, uint shelves) {
     uint first = next_int_bound(self, 8u);
     uint second = next_int_bound(self, shelves + 1u);
     return first + 1u + (shelves >> 1u) + second;
 }
 
-bool verify_seed(inout SimpleRandom self, uint seed, uvec4 info) {
+bool verify_seed(inout uvec2 self, uint seed, uvec4 info) {
     set_seed(self, uvec2(seed, 0u));
     uint slot1gen = generic_enchantability(self, info.x) / 3u;
     if(slot1gen < 1u) slot1gen = 1u;
@@ -93,18 +117,15 @@ uniform uint offset;
 out uvec4 fragColor;
 
 void main() {
-    SimpleRandom r = SimpleRandom(uvec2(0u, 0u));
-    uint seed = (uint(gl_FragCoord.x) + uint(gl_FragCoord.y) + offset) * 3u;
-    uint res = 0u;
-    set_seed(r, uvec2(0u, 0u));
-    /*for(uint i = 0u; i < 3u; i++) {
-        res = res << 1u;
-        if(verify_seed(r, seed + i, first) && verify_seed(r, seed + i, second)) {
-            res++;
+    uvec2 r = uvec2(0u);
+    uint[4] res = uint[4](0u, 0u, 0u, 0u);
+    uint seed = (uint(gl_FragCoord.x) + uint(gl_FragCoord.y) + offset) * 4u;
+    set_seed(r, uvec2(0u));
+    for(uint i = 0u; i < 4u; i++) {
+        if(verify_seed(r, seed + i, first)) {
+            res[i] = seed + i;
         }
     }
-    fragColor = uvec4(seed, seed+1u, seed+2u, res);
-    */
-    uvec2 mul = multu64(r.seed, MULT);
-    fragColor = uvec4(r.seed.x, r.seed.y, mul.x, mul.y);
+    fragColor = uvec4(res[0], res[1], res[2], res[3]);
+    //fragColor = uvec4(next_int(r), next_int(r), 0u, 0u);
 }
