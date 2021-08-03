@@ -1,34 +1,59 @@
-/* global wasm_bindgen:readonly */
-const VERSION = "v1.0";
+const VERSION = "v1.1";
 import { WorkerPool } from "./Pool.js";
 import Language from "./Language.js";
-const modulePromise = wasm_bindgen("./wasm/libenchcrack_bg.wasm");
-/**
- * @typedef wasm_bindgen
- * @property {typeof import("../wasm/libenchcrack").Manipulator} Manipulator
- * @property {typeof import("../wasm/libenchcrack").EnchantmentInstance} EnchantmentInstance
- * @property {typeof import("../wasm/libenchcrack").Enchantment} Enchantment
- * @property {typeof import("../wasm/libenchcrack").Item} Item
- * @property {typeof import("../wasm/libenchcrack").Material} Material
- * @property {typeof import("../wasm/libenchcrack").Version} Version
- * @property {typeof import("../wasm/libenchcrack").Utilities} Utilities
- * @property {typeof import("../wasm/libenchcrack").EnchantmentTableInfo} EnchantmentTableInfo
- */
+import Config from "./Config.js";
+import { threads as checkThreads } from "https://unpkg.com/wasm-feature-detect?module";
+import init, { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } from "../pkg/libenchcrack.js";
 
-/**
- * Import wasm module... kind of?
- * It looks like a require!
- * @type {wasm_bindgen}
- */
-const { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } = wasm_bindgen;
 let compact;
+let crackMethod = "rangedWorker";
+let threads = navigator.hardwareConcurrency || 4;
+const threadsExist = checkThreads();
+let resInit = init();
 
 window.onload = async () => {
-    await modulePromise;
-    const pool = new WorkerPool("./worker.js", wasm_bindgen.__wbindgen_wasm_module);
+    resInit = await resInit;
     const manipulator = new Manipulator(0, 0);
-    const lang = new Language(document.querySelector("#lang-select"));
+    const config = new Config();
+    const lang = new Language(document.querySelector("#lang-select"), config, changeHtmlLang);
+    /**
+     * @type {WorkerPool}
+     */
+    let pool;
     let seedExists = false;
+
+    const setCracker = (value) => {
+        if(pool) {
+            pool.workers.forEach(worker => worker.terminate());
+            pool = null;
+        }
+        crackMethod = value;
+        console.log(`setting cracker to ${crackMethod} with ${threads} threads`);
+        switch(value) {
+        case "atomicWorker":
+            pool = new WorkerPool("./atomicWorker.js", threads, undefined, false);
+            break;
+        case "rangedWorker":
+            pool = new WorkerPool("./rangedWorker.js", threads, resInit.__wbindgen_wasm_module);
+            break;
+        }
+    };
+
+    await lang.handleConfig(lang.lang);
+
+    threads = config.addRange(document.getElementById("thread-range"), 1, threads * 2, value => {
+        threads = value;
+        setCracker(crackMethod);
+    }, "amountThreads", threads);
+    {
+        //cracking method config handler
+        const options = new Map([
+            ["rangedWorker", lang.get("config.method.wasm")]    
+        ]);
+        if(await threadsExist) options.set("atomicWorker", lang.get("config.method.wasmthread"));
+        crackMethod = config.addSelect(document.getElementById("method-select"), options, setCracker, "crackmethod", crackMethod);
+        setCracker(crackMethod);
+    }
 
     //Crack player seed
     {
@@ -118,13 +143,21 @@ window.onload = async () => {
                 progress.dataset.value = lang.get("enchCrack.progress", bar.style.width.slice(0, -1));
             }, 2000);
 
+            let input;
             if(firstArray.length > 0) {
-                const input = pool.firstInput(firstArray, formData.values());
+                input = await pool.firstInput(firstArray, formData.values()).catch(e => {
+                    if(e !== "Timeout") throw e;
+                    return -1;
+                });
                 firstArray = [];
-                await input;
             } else {
-                const input = pool.input(formData.values());
-                await input;
+                input = await pool.input(formData.values()).catch(e => {
+                    if(e !== "Timeout") throw e;
+                    return -1;
+                });
+            }
+            if(input === -1) {
+                resetButton.click();
             }
 
             const remaining = await pool.remainingSeeds();
@@ -409,12 +442,12 @@ window.onload = async () => {
         });
     }
 
-    await lang.addHandler(changeHtmlLang.bind(lang));
-
-    // Debug your hearts content!
+    //Debug to your hearts content!
     window.pool = pool;
     window.manipulator = manipulator;
 };
+
+
 
 function changeHtmlLang() {
     document.title = this.get("program.name");

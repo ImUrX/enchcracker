@@ -10,9 +10,11 @@ const availableLangs = new Map([
 ]);
 export default class Language {
     /**
-     * @param {HTMLSelectElement} select 
+     * @param {HTMLSelectElement} select
+     * @param {Config} config
+     * @param {Function} handler
      */
-    constructor(select) {
+    constructor(select, config, handler) {
         /**
          * Current choosen lang
          * @type {string}
@@ -27,10 +29,9 @@ export default class Language {
          * The language object where strings and more objects are in
          */
         this.langObj;
+        this.handlers = [handler.bind(this)];
         let tempLang;
-        if(localStorage.getItem("lang")) {
-            this.lang = localStorage.getItem("lang");
-        } else if((tempLang = understandLang(navigator.language)) !== null) {
+        if((tempLang = understandLang(navigator.language)) !== null) {
             this.lang = tempLang;
         } else {
             for(const navLang of navigator.languages || []) {
@@ -40,25 +41,14 @@ export default class Language {
                 }
             }
         }
-
-        for(const [lang, name] of availableLangs) {
-            select.appendChild(new Option(name, lang));
-        }
+        this.lang = config.addSelect(select, availableLangs, this.handleConfig.bind(this), "lang", this.lang);
     }
 
-    async addHandler(callback) {
+    async handleConfig(value) {
+        this.lang = value;
         const json = await fetch(`./lang/${this.lang}.json`).then(res => res.json());
-        this.select.value = this.lang;
         this.langObj = this.mutLangObject(json);
-        callback();
-
-        this.select.addEventListener("change", async ev => {
-            this.lang = ev.target.value;
-            localStorage.setItem("lang", this.lang);
-            const json = await fetch(`./lang/${this.lang}.json`).then(res => res.json());
-            this.langObj = this.mutLangObject(json);
-            callback();
-        });
+        this.handlers.forEach(val => val());
     }
 
     mutLangObject(obj) {

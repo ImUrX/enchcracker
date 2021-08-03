@@ -7,7 +7,7 @@
 	<title>EnchCracker</title>
 	<link rel="stylesheet" href="./css/index.css">
 	<link rel="stylesheet" href="./css/lang.css">
-	<script src="./wasm/libenchcrack.js"></script>
+	<script src="./module-worker-polyfill.js"></script>
 	<script src="./js/index.js" type="module" async></script>
 </head>
 
@@ -152,6 +152,12 @@
 				<br>
 				<label for="lang-select" data-lang="config.lang">Language:</label>
 				<select id="lang-select"></select>
+				<br>
+				<label for="method-select" data-lang="config.method.value">Method:</label>
+				<select id="method-select"></select>
+				<br>
+				<label for="thread-range" data-lang="config.threads">Threads:</label>
+				<input id="thread-range" type="range" step="1">
 			</div>
 		</div>
 
