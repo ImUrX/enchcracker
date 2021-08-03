@@ -128,7 +128,7 @@ export class WorkerPool {
 
             let timeout = setTimeout(() => {
                 if(this.responseQueue[type][ourFuncIndex] !== ourFunc) return;
-                this.checkWorkers(confirms);
+                this.checkWorkers(...confirms);
                 rej("Timeout");
             }, waitTime); //Timeout if it takes more than 200s to respond
 
