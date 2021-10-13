@@ -261,7 +261,7 @@ window.onload = async () => {
             [Version.V1_13, "v1.13 - v1.13.2"],
             [Version.V1_14, "v1.14 - v1.14.2"],
             [Version.V1_14_3, "v1.14.3 - v1.15.2"],
-            [Version.V1_16, "v1.16 - v1.16.5"]
+            [Version.V1_16, "v1.16 - v1.17.1"]
         ]);
         //fill version select
         for(const i of Object.values(Version).filter(x => !isNaN(x))) {

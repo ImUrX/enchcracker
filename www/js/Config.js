@@ -1,8 +1,4 @@
 export default class Config {
-    constructor() {
-
-    }
-
     /**
      * @callback configCallback
      * @param {object} value
