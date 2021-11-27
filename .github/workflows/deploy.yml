@@ -33,10 +33,12 @@ jobs:
         uses: jetli/wasm-pack-action@v0.3.0
       - name: compile wasm
         run: |
+          rm .gitignore
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
+
       - name: GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2.2.0
+        uses: crazy-max/ghaction-github-pages@v2.5.0
         with:
           target_branch: page
           build_dir: ./www/

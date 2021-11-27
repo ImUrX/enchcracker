@@ -20,3 +20,4 @@ wasm-pack build --release -t web -d pkg-threads -- --features threads
 rm -rf ../www/pkg/ ../www/pkg-threads/
 mv pkg ../www/
 mv pkg-threads ../www/
+ls ../www/
