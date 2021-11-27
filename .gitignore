@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # wasm folder
-www/wasm
+www/pkg*/
 
 # scripts temp folder
 scripts/temp

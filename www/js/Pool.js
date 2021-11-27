@@ -1,24 +1,25 @@
 export class WorkerPool {
-    constructor(workerPath, module) {
+    constructor(workerPath, threads, module, spawn = true) {
         /**
          * Worker pool
          * @type {Worker[]}
          */
         this.workers = [];
         /**
-         * Amount of threads that navigator told at start
+         * Amount of threads that host told at start
          * @type {Number}
          */
-        this.threads = navigator.hardwareConcurrency || 4;
+        this.threads = threads;
         /**
          * Path to the worker.js file
          * @type {String}
          */
         this.workerPath = workerPath;
         /**
-         * @type {WebAssembly.Module}
+         * @type {WebAssembly.Module?}
          */
         this.module = module;
+        this.spawn = spawn;
 
         this.responseQueue = {
             finished: [],
@@ -31,14 +32,19 @@ export class WorkerPool {
             this.responseQueueCounter[key] = 0;
         }
 
-        for(let i = 0; i < this.threads; i++) {
+        /**
+         * Amount of threads that need to spawn
+         * @type {number}
+         */
+        this.amount = this.spawn ? this.threads : 1;
+        for(let i = 0; i < this.amount; i++) {
             const worker = this.initializeWorker(i);
             worker.addEventListener("message", ev => {
                 const type = ev.data[0];
                 for(const listener of this.responseQueue[type]) {
                     listener(ev, worker, i);
                 }
-                if(++this.responseQueueCounter[type] === this.threads) {
+                if(++this.responseQueueCounter[type] === this.amount) {
                     this.responseQueue[type] = [];
                     this.responseQueueCounter[type] = 0;
                 }
@@ -53,7 +59,10 @@ export class WorkerPool {
      * @returns {Worker}
      */
     initializeWorker(id) {
-        const worker = new Worker(this.workerPath);
+        const worker = new Worker(this.workerPath, {
+            type: "module",
+            name: id
+        });
         worker.postMessage([this.module, id, this.threads]);
         return worker;
     }
@@ -76,7 +85,7 @@ export class WorkerPool {
     }
 
     setFinishListener(func) {
-        for(let i = 0; i < this.threads; i++) {
+        for(let i = 0; i < this.amount; i++) {
             const worker = this.workers[i];
             worker.addEventListener("message", ev => {
                 if(ev.data[0] === "finished") func(i, worker);
@@ -119,7 +128,7 @@ export class WorkerPool {
 
             let timeout = setTimeout(() => {
                 if(this.responseQueue[type][ourFuncIndex] !== ourFunc) return;
-                this.checkWorkers(confirms);
+                this.checkWorkers(...confirms);
                 rej("Timeout");
             }, waitTime); //Timeout if it takes more than 200s to respond
 
@@ -183,7 +192,7 @@ export class WorkerPool {
             this.responseQueue.seed.push(ev => {
                 res(ev.data[1]);
             });
-            this.responseQueueCounter.seed = this.threads - 1;
+            this.responseQueueCounter.seed = this.amount - 1;
             this.workers[id].postMessage(["seed"]);
         });
     }

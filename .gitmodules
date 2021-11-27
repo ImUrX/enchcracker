@@ -1,0 +1,3 @@
+[submodule "libenchcrack"]
+	path = libenchcrack
+	url = https://github.com/ImUrX/libenchcrack
