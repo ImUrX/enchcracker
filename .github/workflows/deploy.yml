@@ -24,7 +24,7 @@ jobs:
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
-          toolchain: stable
+          toolchain: nightly-2021-02-11
           target: wasm32-unknown-unknown
       - name: wasm-pack-action
         # You may pin to the exact commit or the version.
