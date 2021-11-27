@@ -421,6 +421,7 @@ window.onload = async () => {
             doneButton.setAttribute("disabled", "");
             resultNodes.forEach(x => x.innerHTML = "-");
             playerLevel.value = manipulator.updateSeed(lastRes[0], lastRes[1], parseInt(playerLevel.value));
+            playerLevel.setAttribute("value", playerLevel.value);
             calcSeedButton.value = [...manipulator.playerSeed.reverse()].map(x => x.toString(16).toUpperCase().padStart(2, "0")).join("");
         });
     }
