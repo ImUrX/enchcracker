@@ -22,7 +22,7 @@ wasm-pack build --release -t web
 #rayon
 rustup toolchain install nightly-2021-07-29
 rustup run nightly-2021-07-29 \
-    rustup component add rust-src \
+    rustup component add rust-src
 RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' \
     rustup run nightly-2021-07-29 \
     wasm-pack build --release -t web -d pkg-threads \
