@@ -24,7 +24,7 @@ jobs:
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
-          toolchain: nightly-2021-07-29
+          toolchain: stable
           target: wasm32-unknown-unknown
           components: rust-src
       - name: Rust Cache

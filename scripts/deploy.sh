@@ -17,6 +17,8 @@ rustup target add wasm32-unknown-unknown
 rustup component add rust-src
 wasm-pack build --release -t web
 RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' \
+    rustup run nightly-2021-07-29 \
+    rustup component add rust-src \
     wasm-pack build --release -t web -d pkg-threads \
 	-- --features threads -Z build-std=panic_abort,std
 
