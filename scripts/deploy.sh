@@ -14,6 +14,7 @@ fi
 cd $(git rev-parse --show-toplevel)/libenchcrack
 #compile
 rustup target add wasm32-unknown-unknown
+rustup component add rust-src
 wasm-pack build --release -t web
 RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' \
     wasm-pack build --release -t web -d pkg-threads \
