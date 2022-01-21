@@ -24,11 +24,13 @@ jobs:
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
-          toolchain: nightly-2021-02-11
+          toolchain: stable
           target: wasm32-unknown-unknown
           components: rust-src
       - name: Rust Cache
         uses: Swatinem/rust-cache@v1.3.0
+        with:
+          working-directory: ./libenchcrack/
       - name: wasm-pack-action
         # You may pin to the exact commit or the version.
         # uses: jetli/wasm-pack-action@f98777369a49686b132a9e8f0fdd59837bf3c3fd
