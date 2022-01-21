@@ -10,6 +10,9 @@ let crackMethod = "rangedWorker";
 let threads = navigator.hardwareConcurrency || 4;
 const threadsExist = checkThreads();
 let resInit = init();
+window.Enchantment = Enchantment;
+window.Utilities = Utilities;
+window.Item = Item;
 
 window.onload = async () => {
     resInit = await resInit;
@@ -296,7 +299,7 @@ window.onload = async () => {
     {
         const enchantments = document.querySelector("#enchantments");
         for(const [string, id] of Object.entries(Enchantment)
-            .filter((([str,x]) => !isNaN(x) && isNaN(str) && !Utilities.isTreasure(x)))
+            .filter((([str,x]) => !isNaN(x) && isNaN(str + "1") && !Utilities.isTreasure(x)))
             .map(val => { val.toString = () => val[0]; return val; }).sort()) {
             const name = document.createElement("div");
             name.innerHTML = string;
