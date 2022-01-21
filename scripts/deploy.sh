@@ -15,7 +15,9 @@ cd $(git rev-parse --show-toplevel)/libenchcrack
 #compile
 rustup target add wasm32-unknown-unknown
 wasm-pack build --release -t web
-wasm-pack build --release -t web -d pkg-threads -- --features threads
+RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' \
+    wasm-pack build --release -t web -d pkg-threads \
+	-- --features threads -Z build-std=panic_abort,std
 
 rm pkg*/.gitignore
 rm -rf ../www/pkg/ ../www/pkg-threads/
