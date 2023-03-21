@@ -2,7 +2,7 @@ const VERSION = "v1.1";
 import { WorkerPool } from "./Pool.js";
 import Language from "./Language.js";
 import Config from "./Config.js";
-import { threads as checkThreads } from "https://unpkg.com/wasm-feature-detect?module";
+import { threads as checkThreads } from "https://unpkg.com/wasm-feature-detect/dist/esm/index.js";
 import init, { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } from "../pkg/libenchcrack.js";
 
 let compact;
