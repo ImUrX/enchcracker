@@ -1,0 +1,36 @@
+/* tslint:disable */
+/* eslint-disable */
+export const memory: WebAssembly.Memory;
+export function __wbg_enchantmentinstance_free(a: number): void;
+export function __wbg_get_enchantmentinstance_enchantment(a: number): number;
+export function __wbg_set_enchantmentinstance_enchantment(a: number, b: number): void;
+export function __wbg_get_enchantmentinstance_level(a: number): number;
+export function __wbg_set_enchantmentinstance_level(a: number, b: number): void;
+export function enchantmentinstance_new(a: number, b: number): number;
+export function __wbg_enchantmenttableinfo_free(a: number): void;
+export function enchantmenttableinfo_new(a: number, b: number, c: number, d: number): number;
+export function __wbg_cracker_free(a: number): void;
+export function cracker_new(a: number, b: number): number;
+export function cracker_reset(a: number): void;
+export function cracker_possible_seeds(a: number): number;
+export function cracker_seed(a: number): number;
+export function cracker_firstInput(a: number, b: number, c: number): void;
+export function cracker_addInput(a: number, b: number): void;
+export function cracker_contains(a: number, b: number): number;
+export function __wbg_manipulator_free(a: number): void;
+export function manipulator_new(a: number, b: number): number;
+export function manipulator_changeSeed(a: number, b: number, c: number): number;
+export function manipulator_player_seed(a: number): number;
+export function manipulator_simulate(a: number, b: number, c: number, d: number, e: number): number;
+export function manipulator_updateSeed(a: number, b: number, c: number, d: number): number;
+export function manipulator_updateItem(a: number, b: number, c: number): void;
+export function manipulator_reset(a: number, b: number): void;
+export function __wbg_utilities_free(a: number): void;
+export function utilities_materialIntroducedVersion(a: number): number;
+export function utilities_itemIntroducedVersion(a: number): number;
+export function utilities_enchantmentIntroducedVersion(a: number): number;
+export function utilities_getMaxLevelInTable(a: number, b: number): number;
+export function utilities_areEnchantmentsCompatible(a: number, b: number, c: number): number;
+export function utilities_getEnchantments(a: number): number;
+export function utilities_isTreasure(a: number): number;
+export function utilities_getItems(a: number): number;

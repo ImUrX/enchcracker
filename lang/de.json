@@ -1,0 +1,143 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Originalversion von Earthcomputer\n  Optimierung und Verbesserungen der Benutzeroberfläche von Hexicube\n  Web port by ImUrX\n  \n  Anleitung und Erläuterung (Englisch):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur-Album (Englisch):\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub-Seite:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Bitte melden Sie Fehler auf dem Issue-Tracker.",
+        "warn32": "Je werkt met een 32-bits versie\nvan Java, kunt u ervaren\nslechtere prestaties.\n\nGa toch verder?"
+    },
+    "tab": {
+        "enchantmentCracker": "Verzauberungs-Knacker",
+        "enchantmentCalculator": "Verzauberungs-Rechner",
+        "about": "Über",
+        "config": "Aufbau"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "Zauberseed 1",
+            "tooltip": "Der erste aufeinanderfolgende Zauberseed"
+        },
+        "xpSeed2": {
+            "value": "Zauberseed 2",
+            "tooltip": "Der zweite aufeinanderfolgende Zauberseed"
+        },
+        "calculate": "Seed berechnen",
+        "bookshelves": {
+            "tooltip": "Die Anzahl der Bücherregale mit Wirkung auf den Zaubertisch"
+        },
+        "xpCost1": {
+            "tooltip": "Die Zahl auf der rechten Seite des oberen Slots"
+        },
+        "xpCost2": {
+            "tooltip": "Die Zahl auf der rechten Seite des mittleren Slots"
+        },
+        "xpCost3": {
+            "tooltip": "Die Zahl auf der rechten Seite des unteren Slots"
+        },
+        "check": {
+            "value": "Prüfen",
+            "tooltip": "Verwenden Sie diese Angaben, um die möglichen Zauberseeds einzuengen"
+        },
+        "reset": {
+            "value": "Zurücksetzen",
+            "tooltip": "Setzen Sie den Verzauberungs-Knacker zurück, um einen neuen Zauberseed knacken zu können"
+        },
+        "impossible": "Keine möglichen Seeds",
+        "result": "Zauberseed: {}",
+        "remaining": {
+            "value": "Mögliche Seeds: {}",
+            "thousand": "Mögliche Seeds: {}k",
+            "million": "Mögliche Seeds: {}M",
+            "billion": "Mögliche Seeds: {}kM"
+        },
+        "progress": "Fortschritt: {}%",
+        "notFound": "Nicht gefunden",
+        "sendAnother": "Sende noch eins!",
+        "wait": "Moment mal!"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "Der Gegenstand, den Sie verzaubern wollen"
+        },
+        "material": {
+            "tooltip": "Das Material des Gegenstands, den Sie verzaubern wollen"
+        },
+        "maxBookshelves": {
+            "tooltip": "Die maximale Anzahl der zu benutzenden Bücherregale"
+        },
+        "calculate": {
+            "value": "Berechnen",
+            "tooltip": "Drücken Sie hier, um die Anzahl an Gegenständen zu berechnen, die Sie fallen lassen müssen, um die Verzauberungen zu bekommen"
+        },
+        "playerSeedNotFound": "Sie müssen erst den Spielerseed knacken!\nWechseln Sie zum ersten Tab, um dies zu tun.",
+        "impossible": "Nichts gefunden",
+        "noDummy": "Kein Dummy",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "Fertig",
+            "tooltip": "Drücken Sie hier, nachdem Sie die Verzauberungen durchgeführt haben"
+        },
+        "throwCount": {
+            "tooltip": "Die Anzahl der Gegenstände, die fallen gelassen werden sollen"
+        },
+        "slot": {
+            "tooltip": "Der Slot, mit dem Sie verzaubern sollen"
+        },
+        "bookshelves": {
+            "tooltip": "Die Anzahl der Bücherregale, mit denen Sie verzaubern sollen"
+        },
+        "level": {
+            "value": "Erfahrungsstufe:",
+            "tooltip": "Die aktuelle Erfahrungsstufe des Spielers. Ermöglicht, Verzauberungen unterhalb von Stufe 30 zu finden."
+        },
+        "selectItem": "Wählen Sie mindestens einen Artikel aus :/"
+    },
+    "ench": {
+        "protection": "Schutz",
+        "fireProtection": "Feuerschutz",
+        "featherFalling": "Federfall",
+        "blastProtection": "Explosionsschutz",
+        "projectileProtection": "Schusssicher",
+        "respiration": "Atmung",
+        "aquaAffinity": "Wasseraffinität",
+        "thorns": "Dornen",
+        "depthStrider": "Wasserläufer",
+        "sharpness": "Schärfe",
+        "smite": "Bann",
+        "baneOfArthropods": "Nem der Gliederfüßer",
+        "knockback": "Rückstoß",
+        "fireAspect": "Verbrennung",
+        "looting": "Plünderung",
+        "efficiency": "Effizienz",
+        "silkTouch": "Behutsamkeit",
+        "unbreaking": "Haltbarkeit",
+        "fortune": "Glück",
+        "power": "Stärke",
+        "punch": "Schlag",
+        "flame": "Flamme",
+        "infinity": "Unendlichkeit",
+        "luckOfTheSea": "Glück des Meeres",
+        "lure": "Köder",
+        "frostWalker": "Eisläufer",
+        "mending": "Reparatur",
+        "bindingCurse": "Fluch der Bindung",
+        "vanishingCurse": "Fluch des Verschwindens",
+        "sweeping": "Schwungkraft",
+        "loyalty": "Treue",
+        "impaling": "Harpune",
+        "riptide": "Sog",
+        "channeling": "Entladung",
+        "multishot": "Mehrfachschuss",
+        "quickCharge": "Schnellladen",
+        "piercing": "Durchschuss"
+    },
+    "config": {
+        "lang": "Sprache:",
+        "threads": "Themen:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}

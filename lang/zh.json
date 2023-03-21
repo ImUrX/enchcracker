@@ -1,0 +1,143 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web(附魔破解器卷筒纸)",
+        "about": "Enchantment Cracker Web {}\n  Original version by Earthcomputer\n  Speed and UI improvements by Hexicube\n  Web port by ImUrX\n  \n  Tutorial and Explanation:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur album:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub page:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Please report any bugs you find on the issue tracker.",
+        "warn32": "您正在运行Java的32位版本，\n您可能会遇到性能下降。\n\n续？"
+    },
+    "tab": {
+        "enchantmentCracker": "附魔破解器",
+        "enchantmentCalculator": "附魔计算器",
+        "about": "关于",
+        "config": "组态"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "XP种子 1",
+            "tooltip": "所需的第一个XP种子"
+        },
+        "xpSeed2": {
+            "value": "XP种子 2",
+            "tooltip": "所需的第二个XP种子"
+        },
+        "calculate": "计算种子",
+        "bookshelves": {
+            "tooltip": "附魔台周围的有效书架数量"
+        },
+        "xpCost1": {
+            "tooltip": "第一个附魔所需的经验等级"
+        },
+        "xpCost2": {
+            "tooltip": "第二个附魔所需的经验等级"
+        },
+        "xpCost3": {
+            "tooltip": "第三个附魔所需的经验等级"
+        },
+        "check": {
+            "value": "检查",
+            "tooltip": "使用这个功能来找到能能的XP种子"
+        },
+        "reset": {
+            "value": "重置",
+            "tooltip": "重置当前的XP种子破解器来破解新的XP种子"
+        },
+        "impossible": "找不到可能的XP种子",
+        "result": "XP种子: {}",
+        "remaining": {
+            "value": "可能的种子数: {}",
+            "thousand": "可能的种子数: {}千个",
+            "million": "可能的种子数: {}百万个",
+            "billion": "可能的种子数: {}十亿个"
+        },
+        "progress": "进度: {}%",
+        "notFound": "未找到",
+        "sendAnother": "再发送一个！",
+        "wait": "等一下！"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "想要附魔的物品"
+        },
+        "material": {
+            "tooltip": "想要附魔的物品的材料"
+        },
+        "maxBookshelves": {
+            "tooltip": "使用的最大书架数量"
+        },
+        "calculate": {
+            "value": "计算",
+            "tooltip": "按下来计算你可能需要丢出多少物品来获得想要的附魔"
+        },
+        "playerSeedNotFound": "你需要先破解玩家种子!\n先去第一个选项卡里看看吧",
+        "impossible": "没有匹配",
+        "noDummy": "没有重复",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "完成",
+            "tooltip": "按下来让破解器知道你已经获得了想要的附魔"
+        },
+        "throwCount": {
+            "tooltip": "需要丢出物品的数量"
+        },
+        "slot": {
+            "tooltip": "需要附魔的物品"
+        },
+        "bookshelves": {
+            "tooltip": "附魔所用的有效书架数量"
+        },
+        "level": {
+            "value": "等级:",
+            "tooltip": "玩家当前的经验等级。允许查找30级及以下的附魔"
+        },
+        "selectItem": "至少选择一个项目 :/"
+    },
+    "ench": {
+        "protection": "保护",
+        "fireProtection": "火焰保护",
+        "featherFalling": "摔落保护",
+        "blastProtection": "爆炸保护",
+        "projectileProtection": "投射物保护",
+        "respiration": "水下呼吸",
+        "aquaAffinity": "水下速掘",
+        "thorns": "荆棘",
+        "depthStrider": "深海探索者",
+        "sharpness": "锋利",
+        "smite": "亡灵杀手",
+        "baneOfArthropods": "节肢杀手",
+        "knockback": "击退",
+        "fireAspect": "火焰附加",
+        "looting": "掠夺",
+        "efficiency": "效率",
+        "silkTouch": "精准采集",
+        "unbreaking": "耐久",
+        "fortune": "时运",
+        "power": "力量",
+        "punch": "冲击",
+        "flame": "火矢",
+        "infinity": "无限",
+        "luckOfTheSea": "海之眷顾",
+        "lure": "饵钓",
+        "frostWalker": "冰霜行者",
+        "mending": "经验修补",
+        "bindingCurse": "绑定诅咒",
+        "vanishingCurse": "消失诅咒",
+        "sweeping": "横扫之刃",
+        "loyalty": "忠诚",
+        "impaling": "穿刺",
+        "riptide": "激流",
+        "channeling": "引雷",
+        "multishot": "多重射击",
+        "quickCharge": "快速装填",
+        "piercing": "穿透"
+    },
+    "config": {
+        "lang": "语言:",
+        "threads": "线程:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}
