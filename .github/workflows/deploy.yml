@@ -42,6 +42,7 @@ jobs:
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v5
         with:
+          fqdn: enchcracker.imurx.org
           target_branch: page
           build_dir: ./www/
           jekyll: false
