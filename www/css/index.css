@@ -54,6 +54,7 @@ input[type="submit"],
 	color: white;
 	background: #6F6F6F;
 	-webkit-appearance: none;
+	appearance: none;
 }
 
 input[type="submit"]:not(:disabled):hover {
@@ -160,6 +161,10 @@ label div.enchant::after {
 	border-bottom: none;
 	width: 54px;
 	height: 54px;
+}
+
+.align-center {
+	align-items: center;
 }
 
 @keyframes move {
@@ -405,7 +410,7 @@ input[type="submit"].invalid {
 }
 
 #item-list {
-	width: calc((32px + 4px) * 7);
+	width: calc((32px + 4px) * 5);
 	/* woah my code-style changed (i should be using vars) */
 	height: calc((32px + 4px) * 2);
 	/* its because the code from before were all hacks and i wasnt thinking */
@@ -436,6 +441,7 @@ input[type="submit"].invalid {
 #upper-man-options {
 	flex-direction: column;
 	align-items: flex-end;
+	margin-left: auto;
 
 	padding-top: 5px;
 }
@@ -596,11 +602,19 @@ input[type="submit"].invalid {
 	margin-right: 5px;
 }
 
+#player-level {
+	height: 80%;
+}
+
 #bottom-man-options {
 	width: 100%;
 	justify-content: space-between;
 	margin-right: 5px;
 	margin-left: 5px;
+}
+
+.material-based {
+	background-position: -288px -160px;
 }
 
 /* Sprites */
@@ -619,152 +633,209 @@ input[type="submit"].invalid {
 	animation: fire 1s steps(31) infinite;
 }
 
-.item-book {
-	background-position: -0 -0;
+.item-book,
+.mat-book {
+	background-position: -288px -128px;
 }
 
 .item-bookshelf {
-	background-position: -32px -0;
-}
-
-.item-bow {
-	background-position: -0 -32px;
-}
-
-.item-chainmailboots {
-	background-position: -32px -32px;
-}
-
-.item-chainmailchestplate {
-	background-position: -64px -0;
-}
-
-.item-chainmailhelmet {
-	background-position: -64px -32px;
-}
-
-.item-chainmailleggings {
 	background-position: -0 -64px;
 }
 
+.item-bow {
+	background-position: -288px -96px;
+}
+
+.item-chainmailboots {
+	background-position: -288px -64px;
+}
+
+.item-chainmailchestplate {
+	background-position: -288px -32px;
+}
+
+.item-chainmailhelmet {
+	background-position: -288px -0;
+}
+
+.item-chainmailleggings {
+	background-position: -256px -256px;
+}
+
 .mat-stone {
-	background-position: -32px -64px;
+	background-position: -64px -32px;
 }
 
 .item-crossbow {
-	background-position: -64px -64px;
+	background-position: -256px -128px;
 }
 
 .mat-diamond {
-	background-position: -96px -0;
+	background-position: -256px -96px;
 }
 
 .item-diamondaxe {
-	background-position: -96px -32px;
+	background-position: -256px -64px;
 }
 
 .item-diamondboots {
-	background-position: -96px -64px;
+	background-position: -256px -32px;
 }
 
 .item-diamondchestplate {
-	background-position: -0 -96px;
+	background-position: -256px -0;
 }
 
 .item-diamondhelmet {
-	background-position: -32px -96px;
+	background-position: -224px -224px;
 }
 
 .item-diamondhoe {
-	background-position: -64px -96px;
+	background-position: -192px -224px;
 }
 
 .item-diamondleggings {
-	background-position: -96px -96px;
+	background-position: -160px -224px;
 }
 
 .item-diamondpickaxe {
-	background-position: -128px -0;
+	background-position: -128px -224px;
 }
 
 .item-diamondshovel {
-	background-position: -128px -32px;
+	background-position: -96px -224px;
 }
 
 .item-diamondsword {
-	background-position: -128px -64px;
+	background-position: -32px -224px;
+}
+
+.item-diamondspear {
+	background-position: -64px -224px;
+}
+
+.mat-copper {
+	background-position: -64px -256px;
+}
+
+.item-copperaxe {
+	background-position: -224px -256px;
+}
+
+.item-copperboots {
+	background-position: -192px -256px;
+}
+
+.item-copperchestplate {
+	background-position: -160px -256px;
+}
+
+.item-copperhelmet {
+	background-position: -128px -256px;
+}
+
+.item-copperhoe {
+	background-position: -96px -256px;
+}
+
+.item-copperleggings {
+	background-position: -32px -256px;
+}
+
+.item-copperpickaxe {
+	background-position: -0 -256px;
+}
+
+.item-coppershovel {
+	background-position: -256px -224px;
+}
+
+.item-copperspear {
+	background-position: -256px -192px;
+}
+
+.item-coppersword {
+	background-position: -256px -160px;
 }
 
 .item-fishingrod {
-	background-position: -128px -96px;
+	background-position: -0 -224px;
 }
 
-.item-goldenaxe {
-	background-position: -0 -128px;
-}
-
-.item-goldenboots {
-	background-position: -32px -128px;
-}
-
-.item-goldenchestplate {
-	background-position: -64px -128px;
-}
-
-.item-goldenhelmet {
-	background-position: -96px -128px;
-}
-
-.item-goldenhoe {
-	background-position: -128px -128px;
-}
-
-.mat-golden {
-	background-position: -160px -0;
-}
-
-.item-goldenleggings {
-	background-position: -160px -32px;
-}
-
-.item-goldenpickaxe {
-	background-position: -160px -64px;
-}
-
-.item-goldenshovel {
-	background-position: -160px -96px;
-}
-
-.item-goldensword {
-	background-position: -160px -128px;
-}
-
-.item-ironaxe {
-	background-position: -0 -160px;
-}
-
-.item-ironboots {
+.item-mace {
 	background-position: -32px -160px;
 }
 
+.mat-golden {
+	background-position: -224px -192px;
+}
+
+.item-goldenaxe {
+	background-position: -224px -160px;
+}
+
+.item-goldenboots {
+	background-position: -224px -128px;
+}
+
+.item-goldenchestplate {
+	background-position: -224px -96px;
+}
+
+.item-goldenhelmet {
+	background-position: -224px -64px;
+}
+
+.item-goldenhoe {
+	background-position: -224px -32px;
+}
+
+.item-goldenleggings {
+	background-position: -224px -0;
+}
+
+.item-goldenpickaxe {
+	background-position: -192px -192px;
+}
+
+.item-goldenshovel {
+	background-position: -160px -192px;
+}
+
+.item-goldensword {
+	background-position: -96px -192px;
+}
+
+.item-goldenspear {
+	background-position: -128px -192px;
+}
+
+.item-ironaxe {
+	background-position: -64px -192px;
+}
+
+.item-ironboots {
+	background-position: -32px -192px;
+}
+
 .item-ironchestplate {
-	background-position: -64px -160px;
+	background-position: -0 -192px;
 }
 
 .item-ironhelmet {
-	background-position: -96px -160px;
+	background-position: -192px -160px;
 }
 
 .item-ironhoe {
-	background-position: -128px -160px;
+	background-position: -192px -128px;
 }
 
 .mat-iron {
-	background-position: -160px -160px;
+	background-position: -192px -96px;
 }
 
 .item-ironleggings {
-	background-position: -192px -0;
+	background-position: -192px -64px;
 }
 
 .item-ironpickaxe {
@@ -772,123 +843,139 @@ input[type="submit"].invalid {
 }
 
 .item-ironshovel {
-	background-position: -192px -64px;
+	background-position: -192px -0;
 }
 
 .item-ironsword {
-	background-position: -192px -96px;
+	background-position: -128px -160px;
+}
+
+.item-ironspear {
+	background-position: -160px -160px;
 }
 
 .item-lapislazuli {
-	background-position: -192px -128px;
+	background-position: -96px -160px;
 }
 
 .mat-leather {
-	background-position: -192px -160px;
+	background-position: -64px -160px;
 }
 
 .item-leatherboots {
-	background-position: -0 -192px;
+	background-position: -32px -0;
 }
 
 .item-leatherchestplate {
-	background-position: -32px -192px;
+	background-position: -0 -32px;
 }
 
 .item-leatherhelmet {
-	background-position: -64px -192px;
+	background-position: -64px -0;
 }
 
 .item-leatherleggings {
-	background-position: -96px -192px;
+	background-position: -32px -32px;
 }
 
 .item-netheriteaxe {
-	background-position: -128px -192px;
+	background-position: -0 -160px;
 }
 
 .item-netheriteboots {
-	background-position: -160px -192px;
+	background-position: -160px -128px;
 }
 
 .item-netheritechestplate {
-	background-position: -192px -192px;
+	background-position: -160px -96px;
 }
 
 .item-netheritehelmet {
-	background-position: -224px -0;
+	background-position: -160px -64px;
 }
 
 .item-netheritehoe {
-	background-position: -224px -32px;
+	background-position: -160px -32px;
 }
 
 .mat-netherite {
-	background-position: -224px -64px;
+	background-position: -160px -0;
 }
 
 .item-netheriteleggings {
-	background-position: -224px -96px;
+	background-position: -128px -128px;
 }
 
 .item-netheritepickaxe {
-	background-position: -224px -128px;
+	background-position: -96px -128px;
 }
 
 .item-netheriteshovel {
-	background-position: -224px -160px;
+	background-position: -64px -128px;
 }
 
 .item-netheritesword {
-	background-position: -224px -192px;
+	background-position: -0 -128px;
+}
+
+.item-netheritespear {
+	background-position: -32px -128px;
 }
 
 .item-stoneaxe {
-	background-position: -0 -224px;
+	background-position: -128px -96px;
 }
 
 .item-stonehoe {
-	background-position: -32px -224px;
+	background-position: -128px -64px;
 }
 
 .item-stonepickaxe {
-	background-position: -64px -224px;
+	background-position: -128px -32px;
 }
 
 .item-stoneshovel {
-	background-position: -96px -224px;
+	background-position: -128px -0;
 }
 
 .item-stonesword {
-	background-position: -128px -224px;
+	background-position: -64px -96px;
+}
+
+.item-stonespear {
+	background-position: -96px -96px;
 }
 
 .item-trident {
-	background-position: -160px -224px;
+	background-position: -0 -0;
 }
 
 .item-turtlehelmet {
-	background-position: -192px -224px;
+	background-position: -32px -96px;
 }
 
 .item-woodenaxe {
-	background-position: -224px -224px;
+	background-position: -0 -96px;
 }
 
 .item-woodenhoe {
-	background-position: -256px -0;
+	background-position: -96px -64px;
 }
 
 .item-woodenpickaxe {
-	background-position: -256px -32px;
+	background-position: -96px -32px;
 }
 
 .item-woodenshovel {
-	background-position: -256px -64px;
+	background-position: -96px -0;
 }
 
 .item-woodensword {
-	background-position: -256px -96px;
+	background-position: -32px -64px;
+}
+
+.item-woodenspear {
+	background-position: -64px -64px;
 }
 
 #config label div.compass-0 {

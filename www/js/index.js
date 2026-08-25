@@ -1,4 +1,4 @@
-const VERSION = "v1.1";
+const VERSION = "v1.2";
 import { WorkerPool } from "./Pool.js";
 import Language from "./Language.js";
 import Config from "./Config.js";
@@ -199,7 +199,7 @@ window.onload = async () => {
     const mats = [];
     {
         const select = document.querySelector("#current-version");
-        for(const id of [Material.Netherite, Material.Diamond, Material.Golden, Material.Iron, Material.Fire, Material.Stone, Material.Leather]) {
+        for(const id of [Material.Netherite, Material.Diamond, Material.Book, Material.Golden, Material.Iron, Material.Fire, Material.Copper, Material.Stone, Material.Leather]) {
             mats.push([Material[id].toLowerCase(), id]);
         }
         let index = 0;
@@ -222,22 +222,46 @@ window.onload = async () => {
         materialOption.addEventListener("click", () => {
             materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${findNext()[0]}`);
             const items = Utilities.getItems(mats[index][1]);
+            let none = false;
             document.querySelectorAll(".material-based").forEach((el, index) => {
                 let curItem = items[index];
-                el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
-                el.dataset.value = curItem;
+                if(none) {
+                    if(el.classList.contains("active")) {
+                        document.querySelector("#item-list > div:not(.disabled)").click();
+                    }
+                    el.classList.remove(`item-${Item[el.dataset.value].toLowerCase()}`);
+                    delete el.dataset.value;
+                } else {
+                    if(!el.dataset.value) el.classList.add(`item-${Item[curItem].toLowerCase()}`);
+                    else el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
+                    el.dataset.value = curItem;
+                    if(items[index] === Item.Mace) none = true;
+                }
             });
+            select.dispatchEvent(new Event("change"));
         });
         //Change material backwards
         materialOption.addEventListener("contextmenu", ev => {
             ev.preventDefault();
             materialOption.classList.replace(`mat-${mats[index][0]}`, `mat-${findNext(true)[0]}`);
             const items = Utilities.getItems(mats[index][1]);
+            let none = false;
             document.querySelectorAll(".material-based").forEach((el, index) => {
                 let curItem = items[index];
-                el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
-                el.dataset.value = curItem;
+                if(none) {
+                    if(el.classList.contains("active")) {
+                        document.querySelector("#item-list > div:not(.disabled)").click();
+                    }
+                    el.classList.remove(`item-${Item[el.dataset.value].toLowerCase()}`);
+                    delete el.dataset.value;
+                } else {
+                    if(!el.dataset.value) el.classList.add(`item-${Item[curItem].toLowerCase()}`);
+                    else el.classList.replace(`item-${Item[el.dataset.value].toLowerCase()}`, `item-${Item[curItem].toLowerCase()}`);
+                    el.dataset.value = curItem;
+                    if(items[index] === Item.Mace) none = true;
+                }
             });
+            select.dispatchEvent(new Event("change"));
         });
 
         //fill list with each items from materials based on the variable mats
@@ -252,9 +276,9 @@ window.onload = async () => {
         }
 
         //the items that are not mat-based
-        for(const item of [Item.Bow, Item.FishingRod, Item.Crossbow, Item.Trident, Item.Book]) {
-            document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
-        }
+        // for(const item of [Item.Bow, Item.FishingRod, Item.Crossbow, Item.Trident, Item.Book]) {
+        //     document.querySelector(`.item-${Item[item].toLowerCase()}`).dataset.value = item;
+        // }
 
         const mapVersion = new Map([
             [Version.V1_8, "v1.8 - v1.8.9"],
@@ -264,7 +288,10 @@ window.onload = async () => {
             [Version.V1_13, "v1.13 - v1.13.2"],
             [Version.V1_14, "v1.14 - v1.14.2"],
             [Version.V1_14_3, "v1.14.3 - v1.15.2"],
-            [Version.V1_16, "v1.16 - v1.18.2"]
+            [Version.V1_16, "v1.16 - v1.20.6"],
+            [Version.V1_21, "v1.21 - v1.21.8"],
+            [Version.V1_21_9, "v1.21.9 - v1.21.10"],
+            [Version.V1_21_11, "v1.21.11 - latest"],
         ]);
         //fill version select
         for(const i of Object.values(Version).filter(x => !isNaN(x))) {
@@ -279,18 +306,19 @@ window.onload = async () => {
             if(Utilities.materialIntroducedVersion(mats[index][1]) > chosenVersion) {
                 materialOption.click();
             }
-            document.querySelectorAll("#item-list :not(.material-based)").forEach(item => {
-                if(Utilities.itemIntroducedVersion(item.dataset.value) > chosenVersion) {
+            document.querySelectorAll("#item-list > div").forEach(item => {
+                if("value" in item.dataset && Utilities.itemIntroducedVersion(item.dataset.value) > chosenVersion) {
                     item.classList.add("disabled");
                     if(item.classList.contains("active")) {
-                        document.querySelector("#item-list > div").click();
+                        document.querySelector("#item-list > div:not(.disabled)").click();
                     }
                 } else {
                     item.classList.remove("disabled");
                 }
             });
             document.querySelectorAll("#enchantments input").forEach(x => x.defaultChecked && (x.checked = true));
-            Utilities.getEnchantments(document.querySelector(".item-slot.active").dataset.value).forEach(x =>
+            const active = document.querySelector(".item-slot.active");
+            Utilities.getEnchantments(active?.dataset?.value).forEach(x =>
                 document.querySelectorAll(`#enchantments div[data-value="${x}"]`).forEach(div => div.style.display = "")
             );
         });
@@ -342,7 +370,7 @@ window.onload = async () => {
     document.querySelector("#item-list").childNodes.forEach(el => {
         //update enchantment list to new selected item
         el.addEventListener("click", () => {
-            if(el.classList.contains("disabled")) return;
+            if(el.classList.contains("disabled") || !("value" in el.dataset)) return;
             document.querySelector("#enchantments-form").reset();
             const active = document.querySelector(".item-slot.active");
             if(active) active.classList.remove("active");
