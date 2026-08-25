@@ -1,0 +1,143 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  оригинальная версия сделана Earthcomputer\n  ускорил, сделал интерфейс Hexicube\n  Web port by ImUrX\n  \n  Урок и объяснение (анг.):\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  Imgur альбом:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub страница:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  LINK https://github.com/ImUrX/enchcracker/issues Пожалуйста, сообщайте о любых ошибках которые вы обнаружите на АНГЛИЙСКОМ трекере.",
+        "warn32": "Вы работаете 32-битная\nJava, вы можете испытывали\nпониженную производительность.\n\nПродолжить в любом случае?"
+    },
+    "tab": {
+        "enchantmentCracker": "Взлом Зачарования",
+        "enchantmentCalculator": "Вычислить Зачарования",
+        "about": "О программе",
+        "config": "Конфигурация"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "XP Зерно 1",
+            "tooltip": "Первое XP зерно"
+        },
+        "xpSeed2": {
+            "value": "XP Зерно 2",
+            "tooltip": "Второе XP зерно"
+        },
+        "calculate": "Рассчитать Зерно",
+        "bookshelves": {
+            "tooltip": "Количество книжных полок, растатавленых вокруг стола зачарования"
+        },
+        "xpCost1": {
+            "tooltip": "Число в верхнем слоте"
+        },
+        "xpCost2": {
+            "tooltip": "Число в среднем слоте"
+        },
+        "xpCost3": {
+            "tooltip": "Число в нижним слоте"
+        },
+        "check": {
+            "value": "Проверка",
+            "tooltip": "Используйте эту информацию, чтобы сузить возможные значения"
+        },
+        "reset": {
+            "value": "Сброс",
+            "tooltip": "Сброс значений для поиска новых XP семян"
+        },
+        "impossible": "Нет возможных значений",
+        "result": "XP зерно: {}",
+        "remaining": {
+            "value": "Возможных значений: {}",
+            "thousand": "Возможных значений: {}k",
+            "million": "Возможных значений: {}M",
+            "billion": "Возможных значений: {}B"
+        },
+        "progress": "Прогресс: {}%",
+        "notFound": "Не найден",
+        "sendAnother": "Отправьте еще один!",
+        "wait": "Подождите минутку!"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "Какой предмет вы хотите зачаровать"
+        },
+        "material": {
+            "tooltip": "Материал предмета"
+        },
+        "maxBookshelves": {
+            "tooltip": "Требуется книжных полок"
+        },
+        "calculate": {
+            "value": "Рассчитать",
+            "tooltip": "Нажмите \"Рассчитать\" сколько предметов вам нужно бросить чтобы получить зачарование"
+        },
+        "playerSeedNotFound": "Вам нужно взломать первое зерло игрока!\nВпервой вкладке, что-бы сделать это",
+        "impossible": "Нет совпадений",
+        "noDummy": "Не дурак",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "Сделано",
+            "tooltip": "Нажмите чтобы программа знала что вы выполнили это действие"
+        },
+        "throwCount": {
+            "tooltip": "Количество предметов, которые нужно выбросить"
+        },
+        "slot": {
+            "tooltip": "Слот для чарования с помощью"
+        },
+        "bookshelves": {
+            "tooltip": "Требуемое количество книжных полок"
+        },
+        "level": {
+            "value": "Уровень:",
+            "tooltip": "Текущий уровень игрока. Позволяет находить чары на уровне 30 и ниже."
+        },
+        "selectItem": "Выберите элемент не менее"
+    },
+    "ench": {
+        "protection": "Защита",
+        "fireProtection": "Огнеупорноc.",
+        "featherFalling": "Невесомость",
+        "blastProtection": "Взрывоусто.",
+        "projectileProtection": "Защита от сн.",
+        "respiration": "Подво. Дыхание",
+        "aquaAffinity": "Подводник",
+        "thorns": "Шипы",
+        "depthStrider": "Подво. ходьба",
+        "sharpness": "Острота",
+        "smite": "Небесная кара",
+        "baneOfArthropods": "Гибель насе",
+        "knockback": "Отдача",
+        "fireAspect": "Заговор огня",
+        "looting": "Добыча",
+        "efficiency": "Эфективность",
+        "silkTouch": "Шёлк. касание",
+        "unbreaking": "Прочность",
+        "fortune": "Удача",
+        "power": "Сила",
+        "punch": "Отбрасывание",
+        "flame": "Горя. стрела",
+        "infinity": "Бесконечность",
+        "luckOfTheSea": "Удача рыбака",
+        "lure": "Приманка",
+        "frostWalker": "Ходьба по воде",
+        "mending": "Починка",
+        "bindingCurse": "Несъёмности",
+        "vanishingCurse": "Утрата",
+        "sweeping": "Разящий кли.",
+        "loyalty": "Верность",
+        "impaling": "Пронзание",
+        "riptide": "Тягун",
+        "channeling": "Громовержец",
+        "multishot": "Залп",
+        "quickCharge": "Быс. Перезарядка",
+        "piercing": "Пронз. стрела"
+    },
+    "config": {
+        "lang": "Язык:",
+        "threads": "Потоки:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}

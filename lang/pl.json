@@ -1,0 +1,142 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web",
+        "about": "Enchantment Cracker Web {}\n  Wersja orginalna wykonana przez: Earthcomputer\n  Optymalizacja i Udoskonalenie UI wykonane przez: Hexicube\n  Web port by ImUrX\n  \n  Poradnik i wyjaśnienia (Angielski):\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  Prosimy o zgłaszanie błędów w zakładce issue tracker w języku angielskim i załączeniu pliku o nazwie",
+        "warn32": "Korzystasz z 32-bitowej wersji\njęzyka Java, możesz doświadczyć\nobniżonej wydajności.\n\nKontynuować mimo to?"
+    },
+    "tab": {
+        "enchantmentCracker": "Enchantment Cracker",
+        "enchantmentCalculator": "Kalkulator Zaklęć",
+        "about": "Informacje",
+        "config": "Konfiguracja"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "Ziarno XP 1",
+            "tooltip": "Pierwszy z kolejnych Ziarn XP"
+        },
+        "xpSeed2": {
+            "value": "Ziarno XP 2",
+            "tooltip": "Drugi z kolejnych Ziarn XP"
+        },
+        "calculate": "Oblicz Ziarno",
+        "bookshelves": {
+            "tooltip": "Liczba półek na książki odziałowująca na stół do zaklęć"
+        },
+        "xpCost1": {
+            "tooltip": "Liczba po prawej stronie w pierwszym slocie"
+        },
+        "xpCost2": {
+            "tooltip": "Liczba po prawej stronie w drugim slocie"
+        },
+        "xpCost3": {
+            "tooltip": "Liczba po prawej stronie w trzecim slocie"
+        },
+        "check": {
+            "value": "Sprawdź",
+            "tooltip": "Użyj zebranych informacji aby zawęzić obszar poszukiwania ziarna XP"
+        },
+        "reset": {
+            "value": "Reset",
+            "tooltip": "Zresetuj ostatnie ziarno XP w celu złamania nowego ziarna"
+        },
+        "impossible": "Brak możliwch ziarn",
+        "result": "Ziarno XP: {}",
+        "remaining": {
+            "value": "Liczba możliwych ziarn: {}",
+            "thousand": "Liczba możliwych ziarn: {}k",
+            "million": "Liczba możliwych ziarn: {}M",
+            "billion": "Liczba możliwych ziarn: {}B"
+        },
+        "progress": "Postęp: {}%",
+        "notFound": "Nie znaleziono",
+        "sendAnother": "Wyślij inne!",
+        "wait": "Poczekaj chwilę!"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "Przedmiot który chcesz zakląć"
+        },
+        "material": {
+            "tooltip": "Materiał przedmiotu którego chcesz zakląć"
+        },
+        "maxBookshelves": {
+            "tooltip": "Maksymalna ilość półek na książki do użycia"
+        },
+        "calculate": {
+            "value": "Oblicz",
+            "tooltip": "Naciśnij by obliczyć jak wiele blocków/przedmiotów musisz wyrzucić żeby otrzymać upragnione zaklęcia"
+        },
+        "playerSeedNotFound": "Musisz najpierw złamać ziarno gracza!\nPrzejdź do pierwszej zakładki i to zrób",
+        "impossible": "Niemożliwe",
+        "noDummy": "Bez kukły",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "Dalej",
+            "tooltip": "Naciśnij aby dać znać programowi że wybrałeś zaklęcie ze stołu i przejść dalej"
+        },
+        "throwCount": {
+            "tooltip": "Liczba bloków/przedmiotów które musisz wyrzucić (indywidualnie po sztuce)"
+        },
+        "slot": {
+            "tooltip": "Slot który masz wybrać (1-3)"
+        },
+        "bookshelves": {
+            "tooltip": "Liczba półek na książki które masz użyć"
+        },
+        "level": {
+            "value": "Poz.",
+            "tooltip": "Aktualny poziom gracza. Pozwala na znajdowanie zaklęć na poziomie 30 i poniżej"
+        },
+        "selectItem": "Wybierz przynajmniej jedną pozycję :/"
+    },
+    "ench": {
+        "protection": "Ochrona",
+        "fireProtection": "Prz. Ogniem",
+        "featherFalling": "Pow. Upadanie",
+        "blastProtection": "Prz. Wybuchem",
+        "projectileProtection": "Prz. Pociskami",
+        "respiration": "Oddychanie",
+        "aquaAffinity": "Wyd. pod wodą",
+        "thorns": "Ciernie",
+        "depthStrider": "Gł. Wędrowiec",
+        "sharpness": "Ostrość",
+        "smite": "Pog. Nieumarłych",
+        "baneOfArthropods": "Zm. Stawonogów",
+        "fireAspect": "Zaklęty Ogień",
+        "looting": "Grabież",
+        "efficiency": "Wydajność",
+        "silkTouch": "Jedwabny dot.",
+        "unbreaking": "Niezniszczalność",
+        "fortune": "Fortuna",
+        "power": "Moc",
+        "punch": "Uderzenie",
+        "flame": "Ogień",
+        "infinity": "Nieskończoność",
+        "luckOfTheSea": "Mor. Fortuna",
+        "lure": "Przynęta",
+        "frostWalker": "Mroźny Piechur",
+        "mending": "Naprawa",
+        "bindingCurse": "Kl. Uwiązania",
+        "vanishingCurse": "Kl. Znikania",
+        "sweeping": "Szer. Ostrze",
+        "loyalty": "Lojalność",
+        "impaling": "Przebicie",
+        "riptide": "Torpeda",
+        "channeling": "Porażenie",
+        "multishot": "Wielostrzał",
+        "quickCharge": "Sz. Przeładowanie",
+        "piercing": "Przeszycie"
+    },
+    "config": {
+        "lang": "Język:",
+        "threads": "Wątki:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}

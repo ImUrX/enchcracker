@@ -1,0 +1,24 @@
+{
+  "name": "libenchcrack",
+  "type": "module",
+  "collaborators": [
+    "ImUrX <imurx@proton.me>"
+  ],
+  "description": "Code for cracking minecraft's XP seed",
+  "version": "0.3.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ImUrX/libenchcrack"
+  },
+  "files": [
+    "libenchcrack_bg.wasm",
+    "libenchcrack.js",
+    "libenchcrack.d.ts"
+  ],
+  "main": "libenchcrack.js",
+  "types": "libenchcrack.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
