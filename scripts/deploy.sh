@@ -23,7 +23,10 @@ wasm-pack build --release -t web
 rustup toolchain install nightly-2026-08-20
 rustup run nightly-2026-08-20 \
     rustup component add rust-src
-RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' \
+RUSTFLAGS='-C target-feature=+atomics,+bulk-memory
+    -Clink-arg=--shared-memory -Clink-arg=--max-memory=1073741824 -Clink-arg=--import-memory
+    -Clink-arg=--export=__wasm_init_tls -Clink-arg=--export=__tls_size
+    -Clink-arg=--export=__tls_align -Clink-arg=--export=__tls_base' \
     rustup run nightly-2026-08-20 \
     wasm-pack build --release -t web -d pkg-threads \
 	-- --features threads -Z build-std=panic_abort,std
