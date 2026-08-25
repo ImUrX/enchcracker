@@ -6,7 +6,7 @@ import { threads as checkThreads } from "https://unpkg.com/wasm-feature-detect/d
 import init, { Manipulator, Item, Version, Enchantment, EnchantmentInstance, Material, Utilities } from "../pkg/libenchcrack.js";
 
 let compact;
-let crackMethod = "atomicWorker";
+let crackMethod = "rangedWorker";
 let threads = navigator.hardwareConcurrency || 4;
 const threadsExist = checkThreads();
 let resInit = init();
@@ -24,7 +24,6 @@ window.onload = async () => {
      */
     let pool;
     let seedExists = false;
-    await threadsExist;
 
     const setCracker = (value) => {
         if(pool) {
@@ -32,7 +31,6 @@ window.onload = async () => {
             pool = null;
         }
         crackMethod = value;
-        if(crackMethod === "atomicWorker" && !threadsExist) crackMethod = "rangedWorker";
         console.log(`setting cracker to ${crackMethod} with ${threads} threads`);
         switch(value) {
         case "atomicWorker":
@@ -476,7 +474,7 @@ window.onload = async () => {
         });
     }
 
-    //Debug to your heart's content!
+    //Debug to your hearts content!
     window.pool = pool;
     window.manipulator = manipulator;
 };
