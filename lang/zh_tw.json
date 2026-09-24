@@ -1,0 +1,143 @@
+{
+    "program": {
+        "name": "Enchantment Cracker Web(附魔破譯器捲筒紙)",
+        "about": "附魔破譯器捲筒紙 {}\n  原作者為 Earthcomputer\n  速度及介面優化為 Hexicube\n  Web port by ImUrX\n  \n  教程及註解:\n  LINK https://youtu.be/hfiTZF0hlzw Minecraft, Vanilla Survival: Cracking the Enchantment Seed\n  \n  圖像專案:\n  LINK https://imgur.com/a/oaxCC5x MC enchantment Cracker Tutorial\n  \n  GitHub頁面:\n  LINK https://github.com/ImUrX/enchcracker ImUrX/enchcracker\n  \n  請回報任何有關此破譯器的錯誤.",
+        "warn32": "您正在運行Java的32位版本，\n您可能會遇到性能下降。\n\n續？"
+    },
+    "tab": {
+        "enchantmentCracker": "附魔破譯器",
+        "enchantmentCalculator": "附魔計算機",
+        "about": "關於",
+        "config": "組態"
+    },
+    "enchCrack": {
+        "xpSeed1": {
+            "value": "XP種子碼 1",
+            "tooltip": "所需的第一個XP種子碼"
+        },
+        "xpSeed2": {
+            "value": "XP種子碼 2",
+            "tooltip": "所需的第二個XP種子碼"
+        },
+        "calculate": "計算種子",
+        "bookshelves": {
+            "tooltip": "附魔台周圍有效書架數量"
+        },
+        "xpCost1": {
+            "tooltip": "第一個附魔所需的附魔等級"
+        },
+        "xpCost2": {
+            "tooltip": "第二個附魔所需的附魔等級"
+        },
+        "xpCost3": {
+            "tooltip": "第三個附魔所需的附魔等級"
+        },
+        "check": {
+            "value": "檢測",
+            "tooltip": "使用此功能來找尋能用的XP種子碼"
+        },
+        "reset": {
+            "value": "重置",
+            "tooltip": "重置當前儲存數據來破解新的XP種子碼"
+        },
+        "impossible": "無匹配種子碼",
+        "result": "XP種子碼: {}",
+        "remaining": {
+            "value": "可能的種子數量: {}",
+            "thousand": "可能的種子碼數: {}仟個",
+            "million": "可能的種子碼數: {}佰萬個",
+            "billion": "可能的種子碼數量: {}十憶個"
+        },
+        "progress": "進度: {}%",
+        "notFound": "未找到",
+        "sendAnother": "再發送一個！",
+        "wait": "等一下！"
+    },
+    "enchCalc": {
+        "item": {
+            "tooltip": "想要附魔的物品"
+        },
+        "material": {
+            "tooltip": "想要附魔的物品的材料"
+        },
+        "maxBookshelves": {
+            "tooltip": "使用中的有效書架數"
+        },
+        "calculate": {
+            "value": "開始計算",
+            "tooltip": "按下來計算你可能需要丟出多少物品來獲得想要的附魔"
+        },
+        "playerSeedNotFound": "你需要先破譯玩家種子碼!\n先去第一個欄位裡看看吧",
+        "impossible": "無匹配結果",
+        "noDummy": "無額外附魔",
+        "stackFormat": "64x{} + {}",
+        "done": {
+            "value": "完成",
+            "tooltip": "按下來讓破譯器知道你已經獲得了想要的附魔"
+        },
+        "throwCount": {
+            "tooltip": "需要丟出物品的數量"
+        },
+        "slot": {
+            "tooltip": "需要附魔的物品"
+        },
+        "bookshelves": {
+            "tooltip": "附魔所需的有效書架數量"
+        },
+        "level": {
+            "value": "等級:",
+            "tooltip": "玩家當前的經驗等級。允許查找30級及以下的附魔"
+        },
+        "selectItem": "至少選擇一個項目 :/"
+    },
+    "ench": {
+        "protection": "保護",
+        "fireProtection": "火焰保護",
+        "featherFalling": "摔落保護",
+        "blastProtection": "爆炸保護",
+        "projectileProtection": "彈射物保護",
+        "respiration": "水下呼吸",
+        "aquaAffinity": "水下呼吸",
+        "thorns": "尖刺",
+        "depthStrider": "深海漫遊",
+        "sharpness": "鋒利",
+        "smite": "不死剋星",
+        "baneOfArthropods": "節肢剋星",
+        "knockback": "擊退",
+        "fireAspect": "燃燒",
+        "looting": "掠奪",
+        "efficiency": "效率",
+        "silkTouch": "絲綢之觸",
+        "unbreaking": "耐久",
+        "fortune": "幸運",
+        "power": "力量",
+        "punch": "衝擊",
+        "flame": "火焰",
+        "infinity": "無限",
+        "luckOfTheSea": "海洋的祝福",
+        "lure": "魚餌",
+        "frostWalker": "冰霜行者",
+        "mending": "修補",
+        "bindingCurse": "綁定詛咒",
+        "vanishingCurse": "消失詛咒",
+        "sweeping": "橫掃之刃",
+        "loyalty": "忠誠",
+        "impaling": "穿刺",
+        "riptide": "波濤",
+        "channeling": "喚雷",
+        "multishot": "分裂箭矢",
+        "quickCharge": "快速裝填",
+        "piercing": "穿透"
+    },
+    "config": {
+        "lang": "語言:",
+        "threads": "线程:",
+        "method": {
+            "value": "Cracking method:",
+            "wasm": "WASM",
+            "webgl": "WebGL",
+            "wasmthread": "WASM threads with shared memory",
+            "js": "JS with BigInt"
+        }
+    }
+}
